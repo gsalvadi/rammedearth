@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rammed Earth - Finding Each Other</title>
+    <meta name="description" content="For those who understand that earth building is consciousness work">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            color: #3E2723;
+            background: #F5F2E8;
+            padding: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .container {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 3px;
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 1.9em;
+            margin-bottom: 10px;
+            font-weight: normal;
+            color: #8B4513;
+        }
+        
+        .subtitle {
+            font-style: italic;
+            color: #D2691E;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .intro {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #CD853F;
+            color: #3E2723;
+            font-size: 1.05em;
+        }
+        
+        .section-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #CD853F;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 15px;
+            background: #F5F2E8;
+            border: none;
+            font-family: Georgia, serif;
+            font-size: 1em;
+            cursor: pointer;
+            color: #8B4513;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            background: #8B4513;
+            color: white;
+        }
+        
+        .tab:hover:not(.active) {
+            background: #D2691E;
+            color: white;
+        }
+        
+        .section {
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        .question-block {
+            margin-bottom: 30px;
+        }
+        
+        .question {
+            margin-bottom: 10px;
+            font-style: italic;
+            color: #8B4513;
+            font-size: 1.05em;
+            font-weight: 500;
+        }
+        
+        textarea, input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 15px;
+            font-family: Georgia, serif;
+            font-size: 0.95em;
+            border: 2px solid #CD853F;
+            background: #FEFCF7;
+            transition: all 0.3s;
+            border-radius: 3px;
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        textarea:focus, input:focus {
+            outline: none;
+            border-color: #8B4513;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+        }
+        
+        .submit-btn {
+            background: #8B4513;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-family: Georgia, serif;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            border-radius: 3px;
+            margin-top: 20px;
+        }
+        
+        .submit-btn:hover {
+            background: #6D3410;
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .response-message {
+            display: none;
+            padding: 25px;
+            margin-top: 30px;
+            border-radius: 3px;
+            border-left: 5px solid #8B4513;
+        }
+        
+        .response-message.visible {
+            display: block;
+        }
+        
+        .response-message.red-flag {
+            background: #FFF3E0;
+            border-left-color: #D2691E;
+        }
+        
+        .response-message.proceed {
+            background: #F1F8E9;
+            border-left-color: #8B4513;
+        }
+        
+        .response-message h3 {
+            margin-bottom: 15px;
+            font-weight: normal;
+            color: #8B4513;
+        }
+        
+        .response-message p {
+            color: #3E2723;
+            margin-bottom: 15px;
+        }
+        
+        .resource-list {
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border: 1px solid #CD853F;
+            border-radius: 3px;
+        }
+        
+        .resource-list ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .resource-list li {
+            padding: 8px 0;
+            color: #3E2723;
+            border-bottom: 1px solid #F5F2E8;
+        }
+        
+        .resource-list li:before {
+            content: "→ ";
+            color: #D2691E;
+            font-weight: bold;
+        }
+        
+        .contact-link {
+            display: inline-block;
+            background: #8B4513;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 3px;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+        
+        .contact-link:hover {
+            background: #6D3410;
+        }
+        
+        .substack-link {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #CD853F;
+        }
+        
+        .substack-link a {
+            color: #8B4513;
+            text-decoration: none;
+            font-style: italic;
+        }
+        
+        .substack-link a:hover {
+            color: #D2691E;
+        }
+        
+        .workshop-form {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 25px 20px;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .section-tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rammed Earth</h1>
+        <div class="subtitle">For those who understand that earth building is consciousness work</div>
+        
+        <div class="intro">
+            I help people with rammed earth through workshops and consultations - but I don't build for you. 
+            If you want someone to construct your building for a quote, you need a contractor, not a consultant. 
+            There are excellent people who do the job. I can redirect you to a directory. 
+            This is for people who want to learn the craft themselves, who've already heard the earth calling.
+        </div>
+        
+        <div class="section-tabs">
+            <button class="tab active" onclick="showSection('consultation')">Consultation</button>
+            <button class="tab" onclick="showSection('workshop')">Workshops</button>
+        </div>
+        
+        <!-- Consultation Section -->
+        <div id="consultation" class="section active">
+            <form id="consultation-form">
+                <div class="question-block">
+                    <div class="question">What have you already tried to build?</div>
+                    <textarea name="tried" placeholder="If nothing yet, just say 'nothing yet' - but tell me what draws you to earth building..." required></textarea>
+                </div>
+                
+                <div class="question-block">
+                    <div class="question">Why do you want to build with rammed earth?</div>
+                    <textarea name="why" placeholder="The real reason. What calls you to this material?" required></textarea>
+                </div>
+                
+                <div class="question-block">
+                    <div class="question">What's your primary hurdle?</div>
+                    <textarea name="hurdle" placeholder="If you've built: what stopped you from continuing? If you haven't: what's preventing you from starting?" required></textarea>
+                </div>
+                
+                <div class="question-block" id="failure-question" style="display: none;">
+                    <div class="question">What did the earth teach you when it failed?</div>
+                    <textarea name="failure" placeholder="Not the technical lesson. What did you understand about yourself when the wall cracked?"></textarea>
+                </div>
+                
+                <input type="email" placeholder="Your email" required>
+                <button type="submit" class="submit-btn">Send</button>
+            </form>
+            
+            <div class="response-message" id="response">
+                <!-- Response will be inserted here -->
+            </div>
+        </div>
+        
+        <!-- Workshop Section -->
+        <div id="workshop" class="section">
+            <p style="margin-bottom: 30px; color: #3E2723;">
+                Workshops happen when enough conscious people gather in one region. 
+                Leave your details and I'll notify you when something forms near you.
+            </p>
+            
+            <form class="workshop-form" id="workshop-form">
+                <input type="text" placeholder="Your name" required>
+                <div class="form-row">
+                    <input type="email" placeholder="Email" required>
+                    <input type="text" placeholder="Location (city, region)" required>
+                </div>
+                <button type="submit" class="submit-btn">Notify Me of Workshops</button>
+            </form>
+            
+            <div class="response-message" id="workshop-response">
+                <!-- Workshop response will be inserted here -->
+            </div>
+        </div>
+        
+        <div class="substack-link">
+            <a href="https://rammedearth.substack.com/" target="_blank">Read the archive →</a>
+        </div>
+    </div>
+    
+    <script>
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById(sectionName).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        // Check if failure question should be shown
+        document.querySelector('[name="tried"]').addEventListener('input', function() {
+            const value = this.value.toLowerCase();
+            const failureQuestion = document.getElementById('failure-question');
+            
+            if (value.includes('nothing') || value.includes('never') || value.length < 20) {
+                failureQuestion.style.display = 'none';
+                failureQuestion.querySelector('textarea').required = false;
+            } else {
+                failureQuestion.style.display = 'block';
+                failureQuestion.querySelector('textarea').required = true;
+            }
+        });
+        
+        // Analyze responses
+        function analyzeResponse(answers) {
+            const [tried, why, hurdle, failure] = answers;
+            
+            // Check for cost-focused responses (RED FLAG)
+            const costWords = ['cheap', 'cheaper', 'budget', 'save money', 'economic', 'affordable', 'cost less', 'inexpensive'];
+            if (costWords.some(word => why.toLowerCase().includes(word))) {
+                return 'cost-focused';
+            }
+            
+            // Check for construction service requests (RED FLAG)
+            const contractWords = ['build for me', 'construct', 'hire you', 'quote', 'contract', 'build my', 'your team', 'you build'];
+            if (contractWords.some(word => why.toLowerCase().includes(word))) {
+                return 'wants-contractor';
+            }
+            
+            // Analyze consciousness level
+            let consciousness = 0;
+            
+            // Experience markers
+            if (tried.length > 50 && !tried.toLowerCase().includes('nothing')) consciousness++;
+            if (tried.includes('mix') || tried.includes('clay') || tried.includes('sand')) consciousness++;
+            if (tried.includes('fail') || tried.includes('crack') || tried.includes('collaps')) consciousness++;
+            
+            // Motivation markers
+            if (why.includes('sustainable') || why.includes('natural') || why.includes('earth')) consciousness++;
+            if (why.includes('connect') || why.includes('rhythm') || why.includes('craft')) consciousness++;
+            if (why.includes('learn') && !why.includes('technique')) consciousness++;
+            
+            // Self-awareness markers
+            if (hurdle.includes('myself') || hurdle.includes('patience') || hurdle.includes('knowledge')) consciousness++;
+            if (hurdle.includes('permission') || hurdle.includes('fear') || hurdle.includes('confidence')) consciousness++;
+            
+            // Deep understanding markers
+            if (failure && failure.length > 30) {
+                if (failure.includes('patience') || failure.includes('humble') || failure.includes('listen')) consciousness += 2;
+                if (failure.includes('teach') || failure.includes('show') || failure.includes('mirror')) consciousness += 2;
+            }
+            
+            // Classification
+            if (consciousness >= 7) return 'conscious';
+            if (consciousness >= 4) return 'developing';
+            if (consciousness >= 2) return 'beginner';
+            return 'theoretical';
+        }
+        
+        function generateResponse(level, email) {
+            const responses = {
+                'cost-focused': {
+                    title: "Rammed Earth Isn't Cheaper",
+                    content: "You're thinking of a different building method. Rammed earth is expensive in time, labor, learning curve, and often materials. It's chosen for consciousness, not cost.",
+                    action: "If budget is your primary concern, you need a commercial rammed earth contractor who can work within conventional construction timelines.",
+                    class: "red-flag",
+                    resources: [
+                        "Search for 'rammed earth contractors' in your region",
+                        "Consider conventional construction methods",
+                        "If you're genuinely drawn to earth building for other reasons, reconsider your motivations and try again"
+                    ]
+                },
+                'conscious': {
+                    title: "Let's Talk",
+                    content: "You understand this work. We should have a conversation.",
+                    action: "I'll reach out within a week to discuss your project.",
+                    class: "proceed",
+                    showContact: true
+                },
+                'developing': {
+                    title: "You're on the Path",
+                    content: "You have the right instincts, but need more direct experience with earth.",
+                    action: "Try these next steps. When you've learned these lessons, reach out again.",
+                    class: "proceed",
+                    resources: [
+                        "Build something small that must survive one full season",
+                        "Work with earth for 30 days without tutorials",
+                        "Document your failures, not your successes",
+                        "Find local earth builders and observe (don't talk)"
+                    ]
+                },
+                'beginner': {
+                    title: "Start Here",
+                    content: "You're interested, but earth building requires embodied knowledge you don't have yet.",
+                    action: "Begin with these fundamentals. Real learning happens through failure.",
+                    class: "proceed",
+                    resources: [
+                        "Test local soil - clay content, sand ratio, organic matter",
+                        "Make 20 test bricks, let them all fail differently",
+                        "Read 'Earth Construction Handbook' by Gernot Minke",
+                        "Spend time with earth before trying to build with it"
+                    ]
+                },
+                'theoretical': {
+                    title: "You're Still Shopping",
+                    content: "You want to build with earth, but haven't engaged with the material yet.",
+                    action: "Earth building starts with earth, not ideas about earth.",
+                    class: "proceed",
+                    resources: [
+                        "Get your hands dirty first - make mud, feel its properties",
+                        "Visit existing rammed earth buildings in your area",
+                        "Start a daily practice of working with clay/earth",
+                        "Come back when you've actually failed at something"
+                    ]
+                }
+            };
+            
+            return responses[level];
+        }
+        
+        // Handle consultation form
+        document.getElementById('consultation-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = this.querySelector('[type="email"]').value;
+            const answers = [
+                this.querySelector('[name="tried"]').value,
+                this.querySelector('[name="why"]').value,
+                this.querySelector('[name="hurdle"]').value,
+                this.querySelector('[name="failure"]').value || ''
+            ];
+            
+            const level = analyzeResponse(answers);
+            const response = generateResponse(level, email);
+            
+            // Display response
+            const responseDiv = document.getElementById('response');
+            let responseHTML = `
+                <h3>${response.title}</h3>
+                <p>${response.content}</p>
+                <p><strong>${response.action}</strong></p>
+            `;
+            
+            if (response.resources) {
+                responseHTML += `
+                    <div class="resource-list">
+                        <ul>
+                            ${response.resources.map(r => `<li>${r}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            if (response.showContact) {
+                responseHTML += `<p style="margin-top: 20px; font-style: italic;">I'll email you at: ${email}</p>`;
+            }
+            
+            responseDiv.innerHTML = responseHTML;
+            responseDiv.className = `response-message visible ${response.class}`;
+            responseDiv.scrollIntoView({ behavior: 'smooth' });
+            
+            // Disable form
+            this.style.opacity = '0.6';
+            this.querySelector('.submit-btn').disabled = true;
+            this.querySelector('.submit-btn').textContent = 'Sent';
+            
+            // TODO: Send to your email/Google Forms
+            console.log('Consultation data:', { level, email, answers });
+        });
+        
+        // Handle workshop form
+        document.getElementById('workshop-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = {
+                name: this.querySelector('[type="text"]').value,
+                email: this.querySelector('[type="email"]').value,
+                location: this.querySelectorAll('[type="text"]')[1].value
+            };
+            
+            const responseDiv = document.getElementById('workshop-response');
+            responseDiv.innerHTML = `
+                <h3>Added to Workshop List</h3>
+                <p>I'll notify you when workshops form in your region.</p>
+                <p style="font-style: italic;">Registered: ${data.email}</p>
+            `;
+            responseDiv.className = 'response-message visible proceed';
+            responseDiv.scrollIntoView({ behavior: 'smooth' });
+            
+            // Disable form
+            this.style.opacity = '0.6';
+            this.querySelector('.submit-btn').disabled = true;
+            this.querySelector('.submit-btn').textContent = 'Registered';
+            
+            // TODO: Send to your workshop mailing list
+            console.log('Workshop data:', data);
+        });
+    </script>
+</body>
+</html>
