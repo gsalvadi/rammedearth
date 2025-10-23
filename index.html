@@ -370,11 +370,10 @@
 </head>
 <body>
     <div class="container">
-        <h1> Rammed Earth</h1>
-        <h2>This site is under maintenance please check back in few days. Meanwhile you can email: info (at) rammedearth (dot) in </h2>
+        <h1>Rammed Earth</h1>
         <div class="subtitle">For those who understand that earth building is consciousness work</div>
         
-     <div class="intro">
+        <div class="intro">
             I help people with rammed earth through workshops and consultations - but I don't build for you. 
             If you want someone to construct your building for a quote, you need a contractor, not a consultant. 
             There are excellent people who do the job. I can redirect you to a directory. 
@@ -816,13 +815,20 @@
             
             displayResponse('response', response, email);
             
+            // Submit to Google Form
+            submitToGoogleForm('consultation', {
+                email: email,
+                tried: answers[0],
+                why: answers[1],
+                hurdle: answers[2],
+                failure: answers[3],
+                level: level
+            });
+            
             // Disable form
             this.style.opacity = '0.6';
             this.querySelector('.submit-btn').disabled = true;
             this.querySelector('.submit-btn').textContent = 'Sent';
-            
-            // TODO: Send to Google Forms
-            console.log('Consultation data:', { level, email, answers });
         });
         
         // Handle workshop form
@@ -844,13 +850,13 @@
             responseDiv.className = 'response-message visible proceed';
             responseDiv.scrollIntoView({ behavior: 'smooth' });
             
+            // Submit to Google Form
+            submitToGoogleForm('workshop', data);
+            
             // Disable form
             this.style.opacity = '0.6';
             this.querySelector('.submit-btn').disabled = true;
             this.querySelector('.submit-btn').textContent = 'Registered';
-            
-            // TODO: Send to Google Forms
-            console.log('Workshop data:', data);
         });
         
         // Handle tech transfer submission
@@ -879,13 +885,20 @@
             
             displayResponse('tech-response', response, email);
             
+            // Submit to Google Form
+            submitToGoogleForm('tech-transfer', {
+                email: email,
+                role: answers[0],
+                handsOn: answers[1],
+                technology: answers[2],
+                application: answers[3],
+                level: level
+            });
+            
             // Disable form and button
             form.style.opacity = '0.6';
             document.getElementById('tech-submit-btn').disabled = true;
             document.getElementById('tech-submit-btn').textContent = 'Submitted';
-            
-            // TODO: Send to Google Forms
-            console.log('Tech Transfer data:', { level, email, answers });
         }
         
         // Handle tech transfer form (remove old handler)
@@ -927,9 +940,64 @@
         
         function requestDirectory(email) {
             alert('Directory request sent! I\'ll email you the contractor list within 24 hours.');
-            // TODO: Log directory request
             console.log('Directory requested by:', email);
         }
-    </script>   
+        
+        // Google Forms submission function
+        function submitToGoogleForm(formType, data) {
+            const formConfigs = {
+                'consultation': {
+                    formId: '1FAIpQLSdgfEeolOuK2J8p3Pz2KTH7aSmC-VlkEylarSEKC-PSKEm7xA',
+                    fields: {
+                        'entry.1837215877': data.email,
+                        'entry.1532930824': data.tried,
+                        'entry.212381314': data.why,
+                        'entry.541861675': data.hurdle,
+                        'entry.326109514': data.failure,
+                        'entry.1473618872': data.level
+                    }
+                },
+                'workshop': {
+                    formId: '1FAIpQLSfd3_gIZLcpj2cNSQKfUr6ICjQUT_tBj9yhvq9aQWShp2rmOA',
+                    fields: {
+                        'entry.503933732': data.name,
+                        'entry.68165253': data.email,
+                        'entry.808079727': data.location
+                    }
+                },
+                'tech-transfer': {
+                    formId: '1FAIpQLSfMSce0eRR6V8LBQwI0SBhjTpP7e053Lvx1Ud2c35iI3R4yuQ',
+                    fields: {
+                        'entry.299442538': data.email,
+                        'entry.2088378001': data.role,
+                        'entry.1829017106': data.handsOn,
+                        'entry.1075039237': data.technology,
+                        'entry.664059831': data.application,
+                        'entry.728777687': data.level
+                    }
+                }
+            };
+            
+            const config = formConfigs[formType];
+            const formUrl = `https://docs.google.com/forms/d/e/${config.formId}/formResponse`;
+            
+            // Create form data
+            const formData = new FormData();
+            for (const [key, value] of Object.entries(config.fields)) {
+                if (value) formData.append(key, value);
+            }
+            
+            // Submit to Google Form (no-cors mode, fire and forget)
+            fetch(formUrl, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors'
+            }).then(() => {
+                console.log(`${formType} form submitted successfully`);
+            }).catch(error => {
+                console.log(`${formType} form submission attempted`, error);
+            });
+        }
+    </script>
 </body>
 </html>
