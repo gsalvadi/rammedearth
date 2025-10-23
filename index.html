@@ -825,10 +825,18 @@
                 level: level
             });
             
-            // Disable form
-            this.style.opacity = '0.6';
-            this.querySelector('.submit-btn').disabled = true;
-            this.querySelector('.submit-btn').textContent = 'Sent';
+            // Clear form fields
+            this.reset();
+            document.getElementById('failure-question').style.display = 'none';
+            
+            // Disable form temporarily
+            const submitBtn = this.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sent';
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send';
+            }, 3000);
         });
         
         // Handle workshop form
@@ -848,15 +856,22 @@
                 <p style="font-style: italic;">Registered: ${data.email}</p>
             `;
             responseDiv.className = 'response-message visible proceed';
-            responseDiv.scrollIntoView({ behavior: 'smooth' });
+            responseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             
             // Submit to Google Sheets via Apps Script
             submitToGoogleSheet('workshop', data);
             
-            // Disable form
-            this.style.opacity = '0.6';
-            this.querySelector('.submit-btn').disabled = true;
-            this.querySelector('.submit-btn').textContent = 'Registered';
+            // Clear form fields
+            this.reset();
+            
+            // Disable form temporarily
+            const submitBtn = this.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Registered';
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Notify Me of Workshops';
+            }, 3000);
         });
         
         // Handle tech transfer submission
@@ -868,7 +883,7 @@
             // Check if terms are accepted
             if (!checkbox.checked) {
                 errorMsg.style.display = 'block';
-                errorMsg.scrollIntoView({ behavior: 'smooth' });
+                errorMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 return;
             }
             
@@ -895,10 +910,18 @@
                 level: level
             });
             
-            // Disable form and button
-            form.style.opacity = '0.6';
-            document.getElementById('tech-submit-btn').disabled = true;
-            document.getElementById('tech-submit-btn').textContent = 'Submitted';
+            // Clear form fields
+            form.reset();
+            checkbox.checked = false;
+            
+            // Disable button temporarily
+            const submitBtn = document.getElementById('tech-submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitted';
+            setTimeout(() => {
+                submitBtn.textContent = 'Submit for Review';
+                // Keep disabled until checkbox is checked again
+            }, 3000);
         }
         
         // Handle tech transfer form (remove old handler)
@@ -930,12 +953,12 @@
             }
             
             if (response.showDirectory) {
-                responseHTML += `<a href="#" class="directory-link" onclick="requestDirectory('${email}')">Access Contractor Directory</a>`;
+                responseHTML += `<a href="#" class="directory-link" onclick="requestDirectory('${email}'); return false;">Access Contractor Directory</a>`;
             }
             
             responseDiv.innerHTML = responseHTML;
             responseDiv.className = `response-message visible ${response.class}`;
-            responseDiv.scrollIntoView({ behavior: 'smooth' });
+            responseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
         
         function requestDirectory(email) {
@@ -970,5 +993,7 @@
     </script>
 </body>
 </html>
+            
+            
             
             
