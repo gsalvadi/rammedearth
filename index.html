@@ -388,16 +388,70 @@
                 <!-- Tech transfer response will be inserted here -->
             </div>
         </div>
+        
+        <!-- Instructions Section -->
+        <div id="instructions" class="section">
+            <h2 style="color: #8B4513; margin-bottom: 20px;">How to Respond Effectively</h2>
+            
+            <div style="margin-bottom: 30px;">
+                <h3 style="color: #8B4513; font-size: 1.2em; margin-bottom: 10px;">Why Detail Matters</h3>
+                <p>Your responses help me understand not just what you've done, but how you think about earth building. Short answers like "nothing yet" or "budget constraints" don't give enough context.</p>
+            </div>
+            
+            <div style="margin-bottom: 30px; padding: 20px; background: #F1F8E9; border-left: 4px solid #8B4513;">
+                <h3 style="color: #8B4513; font-size: 1.2em; margin-bottom: 15px;">Good vs. Inadequate Responses</h3>
+                
+                <div style="margin-bottom: 20px;">
+                    <strong style="color: #D32F2F;">❌ Too Brief:</strong> "nothing yet"<br>
+                    <strong style="color: #2E7D32;">✓ Better:</strong> "I haven't built with rammed earth yet, but I've been experimenting with cob in small garden walls. I'm drawn to rammed earth because I want to understand how compression changes the structural possibilities compared to hand-formed earth."
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <strong style="color: #D32F2F;">❌ Too Brief:</strong> "expensive"<br>
+                    <strong style="color: #2E7D32;">✓ Better:</strong> "My primary hurdle is that I can't find skilled labor in my region who understand rammed earth. I'm willing to learn hands-on myself, but I need guidance on the learning curve and whether it's realistic for an owner-builder."
+                </div>
+                
+                <div>
+                    <strong style="color: #D32F2F;">❌ Too Brief:</strong> "it's hard"<br>
+                    <strong style="color: #2E7D32;">✓ Better:</strong> "When my test wall cracked after the first rain, I realized I had used too much clay in the mix. It taught me that I was rushing to build rather than taking time to understand the material's properties first."
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 30px;">
+                <h3 style="color: #8B4513; font-size: 1.2em; margin-bottom: 10px;">What Makes a Strong Response</h3>
+                <ul style="list-style: none; padding-left: 0;">
+                    <li style="padding: 8px 0; color: #3E2723;">→ <strong>Specificity:</strong> Mention actual materials, techniques, or experiences</li>
+                    <li style="padding: 8px 0; color: #3E2723;">→ <strong>Honesty:</strong> It's fine to be a beginner - just explain your situation clearly</li>
+                    <li style="padding: 8px 0; color: #3E2723;">→ <strong>Context:</strong> Help us understand your constraints, goals, and thinking</li>
+                    <li style="padding: 8px 0; color: #3E2723;">→ <strong>Reflection:</strong> Show what you've learned or what questions you're grappling with</li>
+                    <li style="padding: 8px 0; color: #3E2723;">→ <strong>Length:</strong> Aim for 2-4 sentences per question minimum</li>
+                </ul>
+            </div>
+            
+            <div style="padding: 20px; background: #FFF3E0; border: 2px solid #D2691E; border-radius: 8px;">
+                <strong>Remember:</strong> This isn't a test with right answers. I want to understand where you are in your journey with earth building. Detailed, honest responses help me determine if and how I can help you.
+            </div>
+            
+            <div style="margin-top: 30px; text-align: center;">
+                <button onclick="showSection('consultation')" class="submit-btn" style="width: auto; display: inline-block;">Back to Consultation Form</button>
+                <button onclick="showSection('tech-transfer')" class="submit-btn" style="width: auto; display: inline-block; margin-left: 15px; background: #D2691E;">Back to Tech Transfer Form</button>
+            </div>
+        </div>
         </div>
         
         <div class="section-tabs">
             <button class="tab active" onclick="showSection('consultation')">Consultation</button>
             <button class="tab" onclick="showSection('workshop')">Workshops</button>
             <button class="tab" onclick="showSection('tech-transfer')">Tech Transfer</button>
+            <button class="tab" onclick="showSection('instructions')">How to Respond</button>
         </div>
         
         <!-- Consultation Section -->
         <div id="consultation" class="section active">
+            <div style="margin-bottom: 25px; padding: 20px; background: #FFF8E1; border-left: 4px solid #D2691E; font-size: 0.95em;">
+                <strong>Please provide detailed responses.</strong> Short or one-word answers don't give us enough context to understand your situation. The more specific you are about your experience, motivations, and challenges, the better we can help. <a href="#instructions" style="color: #8B4513;" onclick="showInstructions(); return false;">See detailed instructions →</a>
+            </div>
+            
             <form id="consultation-form">
                 <div class="question-block">
                     <div class="question">What have you already tried to build?</div>
@@ -449,11 +503,12 @@
             </div>
         </div>
         
-        <!-- Technology Transfer Section -->
+        <!-- Tech Transfer Section -->
         <div id="tech-transfer" class="section">
             <div class="tech-transfer-intro">
                 <h3>Technology Transfer for Professionals</h3>
                 <p>For architects, engineers, and builders who want to integrate rammed earth knowledge into their practice. This is knowledge transfer, not project execution.</p>
+                <p style="margin-top: 10px;"><strong>Important:</strong> Detailed responses help us understand your readiness. Brief answers make it difficult to assess fit. <a href="#instructions" style="color: #8B4513;" onclick="showInstructions(); return false;">See response guidelines →</a></p>
             </div>
             
             <form id="tech-transfer-form">
@@ -523,7 +578,21 @@
             
             // Show selected section
             document.getElementById(sectionName).classList.add('active');
-            event.target.classList.add('active');
+            
+            // Highlight corresponding tab if it exists
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                if (tab.textContent.toLowerCase().includes(sectionName.split('-')[0])) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            // Scroll to top smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function showInstructions() {
+            showSection('instructions');
         }
         
         // Toggle submit button based on terms acceptance
@@ -720,77 +789,77 @@
         function generateTechResponse(level, email) {
             const responses = {
                 'redirect-to-directory': {
-                    title: "You Need Project Contractors",
-                    content: "Based on your responses, you're looking for project execution, not knowledge transfer.",
-                    action: "I can connect you with contractors from my curated directory who handle rammed earth projects.",
+                    title: "I Understand Your Need",
+                    content: "Thank you for your detailed responses. From what you've shared, it seems you're looking for project execution support rather than knowledge transfer.",
+                    action: "I can connect you with experienced contractors from my curated directory who provide rammed earth construction services.",
                     class: "directory",
                     showDirectory: true
                 },
                 'unwilling-hands-on': {
-                    title: "Hands-On Commitment Required",
-                    content: "Technology transfer requires professionals who are willing to personally engage with the materials and processes.",
-                    action: "This approach works only for those ready to get their hands dirty alongside their teams.",
+                    title: "Let's Be Honest About What This Takes",
+                    content: "I appreciate your interest in rammed earth technology. However, effective knowledge transfer requires professionals who are ready to personally engage with materials and processes, not just oversee them.",
+                    action: "This approach works only when you're willing to get your hands dirty alongside your team. If that's not your working style, you'd be better served by contractors who handle execution.",
                     class: "red-flag",
                     resources: [
-                        "Reconsider your role - technology transfer requires personal involvement",
-                        "If you prefer oversight-only, you need project contractors instead",
-                        "Consider whether you're ready for hands-on learning",
-                        "Contact me if you change your mind about personal involvement"
+                        "Consider your role - are you ready for hands-on learning?",
+                        "If you prefer oversight-only, contact me for contractor referrals",
+                        "Reflect on what kind of involvement feels right for you",
+                        "Reach out again if your approach changes"
                     ]
                 },
                 'no-hands-on-response': {
-                    title: "More Detail Needed",
-                    content: "Your response about hands-on experience is too brief to assess your readiness for technology transfer.",
-                    action: "Please provide more detail about your willingness to engage directly with materials and processes.",
+                    title: "I Need to Understand Your Approach Better",
+                    content: "Your response about hands-on involvement was quite brief. To assess whether technology transfer is right for you, I need a clearer picture of your relationship with materials and making.",
+                    action: "Could you share more about how comfortable you are with direct material engagement?",
                     class: "red-flag",
                     resources: [
-                        "Describe your comfort level with getting hands dirty",
-                        "Explain how you learn new building techniques",
-                        "Share any experience working directly with materials",
-                        "Try the form again with more detailed responses"
+                        "Describe your comfort level getting hands dirty with materials",
+                        "Explain how you typically learn new building techniques",
+                        "Share any past experiences working directly with construction materials",
+                        "Feel free to resubmit with more detailed responses"
                     ]
                 },
                 'qualified-professional': {
-                    title: "Technology Transfer Candidate",
-                    content: "You demonstrate the hands-on experience and/or willingness plus professional focus needed for knowledge transfer.",
-                    action: "I'll contact you within a week to discuss your specific needs and arrange technology transfer.",
+                    title: "This Could Work Well",
+                    content: "Your responses show both the hands-on understanding and professional seriousness needed for meaningful technology transfer.",
+                    action: "I'll contact you within a week to discuss your specific needs and how we might work together.",
                     class: "proceed",
                     showContact: true
                 },
                 'developing-professional': {
-                    title: "Promising, Needs Development",
-                    content: "You show professional potential and willingness, but need more specific focus before technology transfer.",
-                    action: "Develop these areas first, then we can discuss knowledge transfer.",
+                    title: "You're Heading in the Right Direction",
+                    content: "I can see your genuine professional interest and willingness to engage. What would help you most now is more specific hands-on experience before we dive into technology transfer.",
+                    action: "Work through these steps, then let's talk again.",
                     class: "proceed",
                     resources: [
-                        "Get direct experience with soil testing and earth materials",
-                        "Work on at least one natural building project hands-on",
+                        "Get direct experience with soil testing and earth material properties",
+                        "Work hands-on with at least one natural building project",
                         "Develop specific technical questions about rammed earth processes",
-                        "Come back when you have concrete technical challenges to solve"
+                        "Reach out when you have concrete technical challenges to solve"
                     ]
                 },
                 'willing-beginner-professional': {
-                    title: "Willing Beginner Professional",
-                    content: "You show genuine willingness to engage hands-on, which is the foundation for technology transfer.",
-                    action: "Start with basic hands-on experience, then we can discuss professional knowledge transfer.",
+                    title: "Your Willingness Matters",
+                    content: "Thank you for being honest about where you are. Your willingness to engage hands-on is exactly the right foundation - that matters more than existing experience.",
+                    action: "Start with some basic hands-on experience, then we can discuss how professional knowledge transfer might work for you.",
                     class: "proceed",
                     resources: [
-                        "Begin with simple earth material experiments",
-                        "Attend a hands-on natural building workshop",
-                        "Document your learning process and questions",
-                        "Reach out again after initial hands-on experience"
+                        "Begin with simple earth material experiments on a small scale",
+                        "Attend a hands-on natural building workshop to get tactile experience",
+                        "Document your learning process and the questions that arise",
+                        "Contact me again after you've gotten your hands dirty"
                     ]
                 },
                 'not-qualified': {
-                    title: "Not Ready for Technology Transfer",
-                    content: "Technology transfer requires either experience or clear willingness for hands-on engagement with specific technical focus.",
-                    action: "Develop foundational readiness first.",
+                    title: "Let's Find the Right Starting Point",
+                    content: "I appreciate you reaching out. Based on your responses, there's some groundwork that would help before technology transfer makes sense.",
+                    action: "Here's where to begin. These aren't rejections - they're invitations to build the foundation you'll need.",
                     class: "red-flag",
                     resources: [
-                        "Clarify your willingness for hands-on involvement",
-                        "Take workshops or courses in natural building",
+                        "Clarify what hands-on involvement means for you and your practice",
+                        "Take a workshop or short course in natural building",
                         "Develop specific technical questions about rammed earth",
-                        "Consider the consultation track instead"
+                        "Consider whether the consultation track might be a better fit for now"
                     ]
                 }
             };
@@ -798,17 +867,59 @@
             return responses[level];
         }
         
+        // Validate response length and quality
+        function validateResponse(text, minLength = 80) {
+            return text.trim().length >= minLength;
+        }
+        
+        function showValidationError(field, message) {
+            // Remove any existing error
+            const existingError = field.parentElement.querySelector('.validation-error');
+            if (existingError) existingError.remove();
+            
+            // Create new error message
+            const error = document.createElement('div');
+            error.className = 'validation-error';
+            error.style.cssText = 'color: #D32F2F; font-size: 0.9em; margin-top: 8px; padding: 10px; background: #FFEBEE; border-radius: 3px; border-left: 3px solid #D32F2F;';
+            error.textContent = message;
+            field.parentElement.appendChild(error);
+            
+            // Scroll to error
+            error.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
+        function clearValidationErrors() {
+            document.querySelectorAll('.validation-error').forEach(err => err.remove());
+        }
+        
         // Handle consultation form
         document.getElementById('consultation-form').addEventListener('submit', function(e) {
             e.preventDefault();
+            clearValidationErrors();
             
+            const tried = this.querySelector('[name="tried"]').value;
+            const why = this.querySelector('[name="why"]').value;
+            const hurdle = this.querySelector('[name="hurdle"]').value;
+            const failure = this.querySelector('[name="failure"]').value || '';
             const email = this.querySelector('[type="email"]').value;
-            const answers = [
-                this.querySelector('[name="tried"]').value,
-                this.querySelector('[name="why"]').value,
-                this.querySelector('[name="hurdle"]').value,
-                this.querySelector('[name="failure"]').value || ''
-            ];
+            
+            // Validate response lengths
+            if (!validateResponse(tried, 50)) {
+                showValidationError(this.querySelector('[name="tried"]'), 'Please provide more detail (at least 50 characters). Help us understand your experience or what draws you to earth building.');
+                return;
+            }
+            
+            if (!validateResponse(why, 50)) {
+                showValidationError(this.querySelector('[name="why"]'), 'Please explain your motivations in more detail (at least 50 characters). What specifically calls you to this material?');
+                return;
+            }
+            
+            if (!validateResponse(hurdle, 40)) {
+                showValidationError(this.querySelector('[name="hurdle"]'), 'Please describe your primary hurdle in more detail (at least 40 characters). What specifically is holding you back?');
+                return;
+            }
+            
+            const answers = [tried, why, hurdle, failure];
             
             const level = analyzeResponse(answers);
             const response = generateConsultationResponse(level, email);
@@ -880,6 +991,8 @@
             const checkbox = document.getElementById('accept-terms');
             const errorMsg = document.getElementById('terms-error');
             
+            clearValidationErrors();
+            
             // Check if terms are accepted
             if (!checkbox.checked) {
                 errorMsg.style.display = 'block';
@@ -888,12 +1001,28 @@
             }
             
             const email = form.querySelector('[type="email"]').value;
-            const answers = [
-                form.querySelector('[name="role"]').value,
-                form.querySelector('[name="hands-on"]').value,
-                form.querySelector('[name="technology"]').value,
-                form.querySelector('[name="application"]').value
-            ];
+            const role = form.querySelector('[name="role"]').value;
+            const handsOn = form.querySelector('[name="hands-on"]').value;
+            const technology = form.querySelector('[name="technology"]').value;
+            const application = form.querySelector('[name="application"]').value;
+            
+            // Validate response lengths
+            if (!validateResponse(handsOn, 60)) {
+                showValidationError(form.querySelector('[name="hands-on"]'), 'Please provide more detail about your hands-on experience or willingness (at least 60 characters). Share specific examples.');
+                return;
+            }
+            
+            if (!validateResponse(technology, 50)) {
+                showValidationError(form.querySelector('[name="technology"]'), 'Please be more specific about the technology you want to learn (at least 50 characters). What exact processes or techniques?');
+                return;
+            }
+            
+            if (!validateResponse(application, 50)) {
+                showValidationError(form.querySelector('[name="application"]'), 'Please explain how you\'ll use this knowledge in more detail (at least 50 characters). What\'s your plan?');
+                return;
+            }
+            
+            const answers = [role, handsOn, technology, application];
             
             const level = analyzeTechTransfer(answers);
             const response = generateTechResponse(level, email);
