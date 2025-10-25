@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-```
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,990 +12,736 @@
             padding: 0;
             box-sizing: border-box;
         }
-
-```
-    body {
-        font-family: Georgia, serif;
-        line-height: 1.6;
-        color: #3E2723;
-        background: #F5F2E8;
-        padding: 20px;
-        max-width: 700px;
-        margin: 0 auto;
-    }
-    
-    .container {
-        background: white;
-        padding: 40px 30px;
-        border-radius: 3px;
-        box-shadow: 0 4px 12px rgba(139, 69, 19, 0.1);
-        margin-bottom: 30px;
-    }
-    
-    h1 {
-        font-size: 1.9em;
-        margin-bottom: 10px;
-        font-weight: normal;
-        color: #8B4513;
-    }
-    
-    .subtitle {
-        font-style: italic;
-        color: #D2691E;
-        margin-bottom: 30px;
-        font-size: 1.1em;
-    }
-    
-    .intro {
-        margin-bottom: 40px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid #CD853F;
-        color: #3E2723;
-        font-size: 1.05em;
-    }
-    
-    .section-tabs {
-        display: flex;
-        margin-bottom: 30px;
-        border-bottom: 2px solid #CD853F;
-    }
-    
-    .tab {
-        flex: 1;
-        padding: 15px;
-        background: #F5F2E8;
-        border: none;
-        font-family: Georgia, serif;
-        font-size: 1em;
-        cursor: pointer;
-        color: #8B4513;
-        transition: all 0.3s;
-    }
-    
-    .tab.active {
-        background: #8B4513;
-        color: white;
-    }
-    
-    .tab:hover:not(.active) {
-        background: #D2691E;
-        color: white;
-    }
-    
-    .section {
-        display: none;
-    }
-    
-    .section.active {
-        display: block;
-    }
-    
-    .question-block {
-        margin-bottom: 30px;
-    }
-    
-    .question {
-        margin-bottom: 10px;
-        font-style: italic;
-        color: #8B4513;
-        font-size: 1.05em;
-        font-weight: 500;
-    }
-    
-    textarea, input[type="text"], input[type="email"], select {
-        width: 100%;
-        padding: 15px;
-        font-family: Georgia, serif;
-        font-size: 0.95em;
-        border: 2px solid #CD853F;
-        background: #FEFCF7;
-        transition: all 0.3s;
-        border-radius: 3px;
-    }
-    
-    textarea {
-        min-height: 120px;
-        resize: vertical;
-    }
-    
-    select {
-        height: 50px;
-    }
-    
-    textarea:focus, input:focus, select:focus {
-        outline: none;
-        border-color: #8B4513;
-        background: white;
-        box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
-    }
-    
-    .submit-btn {
-        background: #8B4513;
-        color: white;
-        border: none;
-        padding: 15px 30px;
-        font-family: Georgia, serif;
-        font-size: 1em;
-        cursor: pointer;
-        transition: all 0.3s;
-        width: 100%;
-        border-radius: 3px;
-        margin-top: 20px;
-    }
-    
-    .submit-btn:hover {
-        background: #6D3410;
-    }
-    
-    .submit-btn:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-    
-    .response-message {
-        display: none;
-        padding: 25px;
-        margin-top: 30px;
-        border-radius: 3px;
-        border-left: 5px solid #8B4513;
-    }
-    
-    .response-message.visible {
-        display: block;
-    }
-    
-    .response-message.red-flag {
-        background: #FFF3E0;
-        border-left-color: #D2691E;
-    }
-    
-    .response-message.proceed {
-        background: #F1F8E9;
-        border-left-color: #8B4513;
-    }
-    
-    .response-message.directory {
-        background: #E3F2FD;
-        border-left-color: #2196F3;
-    }
-    
-    .response-message h3 {
-        margin-bottom: 15px;
-        font-weight: normal;
-        color: #8B4513;
-    }
-    
-    .response-message p {
-        color: #3E2723;
-        margin-bottom: 15px;
-    }
-    
-    .resource-list {
-        margin-top: 15px;
-        padding: 15px;
-        background: white;
-        border: 1px solid #CD853F;
-        border-radius: 3px;
-    }
-    
-    .resource-list ul {
-        list-style: none;
-        padding-left: 0;
-    }
-    
-    .resource-list li {
-        padding: 8px 0;
-        color: #3E2723;
-        border-bottom: 1px solid #F5F2E8;
-    }
-    
-    .resource-list li:before {
-        content: "→ ";
-        color: #D2691E;
-        font-weight: bold;
-    }
-    
-    .directory-link {
-        display: inline-block;
-        background: #2196F3;
-        color: white;
-        padding: 12px 25px;
-        text-decoration: none;
-        border-radius: 3px;
-        margin-top: 15px;
-        transition: all 0.3s;
-    }
-    
-    .directory-link:hover {
-        background: #1976D2;
-    }
-    
-    .contact-link {
-        display: inline-block;
-        background: #8B4513;
-        color: white;
-        padding: 12px 25px;
-        text-decoration: none;
-        border-radius: 3px;
-        margin-top: 15px;
-        transition: all 0.3s;
-    }
-    
-    .contact-link:hover {
-        background: #6D3410;
-    }
-    
-    .substack-link {
-        text-align: center;
-        margin-top: 30px;
-        padding-top: 20px;
-        border-top: 1px solid #CD853F;
-    }
-    
-    .substack-link a {
-        color: #8B4513;
-        text-decoration: none;
-        font-style: italic;
-    }
-    
-    .substack-link a:hover {
-        color: #D2691E;
-    }
-    
-    .workshop-form {
-        display: grid;
-        gap: 20px;
-    }
-    
-    .form-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-    }
-    
-    .tech-transfer-intro {
-        margin-bottom: 30px;
-        padding: 20px;
-        background: #FFF8E1;
-        border-left: 4px solid #FFB300;
-        color: #3E2723;
-    }
-    
-    .tech-transfer-intro h3 {
-        margin-bottom: 10px;
-        color: #8B4513;
-        font-weight: normal;
-    }
-    
-    .terms-section {
-        margin-top: 30px;
-        padding: 25px;
-        background: #FFF8E1;
-        border: 2px solid #8B4513;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(139, 69, 19, 0.1);
-    }
-    
-    .terms-section h4 {
-        margin-bottom: 15px;
-        color: #8B4513;
-        font-weight: normal;
-    }
-    
-    .terms-section ul {
-        list-style: none;
-        padding-left: 0;
-        margin-bottom: 20px;
-    }
-    
-    .terms-section li {
-        padding: 5px 0;
-        color: #3E2723;
-    }
-    
-    .terms-section li:before {
-        content: "• ";
-        color: #D2691E;
-        font-weight: bold;
-    }
-    
-    .terms-checkbox {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-top: 15px;
-        padding: 15px;
-        background: white;
-        border-radius: 5px;
-        border: 1px solid #CD853F;
-    }
-    
-    .terms-checkbox input[type="checkbox"] {
-        width: 18px;
-        height: 18px;
-        accent-color: #8B4513;
-    }
-    
-    .terms-checkbox label {
-        color: #3E2723;
-        font-size: 0.95em;
-        cursor: pointer;
-    }
-    
-    .error-message {
-        display: none;
-        color: #D32F2F;
-        font-size: 0.9em;
-        margin-top: 10px;
-        padding: 10px;
-        background: #FFEBEE;
-        border-radius: 3px;
-        border-left: 4px solid #D32F2F;
-    }
-    
-    @media (max-width: 600px) {
+        
         body {
-            padding: 10px;
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            color: #3E2723;
+            background: #F5F2E8;
+            padding: 20px;
+            max-width: 700px;
+            margin: 0 auto;
         }
+        
         .container {
-            padding: 25px 20px;
+            background: white;
+            padding: 40px 30px;
+            border-radius: 3px;
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.1);
+            margin-bottom: 30px;
         }
-        .form-row {
-            grid-template-columns: 1fr;
+        
+        h1 {
+            font-size: 1.9em;
+            margin-bottom: 10px;
+            font-weight: normal;
+            color: #8B4513;
         }
+        
+        .subtitle {
+            font-style: italic;
+            color: #D2691E;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .intro {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #CD853F;
+            color: #3E2723;
+            font-size: 1.05em;
+        }
+        
         .section-tabs {
-            flex-direction: column;
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #CD853F;
         }
-    }
-</style>
-```
-
+        
+        .tab {
+            flex: 1;
+            padding: 15px;
+            background: #F5F2E8;
+            border: none;
+            font-family: Georgia, serif;
+            font-size: 1em;
+            cursor: pointer;
+            color: #8B4513;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            background: #8B4513;
+            color: white;
+        }
+        
+        .tab:hover:not(.active) {
+            background: #D2691E;
+            color: white;
+        }
+        
+        .section {
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        .question-block {
+            margin-bottom: 30px;
+        }
+        
+        .question {
+            margin-bottom: 10px;
+            font-style: italic;
+            color: #8B4513;
+            font-size: 1.05em;
+            font-weight: 500;
+        }
+        
+        textarea, input[type="text"], input[type="email"], select {
+            width: 100%;
+            padding: 15px;
+            font-family: Georgia, serif;
+            font-size: 0.95em;
+            border: 2px solid #CD853F;
+            background: #FEFCF7;
+            transition: all 0.3s;
+            border-radius: 3px;
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        select {
+            height: 50px;
+        }
+        
+        textarea:focus, input:focus, select:focus {
+            outline: none;
+            border-color: #8B4513;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+        }
+        
+        .submit-btn {
+            background: #8B4513;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-family: Georgia, serif;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            border-radius: 3px;
+            margin-top: 20px;
+        }
+        
+        .submit-btn:hover {
+            background: #6D3410;
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .response-message {
+            display: none;
+            padding: 25px;
+            margin-top: 30px;
+            border-radius: 3px;
+            border-left: 5px solid #8B4513;
+            background: #F1F8E9;
+        }
+        
+        .response-message.visible {
+            display: block;
+        }
+        
+        .response-message h3 {
+            margin-bottom: 15px;
+            font-weight: normal;
+            color: #8B4513;
+        }
+        
+        .response-message p {
+            color: #3E2723;
+            margin-bottom: 15px;
+        }
+        
+        .substack-link {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #CD853F;
+        }
+        
+        .substack-link a {
+            color: #8B4513;
+            text-decoration: none;
+            font-style: italic;
+        }
+        
+        .substack-link a:hover {
+            color: #D2691E;
+        }
+        
+        .workshop-form {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .tech-transfer-intro {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #FFF8E1;
+            border-left: 4px solid #FFB300;
+            color: #3E2723;
+        }
+        
+        .tech-transfer-intro h3 {
+            margin-bottom: 10px;
+            color: #8B4513;
+            font-weight: normal;
+        }
+        
+        .terms-section {
+            margin-top: 30px;
+            padding: 25px;
+            background: #FFF8E1;
+            border: 2px solid #8B4513;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(139, 69, 19, 0.1);
+        }
+        
+        .terms-section h4 {
+            margin-bottom: 15px;
+            color: #8B4513;
+            font-weight: normal;
+        }
+        
+        .terms-section ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 20px;
+        }
+        
+        .terms-section li {
+            padding: 5px 0;
+            color: #3E2723;
+        }
+        
+        .terms-section li:before {
+            content: "• ";
+            color: #D2691E;
+            font-weight: bold;
+        }
+        
+        .terms-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #CD853F;
+        }
+        
+        .terms-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #8B4513;
+        }
+        
+        .terms-checkbox label {
+            color: #3E2723;
+            font-size: 0.95em;
+            cursor: pointer;
+        }
+        
+        .error-message {
+            display: none;
+            color: #D32F2F;
+            font-size: 0.9em;
+            margin-top: 10px;
+            padding: 10px;
+            background: #FFEBEE;
+            border-radius: 3px;
+            border-left: 4px solid #D32F2F;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 25px 20px;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .section-tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Rammed Earth</h1>
         <div class="subtitle">For those who understand that earth building is consciousness work</div>
-
-```
-    <div class="intro">
-        I help people with rammed earth through workshops and consultations - but I don't build for you. 
-        If you want someone to construct your building for a quote, you need a contractor, not a consultant. 
-        There are excellent people who do the job. I can redirect you to a directory. 
-        This is for people who want to learn the craft themselves, who've already heard the earth calling.
         
-        <div style="margin-top: 25px; padding: 20px; background: #FFF8E1; border-left: 4px solid #8B4513; font-size: 0.95em;">
-            <strong>Choose your path:</strong><br>
-            → <strong>Consultation:</strong> You want to build your own rammed earth project and need guidance<br>
-            → <strong>Workshops:</strong> You want to learn with others when I organize group sessions<br>
-            → <strong>Tech Transfer:</strong> You're a professional (architect/engineer/builder) wanting to integrate rammed earth into your practice
-            <div class="response-message" id="tech-response">
-            <!-- Tech transfer response will be inserted here -->
-        </div>
-    </div>
-    </div>
-    
-    <div class="section-tabs">
-        <button class="tab active" onclick="showSection('consultation')">Consultation</button>
-        <button class="tab" onclick="showSection('workshop')">Workshops</button>
-        <button class="tab" onclick="showSection('tech-transfer')">Tech Transfer</button>
-    </div>
-    
-    <!-- Consultation Section -->
-    <div id="consultation" class="section active">
-        <form id="consultation-form">
-            <div class="question-block">
-                <div class="question">What have you already tried to build?</div>
-                <textarea name="tried" placeholder="If nothing yet, just say 'nothing yet' - but tell me what draws you to earth building..." required></textarea>
-            </div>
+        <div class="intro">
+            I help people with rammed earth through workshops and consultations - but I don't build for you. 
+            If you want someone to construct your building for a quote, you need a contractor, not a consultant. 
+            There are excellent people who do the job. I can redirect you to a directory. 
+            This is for people who want to learn the craft themselves, who've already heard the earth calling.
             
-            <div class="question-block">
-                <div class="question">Why do you want to build with rammed earth?</div>
-                <textarea name="why" placeholder="The real reason. What calls you to this material?" required></textarea>
+            <div style="margin-top: 25px; padding: 20px; background: #FFF8E1; border-left: 4px solid #8B4513; font-size: 0.95em;">
+                <strong>Choose your path:</strong><br>
+                → <strong>Consultation:</strong> You want to build your own rammed earth project and need guidance<br>
+                → <strong>Workshops:</strong> You want to learn with others when I organize group sessions<br>
+                → <strong>Tech Transfer:</strong> You're a professional (architect/engineer/builder) wanting to integrate rammed earth into your practice
             </div>
-            
-            <div class="question-block">
-                <div class="question">What's your primary hurdle?</div>
-                <textarea name="hurdle" placeholder="If you've built: what stopped you from continuing? If you haven't: what's preventing you from starting?" required></textarea>
-            </div>
-            
-            <div class="question-block" id="failure-question" style="display: none;">
-                <div class="question">What did the earth teach you when it failed?</div>
-                <textarea name="failure" placeholder="Not the technical lesson. What did you understand about yourself when the wall cracked?"></textarea>
-            </div>
-            
-            <input type="email" placeholder="Your email" required>
-            <button type="submit" class="submit-btn">Send</button>
-        </form>
-        
-        <div class="response-message" id="response">
-            <!-- Response will be inserted here -->
-        </div>
-    </div>
-    
-    <!-- Workshop Section -->
-    <div id="workshop" class="section">
-        <p style="margin-bottom: 30px; color: #3E2723;">
-            Workshops happen when enough conscious people gather in one region. 
-            Leave your details and I'll notify you when something forms near you.
-        </p>
-        
-        <form class="workshop-form" id="workshop-form">
-            <input type="text" placeholder="Your name" required>
-            <div class="form-row">
-                <input type="email" placeholder="Email" required>
-                <input type="text" placeholder="Location (city, region)" required>
-            </div>
-            <button type="submit" class="submit-btn">Notify Me of Workshops</button>
-        </form>
-        
-        <div class="response-message" id="workshop-response">
-            <!-- Workshop response will be inserted here -->
-        </div>
-    </div>
-    
-    <!-- Technology Transfer Section -->
-    <div id="tech-transfer" class="section">
-        <div class="tech-transfer-intro">
-            <h3>Technology Transfer for Professionals</h3>
-            <p>For architects, engineers, and builders who want to integrate rammed earth knowledge into their practice. This is knowledge transfer, not project execution.</p>
         </div>
         
-        <form id="tech-transfer-form">
-            <div class="question-block">
-                <div class="question">What's your role in rammed earth projects?</div>
-                <select name="role" required>
-                    <option value="">Select your role...</option>
-                    <option value="architect">I'm the architect designing it</option>
-                    <option value="engineer">I'm the engineer consulting on it</option>
-                    <option value="builder">I'm a builder wanting to add this skill</option>
-                    <option value="contractor">I'm a contractor looking for subcontractors</option>
-                    <option value="representative">I'm representing a client who wants to build</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-            
-            <div class="question-block">
-                <div class="question">Describe your hands-on experience with building materials OR your willingness to get personally involved.</div>
-                <textarea name="hands-on" placeholder="Past experience: What materials? What did you learn physically? OR Future willingness: Are you ready to get your hands dirty learning alongside your team?" required></textarea>
-            </div>
-            
-            <div class="question-block">
-                <div class="question">What specific rammed earth technology do you want to learn?</div>
-                <textarea name="technology" placeholder="Be specific: mix design, formwork systems, soil testing, construction sequencing..." required></textarea>
-            </div>
-            
-            <div class="question-block">
-                <div class="question">How will you use this knowledge?</div>
-                <textarea name="application" placeholder="Training team for ongoing practice? One-time project? Adding to service offerings?" required></textarea>
-            </div>
-            
-            <input type="email" placeholder="Your email" required>
-        </form>
-        
-        <div class="terms-section">
-            <h4>Technology Transfer Terms</h4>
-            <ul>
-                <li>Knowledge transfer only - I don't execute projects</li>
-                <li>You build, I guide the technical process</li>
-                <li>Requires genuine hands-on commitment from your team</li>
-                <li>Focus on long-term capability building, not quick fixes</li>
-            </ul>
-            
-            <div class="terms-checkbox">
-                <input type="checkbox" id="accept-terms" onchange="toggleSubmitButton()">
-                <label for="accept-terms">I have read and accept these terms</label>
-            </div>
-            
-            <div class="error-message" id="terms-error">
-                Please read and accept the terms before submitting.
-            </div>
-            
-            <button type="submit" class="submit-btn" id="tech-submit-btn" disabled onclick="handleTechSubmit()">Submit for Review</button>
+        <div class="section-tabs">
+            <button class="tab active" onclick="showSection('consultation')">Consultation</button>
+            <button class="tab" onclick="showSection('workshop')">Workshops</button>
+            <button class="tab" onclick="showSection('tech-transfer')">Tech Transfer</button>
         </div>
-    </div>
-    
-    <div class="substack-link">
-        <a href="https://rammedearth.substack.com/" target="_blank">Read the archive →</a>
-    </div>
-</div>
-
-<script>
-    function showSection(sectionName) {
-        // Hide all sections
-        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         
-        // Show selected section
-        document.getElementById(sectionName).classList.add('active');
-        event.target.classList.add('active');
-    }
-    
-    // Toggle submit button based on terms acceptance
-    function toggleSubmitButton() {
-        const checkbox = document.getElementById('accept-terms');
-        const submitBtn = document.getElementById('tech-submit-btn');
-        const errorMsg = document.getElementById('terms-error');
-        
-        if (checkbox.checked) {
-            submitBtn.disabled = false;
-            submitBtn.style.opacity = '1';
-            errorMsg.style.display = 'none';
-        } else {
-            submitBtn.disabled = true;
-            submitBtn.style.opacity = '0.5';
-        }
-    }
-    
-    // Check if failure question should be shown
-    document.querySelector('[name="tried"]').addEventListener('input', function() {
-        const value = this.value.toLowerCase();
-        const failureQuestion = document.getElementById('failure-question');
-        
-        if (value.includes('nothing') || value.includes('never') || value.length < 20) {
-            failureQuestion.style.display = 'none';
-            failureQuestion.querySelector('textarea').required = false;
-        } else {
-            failureQuestion.style.display = 'block';
-            failureQuestion.querySelector('textarea').required = true;
-        }
-    });
-    
-    // Analyze consultation responses
-    function analyzeResponse(answers) {
-        const [tried, why, hurdle, failure] = answers;
-        
-        // Check for cost-focused responses (RED FLAG)
-        const costWords = ['cheap', 'cheaper', 'budget', 'save money', 'economic', 'affordable', 'cost less', 'inexpensive'];
-        if (costWords.some(word => why.toLowerCase().includes(word))) {
-            return 'cost-focused';
-        }
-        
-        // Check for construction service requests (RED FLAG)
-        const contractWords = ['build for me', 'construct', 'hire you', 'quote', 'contract', 'build my', 'your team', 'you build'];
-        if (contractWords.some(word => why.toLowerCase().includes(word))) {
-            return 'wants-contractor';
-        }
-        
-        // Analyze consciousness level
-        let consciousness = 0;
-        
-        // Experience markers
-        if (tried.length > 50 && !tried.toLowerCase().includes('nothing')) consciousness++;
-        if (tried.includes('mix') || tried.includes('clay') || tried.includes('sand')) consciousness++;
-        if (tried.includes('fail') || tried.includes('crack') || tried.includes('collaps')) consciousness++;
-        
-        // Motivation markers
-        if (why.includes('sustainable') || why.includes('natural') || why.includes('earth')) consciousness++;
-        if (why.includes('connect') || why.includes('rhythm') || why.includes('craft')) consciousness++;
-        if (why.includes('learn') && !why.includes('technique')) consciousness++;
-        
-        // Self-awareness markers
-        if (hurdle.includes('myself') || hurdle.includes('patience') || hurdle.includes('knowledge')) consciousness++;
-        if (hurdle.includes('permission') || hurdle.includes('fear') || hurdle.includes('confidence')) consciousness++;
-        
-        // Deep understanding markers
-        if (failure && failure.length > 30) {
-            if (failure.includes('patience') || failure.includes('humble') || failure.includes('listen')) consciousness += 2;
-            if (failure.includes('teach') || failure.includes('show') || failure.includes('mirror')) consciousness += 2;
-        }
-        
-        // Classification
-        if (consciousness >= 7) return 'conscious';
-        if (consciousness >= 4) return 'developing';
-        if (consciousness >= 2) return 'beginner';
-        return 'theoretical';
-    }
-    
-    // Analyze tech transfer responses
-    function analyzeTechTransfer(answers) {
-        const [role, handsOn, technology, application] = answers;
-        
-        // Auto-reject patterns
-        if (role === 'contractor' || role === 'representative') return 'redirect-to-directory';
-        if (application.toLowerCase().includes('one project') || application.toLowerCase().includes('quick')) return 'redirect-to-directory';
-        if (technology.toLowerCase().includes('cheap') || technology.toLowerCase().includes('fast')) return 'redirect-to-directory';
-        
-        // Check for hands-on willingness (not just past experience)
-        const unwillingMarkers = ['no time', 'too busy', 'delegate', 'my team will', 'others will do', 'supervise only', 'design only'];
-        const willingMarkers = ['willing', 'ready', 'want to learn', 'hands-on', 'get dirty', 'personally', 'myself', 'learn by doing'];
-        
-        let willingnessScore = 0;
-        if (unwillingMarkers.some(marker => handsOn.toLowerCase().includes(marker))) {
-            return 'unwilling-hands-on';
-        }
-        if (willingMarkers.some(marker => handsOn.toLowerCase().includes(marker))) {
-            willingnessScore += 2;
-        }
-        if (handsOn.length < 30) return 'no-hands-on-response';
-        
-        // Check for genuine hands-on experience OR clear willingness
-        let handsOnScore = 0;
-        if (handsOn.includes('clay') || handsOn.includes('mud') || handsOn.includes('concrete')) handsOnScore++;
-        if (handsOn.includes('mix') || handsOn.includes('ratio') || handsOn.includes('water')) handsOnScore++;
-        if (handsOn.includes('hands') || handsOn.includes('touch') || handsOn.includes('feel')) handsOnScore++;
-        if (handsOn.includes('fail') || handsOn.includes('mistake') || handsOn.includes('learn')) handsOnScore++;
-        
-        // Add willingness score to experience score
-        handsOnScore += willingnessScore;
-        
-        // Check technology specificity
-        let techScore = 0;
-        if (technology.includes('mix') || technology.includes('soil') || technology.includes('test')) techScore++;
-        if (technology.includes('formwork') || technology.includes('construction') || technology.includes('sequence')) techScore++;
-        if (technology.includes('specific') || technology.length > 100) techScore++;
-        
-        // Check application seriousness
-        let appScore = 0;
-        if (application.includes('team') || application.includes('practice') || application.includes('long')) appScore++;
-        if (application.includes('capability') || application.includes('skill') || application.includes('knowledge')) appScore++;
-        
-        const totalScore = handsOnScore + techScore + appScore;
-        
-        if (totalScore >= 6) return 'qualified-professional';
-        if (totalScore >= 4) return 'developing-professional'; 
-        if (totalScore >= 2) return 'willing-beginner-professional';
-        return 'not-qualified';
-    }
-    
-    function generateConsultationResponse(level, email) {
-        const responses = {
-            'cost-focused': {
-                title: "Connect with Project Builders",
-                content: "For cost-focused projects, you need execution specialists. Rammed earth is expensive in time, labor, and learning curve.",
-                action: "I maintain a curated directory of rammed earth contractors who handle project-based work.",
-                class: "directory",
-                showDirectory: true
-            },
-            'wants-contractor': {
-                title: "You Need a Contractor, Not a Consultant",
-                content: "I help people learn rammed earth. I don't build buildings for clients. You're looking for construction services.",
-                action: "I can redirect you to my curated directory of rammed earth contractors.",
-                class: "directory",
-                showDirectory: true
-            },
-            'conscious': {
-                title: "Let's Talk",
-                content: "You understand this work. We should have a conversation.",
-                action: "I'll reach out within a week to discuss your project.",
-                class: "proceed",
-                showContact: true
-            },
-            'developing': {
-                title: "You're on the Path",
-                content: "You have the right instincts, but need more direct experience with earth.",
-                action: "Try these next steps. When you've learned these lessons, reach out again.",
-                class: "proceed",
-                resources: [
-                    "Build something small that must survive one full season",
-                    "Work with earth for 30 days without tutorials",
-                    "Document your failures, not your successes",
-                    "Find local earth builders and observe (don't talk)"
-                ]
-            },
-            'beginner': {
-                title: "Start Here",
-                content: "You're interested, but earth building requires embodied knowledge you don't have yet.",
-                action: "Begin with these fundamentals. Real learning happens through failure.",
-                class: "proceed",
-                resources: [
-                    "Test local soil - clay content, sand ratio, organic matter",
-                    "Make 20 test bricks, let them all fail differently",
-                    "Read 'Earth Construction Handbook' by Gernot Minke",
-                    "Spend time with earth before trying to build with it"
-                ]
-            },
-            'theoretical': {
-                title: "You're Still Shopping",
-                content: "You want to build with earth, but haven't engaged with the material yet.",
-                action: "Earth building starts with earth, not ideas about earth.",
-                class: "proceed",
-                resources: [
-                    "Get your hands dirty first - make mud, feel its properties",
-                    "Visit existing rammed earth buildings in your area", 
-                    "Start a daily practice of working with clay/earth",
-                    "Come back when you've actually failed at something"
-                ]
-            }
-        };
-        
-        return responses[level];
-    }
-    
-    function generateTechResponse(level, email) {
-        const responses = {
-            'redirect-to-directory': {
-                title: "You Need Project Contractors",
-                content: "Based on your responses, you're looking for project execution, not knowledge transfer.",
-                action: "I can connect you with contractors from my curated directory who handle rammed earth projects.",
-                class: "directory",
-                showDirectory: true
-            },
-            'unwilling-hands-on': {
-                title: "Hands-On Commitment Required",
-                content: "Technology transfer requires professionals who are willing to personally engage with the materials and processes.",
-                action: "This approach works only for those ready to get their hands dirty alongside their teams.",
-                class: "red-flag",
-                resources: [
-                    "Reconsider your role - technology transfer requires personal involvement",
-                    "If you prefer oversight-only, you need project contractors instead",
-                    "Consider whether you're ready for hands-on learning",
-                    "Contact me if you change your mind about personal involvement"
-                ]
-            },
-            'no-hands-on-response': {
-                title: "More Detail Needed",
-                content: "Your response about hands-on experience is too brief to assess your readiness for technology transfer.",
-                action: "Please provide more detail about your willingness to engage directly with materials and processes.",
-                class: "red-flag",
-                resources: [
-                    "Describe your comfort level with getting hands dirty",
-                    "Explain how you learn new building techniques",
-                    "Share any experience working directly with materials",
-                    "Try the form again with more detailed responses"
-                ]
-            },
-            'qualified-professional': {
-                title: "Technology Transfer Candidate",
-                content: "You demonstrate the hands-on experience and/or willingness plus professional focus needed for knowledge transfer.",
-                action: "I'll contact you within a week to discuss your specific needs and arrange technology transfer.",
-                class: "proceed",
-                showContact: true
-            },
-            'developing-professional': {
-                title: "Promising, Needs Development",
-                content: "You show professional potential and willingness, but need more specific focus before technology transfer.",
-                action: "Develop these areas first, then we can discuss knowledge transfer.",
-                class: "proceed",
-                resources: [
-                    "Get direct experience with soil testing and earth materials",
-                    "Work on at least one natural building project hands-on",
-                    "Develop specific technical questions about rammed earth processes",
-                    "Come back when you have concrete technical challenges to solve"
-                ]
-            },
-            'willing-beginner-professional': {
-                title: "Willing Beginner Professional",
-                content: "You show genuine willingness to engage hands-on, which is the foundation for technology transfer.",
-                action: "Start with basic hands-on experience, then we can discuss professional knowledge transfer.",
-                class: "proceed",
-                resources: [
-                    "Begin with simple earth material experiments",
-                    "Attend a hands-on natural building workshop",
-                    "Document your learning process and questions",
-                    "Reach out again after initial hands-on experience"
-                ]
-            },
-            'not-qualified': {
-                title: "Not Ready for Technology Transfer",
-                content: "Technology transfer requires either experience or clear willingness for hands-on engagement with specific technical focus.",
-                action: "Develop foundational readiness first.",
-                class: "red-flag",
-                resources: [
-                    "Clarify your willingness for hands-on involvement",
-                    "Take workshops or courses in natural building",
-                    "Develop specific technical questions about rammed earth",
-                    "Consider the consultation track instead"
-                ]
-            }
-        };
-        
-        return responses[level];
-    }
-    
-    // Handle consultation form
-    document.getElementById('consultation-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const email = this.querySelector('[type="email"]').value;
-        const answers = [
-            this.querySelector('[name="tried"]').value,
-            this.querySelector('[name="why"]').value,
-            this.querySelector('[name="hurdle"]').value,
-            this.querySelector('[name="failure"]').value || ''
-        ];
-        
-        const level = analyzeResponse(answers);
-        const response = generateConsultationResponse(level, email);
-        
-        displayResponse('response', response, email);
-        
-        // Submit to Google Sheets via Apps Script
-        submitToGoogleSheet('consultation', {
-            email: email,
-            tried: answers[0],
-            why: answers[1],
-            hurdle: answers[2],
-            failure: answers[3],
-            level: level
-        });
-        
-        // Clear form fields
-        this.reset();
-        document.getElementById('failure-question').style.display = 'none';
-        
-        // Disable form temporarily
-        const submitBtn = this.querySelector('.submit-btn');
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sent';
-        setTimeout(() => {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Send';
-        }, 3000);
-    });
-    
-    // Handle workshop form
-    document.getElementById('workshop-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const data = {
-            name: this.querySelector('[type="text"]').value,
-            email: this.querySelector('[type="email"]').value,
-            location: this.querySelectorAll('[type="text"]')[1].value
-        };
-        
-        const responseDiv = document.getElementById('workshop-response');
-        responseDiv.innerHTML = `
-            <h3>Added to Workshop List</h3>
-            <p>I'll notify you when workshops form in your region.</p>
-            <p style="font-style: italic;">Registered: ${data.email}</p>
-        `;
-        responseDiv.className = 'response-message visible proceed';
-        responseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        
-        // Submit to Google Sheets via Apps Script
-        submitToGoogleSheet('workshop', data);
-        
-        // Clear form fields
-        this.reset();
-        
-        // Disable form temporarily
-        const submitBtn = this.querySelector('.submit-btn');
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Registered';
-        setTimeout(() => {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Notify Me of Workshops';
-        }, 3000);
-    });
-    
-    // Handle tech transfer submission
-    function handleTechSubmit() {
-        const form = document.getElementById('tech-transfer-form');
-        const checkbox = document.getElementById('accept-terms');
-        const errorMsg = document.getElementById('terms-error');
-        
-        // Check if terms are accepted
-        if (!checkbox.checked) {
-            errorMsg.style.display = 'block';
-            errorMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            return;
-        }
-        
-        const email = form.querySelector('[type="email"]').value;
-        const answers = [
-            form.querySelector('[name="role"]').value,
-            form.querySelector('[name="hands-on"]').value,
-            form.querySelector('[name="technology"]').value,
-            form.querySelector('[name="application"]').value
-        ];
-        
-        const level = analyzeTechTransfer(answers);
-        const response = generateTechResponse(level, email);
-        
-        displayResponse('tech-response', response, email);
-        
-        // Submit to Google Sheets via Apps Script
-        submitToGoogleSheet('tech-transfer', {
-            email: email,
-            role: answers[0],
-            handsOn: answers[1],
-            technology: answers[2],
-            application: answers[3],
-            level: level
-        });
-        
-        // Clear form fields
-        form.reset();
-        checkbox.checked = false;
-        
-        // Disable button temporarily
-        const submitBtn = document.getElementById('tech-submit-btn');
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Submitted';
-        setTimeout(() => {
-            submitBtn.textContent = 'Submit for Review';
-            // Keep disabled until checkbox is checked again
-        }, 3000);
-    }
-    
-    // Handle tech transfer form (remove old handler)
-    document.getElementById('tech-transfer-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        // Form submission now handled by button click
-    });
-    
-    function displayResponse(divId, response, email) {
-        const responseDiv = document.getElementById(divId);
-        let responseHTML = `
-            <h3>${response.title}</h3>
-            <p>${response.content}</p>
-            <p><strong>${response.action}</strong></p>
-        `;
-        
-        if (response.resources) {
-            responseHTML += `
-                <div class="resource-list">
-                    <ul>
-                        ${response.resources.map(r => `<li>${r}</li>`).join('')}
-                    </ul>
+        <!-- Consultation Section -->
+        <div id="consultation" class="section active">
+            <form id="consultation-form">
+                <div class="question-block">
+                    <div class="question">What have you already tried to build?</div>
+                    <textarea name="tried" placeholder="If nothing yet, just say 'nothing yet' - but tell me what draws you to earth building..." required></textarea>
                 </div>
-            `;
-        }
+                
+                <div class="question-block">
+                    <div class="question">Why do you want to build with rammed earth?</div>
+                    <textarea name="why" placeholder="The real reason. What calls you to this material?" required></textarea>
+                </div>
+                
+                <div class="question-block">
+                    <div class="question">What's your primary hurdle?</div>
+                    <textarea name="hurdle" placeholder="If you've built: what stopped you from continuing? If you haven't: what's preventing you from starting?" required></textarea>
+                </div>
+                
+                <div class="question-block" id="failure-question" style="display: none;">
+                    <div class="question">What did the earth teach you when it failed?</div>
+                    <textarea name="failure" placeholder="Not the technical lesson. What did you understand about yourself when the wall cracked?"></textarea>
+                </div>
+                
+                <input type="email" placeholder="Your email" required>
+                <button type="submit" class="submit-btn">Send</button>
+            </form>
+            
+            <div class="response-message" id="response">
+                <!-- Response will be inserted here -->
+            </div>
+        </div>
         
-        if (response.showContact) {
-            responseHTML += `<p style="margin-top: 20px; font-style: italic;">I'll email you at: ${email}</p>`;
-        }
+        <!-- Workshop Section -->
+        <div id="workshop" class="section">
+            <p style="margin-bottom: 30px; color: #3E2723;">
+                Workshops happen when enough conscious people gather in one region. 
+                Leave your details and I'll notify you when something forms near you.
+            </p>
+            
+            <form class="workshop-form" id="workshop-form">
+                <input type="text" placeholder="Your name" required>
+                <div class="form-row">
+                    <input type="email" placeholder="Email" required>
+                    <input type="text" placeholder="Location (city, region)" required>
+                </div>
+                <button type="submit" class="submit-btn">Notify Me of Workshops</button>
+            </form>
+            
+            <div class="response-message" id="workshop-response">
+                <!-- Workshop response will be inserted here -->
+            </div>
+        </div>
         
-        if (response.showDirectory) {
-            responseHTML += `<a href="#" class="directory-link" onclick="requestDirectory('${email}'); return false;">Access Contractor Directory</a>`;
-        }
+        <!-- Technology Transfer Section -->
+        <div id="tech-transfer" class="section">
+            <div class="tech-transfer-intro">
+                <h3>Technology Transfer for Professionals</h3>
+                <p>For architects, engineers, and builders who want to integrate rammed earth knowledge into their practice. This is knowledge transfer, not project execution.</p>
+            </div>
+            
+            <form id="tech-transfer-form">
+                <div class="question-block">
+                    <div class="question">What's your role in rammed earth projects?</div>
+                    <select name="role" required>
+                        <option value="">Select your role...</option>
+                        <option value="architect">I'm the architect designing it</option>
+                        <option value="engineer">I'm the engineer consulting on it</option>
+                        <option value="builder">I'm a builder wanting to add this skill</option>
+                        <option value="contractor">I'm a contractor looking for subcontractors</option>
+                        <option value="representative">I'm representing a client who wants to build</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="question-block">
+                    <div class="question">Describe your hands-on experience with building materials OR your willingness to get personally involved.</div>
+                    <textarea name="hands-on" placeholder="Past experience: What materials? What did you learn physically? OR Future willingness: Are you ready to get your hands dirty learning alongside your team?" required></textarea>
+                </div>
+                
+                <div class="question-block">
+                    <div class="question">What specific rammed earth technology do you want to learn?</div>
+                    <textarea name="technology" placeholder="Be specific: mix design, formwork systems, soil testing, construction sequencing..." required></textarea>
+                </div>
+                
+                <div class="question-block">
+                    <div class="question">How will you use this knowledge?</div>
+                    <textarea name="application" placeholder="Training team for ongoing practice? One-time project? Adding to service offerings?" required></textarea>
+                </div>
+                
+                <input type="email" placeholder="Your email" required>
+            </form>
+            
+            <div class="terms-section">
+                <h4>Technology Transfer Terms</h4>
+                <ul>
+                    <li>Knowledge transfer only - I don't execute projects</li>
+                    <li>You build, I guide the technical process</li>
+                    <li>Requires genuine hands-on commitment from your team</li>
+                    <li>Focus on long-term capability building, not quick fixes</li>
+                </ul>
+                
+                <div class="terms-checkbox">
+                    <input type="checkbox" id="accept-terms" onchange="toggleSubmitButton()">
+                    <label for="accept-terms">I have read and accept these terms</label>
+                </div>
+                
+                <div class="error-message" id="terms-error">
+                    Please read and accept the terms before submitting.
+                </div>
+                
+                <button type="submit" class="submit-btn" id="tech-submit-btn" disabled onclick="handleTechSubmit()">Submit for Review</button>
+            </div>
+            
+            <div class="response-message" id="tech-response">
+                <!-- Tech transfer response will be inserted here -->
+            </div>
+        </div>
         
-        responseDiv.innerHTML = responseHTML;
-        responseDiv.className = `response-message visible ${response.class}`;
-        responseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
+        <div class="substack-link">
+            <a href="https://rammedearth.substack.com/" target="_blank">Read the archive →</a>
+        </div>
+    </div>
     
-    function requestDirectory(email) {
-        alert('Directory request sent! I\'ll email you the contractor list within 24 hours.');
-        console.log('Directory requested by:', email);
-    }
-    
-    // Google Apps Script submission function
-    function submitToGoogleSheet(formType, data) {
-        const scriptUrls = {
-            'consultation': 'https://script.google.com/macros/s/AKfycbxDxdp8mmtLBFW_Pz87p07HqDS28wvVNtE3lEMVM3T1bVhLHXdIAWebT9hYA-bZkaP5aQ/exec',
-            'workshop': 'https://script.google.com/macros/s/AKfycbxmybW_ziIp5AjE1_RPqHdulByjeeg7L1LumAKwtwfK8S_IALSgLMh9TV8KfHZdVR7fhQ/exec',
-            'tech-transfer': 'https://script.google.com/macros/s/AKfycbysYqnsBhSsoaiNobJMAcyFtYrEjkFVDbwwi-BJQd_LzdyMjb4kGQywh-5fQPvCEhiJ/exec'
-        };
+    <script>
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById(sectionName).classList.add('active');
+            event.target.classList.add('active');
+        }
         
-        const scriptUrl = scriptUrls[formType];
+        // Toggle submit button based on terms acceptance
+        function toggleSubmitButton() {
+            const checkbox = document.getElementById('accept-terms');
+            const submitBtn = document.getElementById('tech-submit-btn');
+            const errorMsg = document.getElementById('terms-error');
+            
+            if (checkbox.checked) {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                errorMsg.style.display = 'none';
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.5';
+            }
+        }
         
-        // Submit to Google Apps Script
-        fetch(scriptUrl, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        }).then(() => {
-            console.log(`${formType} form submitted successfully to Google Sheets`);
-        }).catch(error => {
-            console.error(`${formType} form submission error:`, error);
+        // Check if failure question should be shown
+        document.querySelector('[name="tried"]').addEventListener('input', function() {
+            const value = this.value.toLowerCase();
+            const failureQuestion = document.getElementById('failure-question');
+            
+            if (value.includes('nothing') || value.includes('never') || value.length < 20) {
+                failureQuestion.style.display = 'none';
+                failureQuestion.querySelector('textarea').required = false;
+            } else {
+                failureQuestion.style.display = 'block';
+                failureQuestion.querySelector('textarea').required = true;
+            }
         });
-    }
-</script>
-```
-
+        
+        // Analyze consultation responses (for internal categorization only)
+        function analyzeConsultationLevel(answers) {
+            const [tried, why, hurdle, failure] = answers;
+            
+            // Check for cost-focused responses
+            const costWords = ['cheap', 'cheaper', 'budget', 'save money', 'economic', 'affordable', 'cost less', 'inexpensive'];
+            if (costWords.some(word => why.toLowerCase().includes(word))) {
+                return 'cost-focused';
+            }
+            
+            // Check for construction service requests
+            const contractWords = ['build for me', 'construct', 'hire you', 'quote', 'contract', 'build my', 'your team', 'you build'];
+            if (contractWords.some(word => why.toLowerCase().includes(word))) {
+                return 'wants-contractor';
+            }
+            
+            // Analyze consciousness level
+            let consciousness = 0;
+            
+            if (tried.length > 50 && !tried.toLowerCase().includes('nothing')) consciousness++;
+            if (tried.includes('mix') || tried.includes('clay') || tried.includes('sand')) consciousness++;
+            if (tried.includes('fail') || tried.includes('crack') || tried.includes('collaps')) consciousness++;
+            
+            if (why.includes('sustainable') || why.includes('natural') || why.includes('earth')) consciousness++;
+            if (why.includes('connect') || why.includes('rhythm') || why.includes('craft')) consciousness++;
+            if (why.includes('learn') && !why.includes('technique')) consciousness++;
+            
+            if (hurdle.includes('myself') || hurdle.includes('patience') || hurdle.includes('knowledge')) consciousness++;
+            if (hurdle.includes('permission') || hurdle.includes('fear') || hurdle.includes('confidence')) consciousness++;
+            
+            if (failure && failure.length > 30) {
+                if (failure.includes('patience') || failure.includes('humble') || failure.includes('listen')) consciousness += 2;
+                if (failure.includes('teach') || failure.includes('show') || failure.includes('mirror')) consciousness += 2;
+            }
+            
+            if (consciousness >= 7) return 'conscious';
+            if (consciousness >= 4) return 'developing';
+            if (consciousness >= 2) return 'beginner';
+            return 'theoretical';
+        }
+        
+        // Analyze tech transfer responses (for internal categorization only)
+        function analyzeTechTransferLevel(answers) {
+            const [role, handsOn, technology, application] = answers;
+            
+            // Auto-reject patterns
+            if (role === 'contractor' || role === 'representative') return 'redirect-to-directory';
+            if (application.toLowerCase().includes('one project') || application.toLowerCase().includes('quick')) return 'redirect-to-directory';
+            if (technology.toLowerCase().includes('cheap') || technology.toLowerCase().includes('fast')) return 'redirect-to-directory';
+            
+            const unwillingMarkers = ['no time', 'too busy', 'delegate', 'my team will', 'others will do', 'supervise only', 'design only'];
+            const willingMarkers = ['willing', 'ready', 'want to learn', 'hands-on', 'get dirty', 'personally', 'myself', 'learn by doing'];
+            
+            let willingnessScore = 0;
+            if (unwillingMarkers.some(marker => handsOn.toLowerCase().includes(marker))) {
+                return 'unwilling-hands-on';
+            }
+            if (willingMarkers.some(marker => handsOn.toLowerCase().includes(marker))) {
+                willingnessScore += 2;
+            }
+            if (handsOn.length < 30) return 'no-hands-on-response';
+            
+            let handsOnScore = 0;
+            if (handsOn.includes('clay') || handsOn.includes('mud') || handsOn.includes('concrete')) handsOnScore++;
+            if (handsOn.includes('mix') || handsOn.includes('ratio') || handsOn.includes('water')) handsOnScore++;
+            if (handsOn.includes('hands') || handsOn.includes('touch') || handsOn.includes('feel')) handsOnScore++;
+            if (handsOn.includes('fail') || handsOn.includes('mistake') || handsOn.includes('learn')) handsOnScore++;
+            
+            handsOnScore += willingnessScore;
+            
+            let techScore = 0;
+            if (technology.includes('mix') || technology.includes('soil') || technology.includes('test')) techScore++;
+            if (technology.includes('formwork') || technology.includes('construction') || technology.includes('sequence')) techScore++;
+            if (technology.includes('specific') || technology.length > 100) techScore++;
+            
+            let appScore = 0;
+            if (application.includes('team') || application.includes('practice') || application.includes('long')) appScore++;
+            if (application.includes('capability') || application.includes('skill') || application.includes('knowledge')) appScore++;
+            
+            const totalScore = handsOnScore + techScore + appScore;
+            
+            if (totalScore >= 6) return 'qualified-professional';
+            if (totalScore >= 4) return 'developing-professional'; 
+            if (totalScore >= 2) return 'willing-beginner-professional';
+            return 'not-qualified';
+        }
+        
+        // Handle consultation form
+        document.getElementById('consultation-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = this.querySelector('[type="email"]').value;
+            const answers = [
+                this.querySelector('[name="tried"]').value,
+                this.querySelector('[name="why"]').value,
+                this.querySelector('[name="hurdle"]').value,
+                this.querySelector('[name="failure"]').value || ''
+            ];
+            
+            const level = analyzeConsultationLevel(answers);
+            
+            // Display simple thank you message
+            const responseDiv = document.getElementById('response');
+            responseDiv.innerHTML = `
+                <h3>Thank You</h3>
+                <p>I've received your inquiry and will review it carefully.</p>
+                <p>If there's a good fit for consultation work, I'll be in touch within a week at: <strong>${email}</strong></p>
+            `;
+            responseDiv.className = 'response-message visible';
+            responseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            // Submit to Google Sheets with assessment level
+            submitToGoogleSheet('consultation', {
+                email: email,
+                tried: answers[0],
+                why: answers[1],
+                hurdle: answers[2],
+                failure: answers[3],
+                level: level
+            });
+            
+            // Clear form
+            this.reset();
+            document.getElementById('failure-question').style.display = 'none';
+            
+            // Disable button temporarily
+            const submitBtn = this.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sent';
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send';
+            }, 3000);
+        });
+        
+        // Handle workshop form
+        document.getElementById('workshop-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const data = {
+                name: this.querySelector('[type="text"]').value,
+                email: this.querySelector('[type="email"]').value,
+                location: this.querySelectorAll('[type="text"]')[1].value
+            };
+            
+            // Display simple thank you message
+            const responseDiv = document.getElementById('workshop-response');
+            responseDiv.innerHTML = `
+                <h3>Thank You</h3>
+                <p>You've been added to the workshop notification list.</p>
+                <p>I'll email you at <strong>${data.email}</strong> when workshops are scheduled in your region.</p>
+            `;
+            responseDiv.className = 'response-message visible';
+            responseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            // Submit to Google Sheets
+            submitToGoogleSheet('workshop', data);
+            
+            // Clear form
+            this.reset();
+            
+            // Disable button temporarily
+            const submitBtn = this.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Registered';
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Notify Me of Workshops';
+            }, 3000);
+        });
+        
+        // Handle tech transfer submission
+        function handleTechSubmit() {
+            const form = document.getElementById('tech-transfer-form');
+            const checkbox = document.getElementById('accept-terms');
+            const errorMsg = document.getElementById('terms-error');
+            
+            if (!checkbox.checked) {
+                errorMsg.style.display = 'block';
+                errorMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                return;
+            }
+            
+            const email = form.querySelector('[type="email"]').value;
+            const answers = [
+                form.querySelector('[name="role"]').value,
+                form.querySelector('[name="hands-on"]').value,
+                form.querySelector('[name="technology"]').value,
+                form.querySelector('[name="application"]').value
+            ];
+            
+            const level = analyzeTechTransferLevel(answers);
+            
+            // Display simple thank you message
+            const responseDiv = document.getElementById('tech-response');
+            responseDiv.innerHTML = `
+                <h3>Thank You</h3>
+                <p>I've received your technology transfer application and will review it carefully.</p>
+                <p>If there's a good fit, I'll be in touch within a week at: <strong>${email}</strong></p>
+            `;
+            responseDiv.className = 'response-message visible';
+            responseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            // Submit to Google Sheets with assessment level
+            submitToGoogleSheet('tech-transfer', {
+                email: email,
+                role: answers[0],
+                handsOn: answers[1],
+                technology: answers[2],
+                application: answers[3],
+                level: level
+            });
+            
+            // Clear form
+            form.reset();
+            checkbox.checked = false;
+            
+            // Disable button temporarily
+            const submitBtn = document.getElementById('tech-submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitted';
+            setTimeout(() => {
+                submitBtn.textContent = 'Submit for Review';
+            }, 3000);
+        }
+        
+        // Handle tech transfer form submission
+        document.getElementById('tech-transfer-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+        });
+        
+        // Google Apps Script submission function
+        function submitToGoogleSheet(formType, data) {
+            const scriptUrls = {
+                'consultation': 'https://script.google.com/macros/s/AKfycbxDxdp8mmtLBFW_Pz87p07HqDS28wvVNtE3lEMVM3T1bVhLHXdIAWebT9hYA-bZkaP5aQ/exec',
+                'workshop': 'https://script.google.com/macros/s/AKfycbxmybW_ziIp5AjE1_RPqHdulByjeeg7L1LumAKwtwfK8S_IALSgLMh9TV8KfHZdVR7fhQ/exec',
+                'tech-transfer': 'https://script.google.com/macros/s/AKfycbysYqnsBhSsoaiNobJMAcyFtYrEjkFVDbwwi-BJQd_LzdyMjb4kGQywh-5fQPvCEhiJ/exec'
+            };
+            
+            const scriptUrl = scriptUrls[formType];
+            
+            fetch(scriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            }).then(() => {
+                console.log(`${formType} form submitted successfully`);
+            }).catch(error => {
+                console.error(`${formType} form submission error:`, error);
+            });
+        }
+    </script>
 </body>
 </html>
