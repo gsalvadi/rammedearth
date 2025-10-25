@@ -398,10 +398,6 @@
         
         <!-- Consultation Section -->
         <div id="consultation" class="section active">
-            <div style="margin-bottom: 25px; padding: 20px; background: #FFF8E1; border-left: 4px solid #D2691E; font-size: 0.95em;">
-                <strong>Please provide detailed responses.</strong> Short or one-word answers don't give us enough context to understand your situation. The more specific you are about your experience, motivations, and challenges, the better we can help. <a href="#instructions" style="color: #8B4513;" onclick="showInstructions(); return false;">See detailed instructions →</a>
-            </div>
-            
             <form id="consultation-form">
                 <div class="question-block">
                     <div class="question">What have you already tried to build?</div>
@@ -724,77 +720,77 @@
         function generateTechResponse(level, email) {
             const responses = {
                 'redirect-to-directory': {
-                    title: "I Understand Your Need",
-                    content: "Thank you for your detailed responses. From what you've shared, it seems you're looking for project execution support rather than knowledge transfer.",
-                    action: "I can connect you with experienced contractors from my curated directory who provide rammed earth construction services.",
+                    title: "You Need Project Contractors",
+                    content: "Based on your responses, you're looking for project execution, not knowledge transfer.",
+                    action: "I can connect you with contractors from my curated directory who handle rammed earth projects.",
                     class: "directory",
                     showDirectory: true
                 },
                 'unwilling-hands-on': {
-                    title: "Let's Be Honest About What This Takes",
-                    content: "I appreciate your interest in rammed earth technology. However, effective knowledge transfer requires professionals who are ready to personally engage with materials and processes, not just oversee them.",
-                    action: "This approach works only when you're willing to get your hands dirty alongside your team. If that's not your working style, you'd be better served by contractors who handle execution.",
+                    title: "Hands-On Commitment Required",
+                    content: "Technology transfer requires professionals who are willing to personally engage with the materials and processes.",
+                    action: "This approach works only for those ready to get their hands dirty alongside their teams.",
                     class: "red-flag",
                     resources: [
-                        "Consider your role - are you ready for hands-on learning?",
-                        "If you prefer oversight-only, contact me for contractor referrals",
-                        "Reflect on what kind of involvement feels right for you",
-                        "Reach out again if your approach changes"
+                        "Reconsider your role - technology transfer requires personal involvement",
+                        "If you prefer oversight-only, you need project contractors instead",
+                        "Consider whether you're ready for hands-on learning",
+                        "Contact me if you change your mind about personal involvement"
                     ]
                 },
                 'no-hands-on-response': {
-                    title: "I Need to Understand Your Approach Better",
-                    content: "Your response about hands-on involvement was quite brief. To assess whether technology transfer is right for you, I need a clearer picture of your relationship with materials and making.",
-                    action: "Could you share more about how comfortable you are with direct material engagement?",
+                    title: "More Detail Needed",
+                    content: "Your response about hands-on experience is too brief to assess your readiness for technology transfer.",
+                    action: "Please provide more detail about your willingness to engage directly with materials and processes.",
                     class: "red-flag",
                     resources: [
-                        "Describe your comfort level getting hands dirty with materials",
-                        "Explain how you typically learn new building techniques",
-                        "Share any past experiences working directly with construction materials",
-                        "Feel free to resubmit with more detailed responses"
+                        "Describe your comfort level with getting hands dirty",
+                        "Explain how you learn new building techniques",
+                        "Share any experience working directly with materials",
+                        "Try the form again with more detailed responses"
                     ]
                 },
                 'qualified-professional': {
-                    title: "This Could Work Well",
-                    content: "Your responses show both the hands-on understanding and professional seriousness needed for meaningful technology transfer.",
-                    action: "I'll contact you within a week to discuss your specific needs and how we might work together.",
+                    title: "Technology Transfer Candidate",
+                    content: "You demonstrate the hands-on experience and/or willingness plus professional focus needed for knowledge transfer.",
+                    action: "I'll contact you within a week to discuss your specific needs and arrange technology transfer.",
                     class: "proceed",
                     showContact: true
                 },
                 'developing-professional': {
-                    title: "You're Heading in the Right Direction",
-                    content: "I can see your genuine professional interest and willingness to engage. What would help you most now is more specific hands-on experience before we dive into technology transfer.",
-                    action: "Work through these steps, then let's talk again.",
+                    title: "Promising, Needs Development",
+                    content: "You show professional potential and willingness, but need more specific focus before technology transfer.",
+                    action: "Develop these areas first, then we can discuss knowledge transfer.",
                     class: "proceed",
                     resources: [
-                        "Get direct experience with soil testing and earth material properties",
-                        "Work hands-on with at least one natural building project",
+                        "Get direct experience with soil testing and earth materials",
+                        "Work on at least one natural building project hands-on",
                         "Develop specific technical questions about rammed earth processes",
-                        "Reach out when you have concrete technical challenges to solve"
+                        "Come back when you have concrete technical challenges to solve"
                     ]
                 },
                 'willing-beginner-professional': {
-                    title: "Your Willingness Matters",
-                    content: "Thank you for being honest about where you are. Your willingness to engage hands-on is exactly the right foundation - that matters more than existing experience.",
-                    action: "Start with some basic hands-on experience, then we can discuss how professional knowledge transfer might work for you.",
+                    title: "Willing Beginner Professional",
+                    content: "You show genuine willingness to engage hands-on, which is the foundation for technology transfer.",
+                    action: "Start with basic hands-on experience, then we can discuss professional knowledge transfer.",
                     class: "proceed",
                     resources: [
-                        "Begin with simple earth material experiments on a small scale",
-                        "Attend a hands-on natural building workshop to get tactile experience",
-                        "Document your learning process and the questions that arise",
-                        "Contact me again after you've gotten your hands dirty"
+                        "Begin with simple earth material experiments",
+                        "Attend a hands-on natural building workshop",
+                        "Document your learning process and questions",
+                        "Reach out again after initial hands-on experience"
                     ]
                 },
                 'not-qualified': {
-                    title: "Let's Find the Right Starting Point",
-                    content: "I appreciate you reaching out. Based on your responses, there's some groundwork that would help before technology transfer makes sense.",
-                    action: "Here's where to begin. These aren't rejections - they're invitations to build the foundation you'll need.",
+                    title: "Not Ready for Technology Transfer",
+                    content: "Technology transfer requires either experience or clear willingness for hands-on engagement with specific technical focus.",
+                    action: "Develop foundational readiness first.",
                     class: "red-flag",
                     resources: [
-                        "Clarify what hands-on involvement means for you and your practice",
-                        "Take a workshop or short course in natural building",
+                        "Clarify your willingness for hands-on involvement",
+                        "Take workshops or courses in natural building",
                         "Develop specific technical questions about rammed earth",
-                        "Consider whether the consultation track might be a better fit for now"
+                        "Consider the consultation track instead"
                     ]
                 }
             };
