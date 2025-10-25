@@ -157,11 +157,25 @@
             margin-top: 30px;
             border-radius: 3px;
             border-left: 5px solid #8B4513;
-            background: #F1F8E9;
         }
         
         .response-message.visible {
             display: block;
+        }
+        
+        .response-message.red-flag {
+            background: #FFF3E0;
+            border-left-color: #D2691E;
+        }
+        
+        .response-message.proceed {
+            background: #F1F8E9;
+            border-left-color: #8B4513;
+        }
+        
+        .response-message.directory {
+            background: #E3F2FD;
+            border-left-color: #2196F3;
         }
         
         .response-message h3 {
@@ -173,6 +187,61 @@
         .response-message p {
             color: #3E2723;
             margin-bottom: 15px;
+        }
+        
+        .resource-list {
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border: 1px solid #CD853F;
+            border-radius: 3px;
+        }
+        
+        .resource-list ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .resource-list li {
+            padding: 8px 0;
+            color: #3E2723;
+            border-bottom: 1px solid #F5F2E8;
+        }
+        
+        .resource-list li:before {
+            content: "→ ";
+            color: #D2691E;
+            font-weight: bold;
+        }
+        
+        .directory-link {
+            display: inline-block;
+            background: #2196F3;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 3px;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+        
+        .directory-link:hover {
+            background: #1976D2;
+        }
+        
+        .contact-link {
+            display: inline-block;
+            background: #8B4513;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 3px;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+        
+        .contact-link:hover {
+            background: #6D3410;
         }
         
         .substack-link {
@@ -315,7 +384,10 @@
                 → <strong>Consultation:</strong> You want to build your own rammed earth project and need guidance<br>
                 → <strong>Workshops:</strong> You want to learn with others when I organize group sessions<br>
                 → <strong>Tech Transfer:</strong> You're a professional (architect/engineer/builder) wanting to integrate rammed earth into your practice
+                <div class="response-message" id="tech-response">
+                <!-- Tech transfer response will be inserted here -->
             </div>
+        </div>
         </div>
         
         <div class="section-tabs">
@@ -326,6 +398,10 @@
         
         <!-- Consultation Section -->
         <div id="consultation" class="section active">
+            <div style="margin-bottom: 25px; padding: 20px; background: #FFF8E1; border-left: 4px solid #D2691E; font-size: 0.95em;">
+                <strong>Please provide detailed responses.</strong> Short or one-word answers don't give us enough context to understand your situation. The more specific you are about your experience, motivations, and challenges, the better we can help. <a href="#instructions" style="color: #8B4513;" onclick="showInstructions(); return false;">See detailed instructions →</a>
+            </div>
+            
             <form id="consultation-form">
                 <div class="question-block">
                     <div class="question">What have you already tried to build?</div>
@@ -436,10 +512,6 @@
                 
                 <button type="submit" class="submit-btn" id="tech-submit-btn" disabled onclick="handleTechSubmit()">Submit for Review</button>
             </div>
-            
-            <div class="response-message" id="tech-response">
-                <!-- Tech transfer response will be inserted here -->
-            </div>
         </div>
         
         <div class="substack-link">
@@ -488,17 +560,17 @@
             }
         });
         
-        // Analyze consultation responses (for internal categorization only)
-        function analyzeConsultationLevel(answers) {
+        // Analyze consultation responses
+        function analyzeResponse(answers) {
             const [tried, why, hurdle, failure] = answers;
             
-            // Check for cost-focused responses
+            // Check for cost-focused responses (RED FLAG)
             const costWords = ['cheap', 'cheaper', 'budget', 'save money', 'economic', 'affordable', 'cost less', 'inexpensive'];
             if (costWords.some(word => why.toLowerCase().includes(word))) {
                 return 'cost-focused';
             }
             
-            // Check for construction service requests
+            // Check for construction service requests (RED FLAG)
             const contractWords = ['build for me', 'construct', 'hire you', 'quote', 'contract', 'build my', 'your team', 'you build'];
             if (contractWords.some(word => why.toLowerCase().includes(word))) {
                 return 'wants-contractor';
@@ -507,30 +579,35 @@
             // Analyze consciousness level
             let consciousness = 0;
             
+            // Experience markers
             if (tried.length > 50 && !tried.toLowerCase().includes('nothing')) consciousness++;
             if (tried.includes('mix') || tried.includes('clay') || tried.includes('sand')) consciousness++;
             if (tried.includes('fail') || tried.includes('crack') || tried.includes('collaps')) consciousness++;
             
+            // Motivation markers
             if (why.includes('sustainable') || why.includes('natural') || why.includes('earth')) consciousness++;
             if (why.includes('connect') || why.includes('rhythm') || why.includes('craft')) consciousness++;
             if (why.includes('learn') && !why.includes('technique')) consciousness++;
             
+            // Self-awareness markers
             if (hurdle.includes('myself') || hurdle.includes('patience') || hurdle.includes('knowledge')) consciousness++;
             if (hurdle.includes('permission') || hurdle.includes('fear') || hurdle.includes('confidence')) consciousness++;
             
+            // Deep understanding markers
             if (failure && failure.length > 30) {
                 if (failure.includes('patience') || failure.includes('humble') || failure.includes('listen')) consciousness += 2;
                 if (failure.includes('teach') || failure.includes('show') || failure.includes('mirror')) consciousness += 2;
             }
             
+            // Classification
             if (consciousness >= 7) return 'conscious';
             if (consciousness >= 4) return 'developing';
             if (consciousness >= 2) return 'beginner';
             return 'theoretical';
         }
         
-        // Analyze tech transfer responses (for internal categorization only)
-        function analyzeTechTransferLevel(answers) {
+        // Analyze tech transfer responses
+        function analyzeTechTransfer(answers) {
             const [role, handsOn, technology, application] = answers;
             
             // Auto-reject patterns
@@ -538,6 +615,7 @@
             if (application.toLowerCase().includes('one project') || application.toLowerCase().includes('quick')) return 'redirect-to-directory';
             if (technology.toLowerCase().includes('cheap') || technology.toLowerCase().includes('fast')) return 'redirect-to-directory';
             
+            // Check for hands-on willingness (not just past experience)
             const unwillingMarkers = ['no time', 'too busy', 'delegate', 'my team will', 'others will do', 'supervise only', 'design only'];
             const willingMarkers = ['willing', 'ready', 'want to learn', 'hands-on', 'get dirty', 'personally', 'myself', 'learn by doing'];
             
@@ -550,19 +628,23 @@
             }
             if (handsOn.length < 30) return 'no-hands-on-response';
             
+            // Check for genuine hands-on experience OR clear willingness
             let handsOnScore = 0;
             if (handsOn.includes('clay') || handsOn.includes('mud') || handsOn.includes('concrete')) handsOnScore++;
             if (handsOn.includes('mix') || handsOn.includes('ratio') || handsOn.includes('water')) handsOnScore++;
             if (handsOn.includes('hands') || handsOn.includes('touch') || handsOn.includes('feel')) handsOnScore++;
             if (handsOn.includes('fail') || handsOn.includes('mistake') || handsOn.includes('learn')) handsOnScore++;
             
+            // Add willingness score to experience score
             handsOnScore += willingnessScore;
             
+            // Check technology specificity
             let techScore = 0;
             if (technology.includes('mix') || technology.includes('soil') || technology.includes('test')) techScore++;
             if (technology.includes('formwork') || technology.includes('construction') || technology.includes('sequence')) techScore++;
             if (technology.includes('specific') || technology.length > 100) techScore++;
             
+            // Check application seriousness
             let appScore = 0;
             if (application.includes('team') || application.includes('practice') || application.includes('long')) appScore++;
             if (application.includes('capability') || application.includes('skill') || application.includes('knowledge')) appScore++;
@@ -573,6 +655,151 @@
             if (totalScore >= 4) return 'developing-professional'; 
             if (totalScore >= 2) return 'willing-beginner-professional';
             return 'not-qualified';
+        }
+        
+        function generateConsultationResponse(level, email) {
+            const responses = {
+                'cost-focused': {
+                    title: "Different Paths for Different Needs",
+                    content: "I appreciate your interest in rammed earth. From your responses, it seems budget efficiency is your primary driver. Rammed earth requires significant time, labor, and learning investment - it's chosen for its values, not its economics.",
+                    action: "For cost-focused projects, you'll be better served by experienced contractors who work within conventional timelines. I maintain a curated directory of professionals who can help.",
+                    class: "directory",
+                    showDirectory: true
+                },
+                'wants-contractor': {
+                    title: "I Hear What You Need",
+                    content: "Thank you for reaching out. Based on your inquiry, you're looking for someone to build your project - which is completely valid. I focus on teaching and knowledge transfer rather than project execution.",
+                    action: "I can connect you with skilled contractors from my curated directory who specialize in rammed earth construction.",
+                    class: "directory",
+                    showDirectory: true
+                },
+                'conscious': {
+                    title: "Let's Talk",
+                    content: "Your responses show real understanding of this work. I'd like to have a conversation with you.",
+                    action: "I'll reach out within a week to discuss your journey with rammed earth.",
+                    class: "proceed",
+                    showContact: true
+                },
+                'developing': {
+                    title: "You're Finding Your Way",
+                    content: "I can see you have genuine interest and the right instincts. What you need now is more direct experience with earth to deepen your understanding.",
+                    action: "Here are some next steps that will prepare you well. When you've worked through these, I'd welcome hearing from you again.",
+                    class: "proceed",
+                    resources: [
+                        "Build something small that must survive one full season",
+                        "Work with earth for 30 days without tutorials - just you and the material",
+                        "Document what goes wrong, not what goes right",
+                        "Find local earth builders and spend time observing their process"
+                    ]
+                },
+                'beginner': {
+                    title: "A Good Place to Start",
+                    content: "Thank you for your honest responses. Earth building asks for embodied knowledge that develops through direct experience - there's no shortcut to this learning.",
+                    action: "Start with these fundamentals. They'll give you the foundation you need.",
+                    class: "proceed",
+                    resources: [
+                        "Test your local soil - learn about clay content, sand ratios, organic matter",
+                        "Make 20 test bricks and let each one fail in its own way",
+                        "Read 'Earth Construction Handbook' by Gernot Minke",
+                        "Spend time with earth before trying to build with it - feel its properties"
+                    ]
+                },
+                'theoretical': {
+                    title: "The Material Comes First",
+                    content: "I appreciate your interest. Right now, there's a gap between your curiosity and hands-on engagement with earth as a material.",
+                    action: "Earth building begins with earth itself, not ideas about earth. Start there.",
+                    class: "proceed",
+                    resources: [
+                        "Get your hands dirty - make mud, understand how it responds to water",
+                        "Visit existing rammed earth buildings in your area, touch the walls",
+                        "Start a daily practice of working with clay or earth in small ways",
+                        "When you've actually experienced failure with the material, come back"
+                    ]
+                }
+            };
+            
+            return responses[level];
+        }
+        
+        function generateTechResponse(level, email) {
+            const responses = {
+                'redirect-to-directory': {
+                    title: "I Understand Your Need",
+                    content: "Thank you for your detailed responses. From what you've shared, it seems you're looking for project execution support rather than knowledge transfer.",
+                    action: "I can connect you with experienced contractors from my curated directory who provide rammed earth construction services.",
+                    class: "directory",
+                    showDirectory: true
+                },
+                'unwilling-hands-on': {
+                    title: "Let's Be Honest About What This Takes",
+                    content: "I appreciate your interest in rammed earth technology. However, effective knowledge transfer requires professionals who are ready to personally engage with materials and processes, not just oversee them.",
+                    action: "This approach works only when you're willing to get your hands dirty alongside your team. If that's not your working style, you'd be better served by contractors who handle execution.",
+                    class: "red-flag",
+                    resources: [
+                        "Consider your role - are you ready for hands-on learning?",
+                        "If you prefer oversight-only, contact me for contractor referrals",
+                        "Reflect on what kind of involvement feels right for you",
+                        "Reach out again if your approach changes"
+                    ]
+                },
+                'no-hands-on-response': {
+                    title: "I Need to Understand Your Approach Better",
+                    content: "Your response about hands-on involvement was quite brief. To assess whether technology transfer is right for you, I need a clearer picture of your relationship with materials and making.",
+                    action: "Could you share more about how comfortable you are with direct material engagement?",
+                    class: "red-flag",
+                    resources: [
+                        "Describe your comfort level getting hands dirty with materials",
+                        "Explain how you typically learn new building techniques",
+                        "Share any past experiences working directly with construction materials",
+                        "Feel free to resubmit with more detailed responses"
+                    ]
+                },
+                'qualified-professional': {
+                    title: "This Could Work Well",
+                    content: "Your responses show both the hands-on understanding and professional seriousness needed for meaningful technology transfer.",
+                    action: "I'll contact you within a week to discuss your specific needs and how we might work together.",
+                    class: "proceed",
+                    showContact: true
+                },
+                'developing-professional': {
+                    title: "You're Heading in the Right Direction",
+                    content: "I can see your genuine professional interest and willingness to engage. What would help you most now is more specific hands-on experience before we dive into technology transfer.",
+                    action: "Work through these steps, then let's talk again.",
+                    class: "proceed",
+                    resources: [
+                        "Get direct experience with soil testing and earth material properties",
+                        "Work hands-on with at least one natural building project",
+                        "Develop specific technical questions about rammed earth processes",
+                        "Reach out when you have concrete technical challenges to solve"
+                    ]
+                },
+                'willing-beginner-professional': {
+                    title: "Your Willingness Matters",
+                    content: "Thank you for being honest about where you are. Your willingness to engage hands-on is exactly the right foundation - that matters more than existing experience.",
+                    action: "Start with some basic hands-on experience, then we can discuss how professional knowledge transfer might work for you.",
+                    class: "proceed",
+                    resources: [
+                        "Begin with simple earth material experiments on a small scale",
+                        "Attend a hands-on natural building workshop to get tactile experience",
+                        "Document your learning process and the questions that arise",
+                        "Contact me again after you've gotten your hands dirty"
+                    ]
+                },
+                'not-qualified': {
+                    title: "Let's Find the Right Starting Point",
+                    content: "I appreciate you reaching out. Based on your responses, there's some groundwork that would help before technology transfer makes sense.",
+                    action: "Here's where to begin. These aren't rejections - they're invitations to build the foundation you'll need.",
+                    class: "red-flag",
+                    resources: [
+                        "Clarify what hands-on involvement means for you and your practice",
+                        "Take a workshop or short course in natural building",
+                        "Develop specific technical questions about rammed earth",
+                        "Consider whether the consultation track might be a better fit for now"
+                    ]
+                }
+            };
+            
+            return responses[level];
         }
         
         // Handle consultation form
@@ -587,19 +814,12 @@
                 this.querySelector('[name="failure"]').value || ''
             ];
             
-            const level = analyzeConsultationLevel(answers);
+            const level = analyzeResponse(answers);
+            const response = generateConsultationResponse(level, email);
             
-            // Display simple thank you message
-            const responseDiv = document.getElementById('response');
-            responseDiv.innerHTML = `
-                <h3>Thank You</h3>
-                <p>I've received your inquiry and will review it carefully.</p>
-                <p>If there's a good fit for consultation work, I'll be in touch within a week at: <strong>${email}</strong></p>
-            `;
-            responseDiv.className = 'response-message visible';
-            responseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            displayResponse('response', response, email);
             
-            // Submit to Google Sheets with assessment level
+            // Submit to Google Sheets via Apps Script
             submitToGoogleSheet('consultation', {
                 email: email,
                 tried: answers[0],
@@ -609,11 +829,11 @@
                 level: level
             });
             
-            // Clear form
+            // Clear form fields
             this.reset();
             document.getElementById('failure-question').style.display = 'none';
             
-            // Disable button temporarily
+            // Disable form temporarily
             const submitBtn = this.querySelector('.submit-btn');
             submitBtn.disabled = true;
             submitBtn.textContent = 'Sent';
@@ -633,23 +853,22 @@
                 location: this.querySelectorAll('[type="text"]')[1].value
             };
             
-            // Display simple thank you message
             const responseDiv = document.getElementById('workshop-response');
             responseDiv.innerHTML = `
-                <h3>Thank You</h3>
-                <p>You've been added to the workshop notification list.</p>
-                <p>I'll email you at <strong>${data.email}</strong> when workshops are scheduled in your region.</p>
+                <h3>Added to Workshop List</h3>
+                <p>I'll notify you when workshops form in your region.</p>
+                <p style="font-style: italic;">Registered: ${data.email}</p>
             `;
-            responseDiv.className = 'response-message visible';
+            responseDiv.className = 'response-message visible proceed';
             responseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             
-            // Submit to Google Sheets
+            // Submit to Google Sheets via Apps Script
             submitToGoogleSheet('workshop', data);
             
-            // Clear form
+            // Clear form fields
             this.reset();
             
-            // Disable button temporarily
+            // Disable form temporarily
             const submitBtn = this.querySelector('.submit-btn');
             submitBtn.disabled = true;
             submitBtn.textContent = 'Registered';
@@ -665,6 +884,7 @@
             const checkbox = document.getElementById('accept-terms');
             const errorMsg = document.getElementById('terms-error');
             
+            // Check if terms are accepted
             if (!checkbox.checked) {
                 errorMsg.style.display = 'block';
                 errorMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -679,19 +899,12 @@
                 form.querySelector('[name="application"]').value
             ];
             
-            const level = analyzeTechTransferLevel(answers);
+            const level = analyzeTechTransfer(answers);
+            const response = generateTechResponse(level, email);
             
-            // Display simple thank you message
-            const responseDiv = document.getElementById('tech-response');
-            responseDiv.innerHTML = `
-                <h3>Thank You</h3>
-                <p>I've received your technology transfer application and will review it carefully.</p>
-                <p>If there's a good fit, I'll be in touch within a week at: <strong>${email}</strong></p>
-            `;
-            responseDiv.className = 'response-message visible';
-            responseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            displayResponse('tech-response', response, email);
             
-            // Submit to Google Sheets with assessment level
+            // Submit to Google Sheets via Apps Script
             submitToGoogleSheet('tech-transfer', {
                 email: email,
                 role: answers[0],
@@ -701,7 +914,7 @@
                 level: level
             });
             
-            // Clear form
+            // Clear form fields
             form.reset();
             checkbox.checked = false;
             
@@ -711,13 +924,51 @@
             submitBtn.textContent = 'Submitted';
             setTimeout(() => {
                 submitBtn.textContent = 'Submit for Review';
+                // Keep disabled until checkbox is checked again
             }, 3000);
         }
         
-        // Handle tech transfer form submission
+        // Handle tech transfer form (remove old handler)
         document.getElementById('tech-transfer-form').addEventListener('submit', function(e) {
             e.preventDefault();
+            // Form submission now handled by button click
         });
+        
+        function displayResponse(divId, response, email) {
+            const responseDiv = document.getElementById(divId);
+            let responseHTML = `
+                <h3>${response.title}</h3>
+                <p>${response.content}</p>
+                <p><strong>${response.action}</strong></p>
+            `;
+            
+            if (response.resources) {
+                responseHTML += `
+                    <div class="resource-list">
+                        <ul>
+                            ${response.resources.map(r => `<li>${r}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            if (response.showContact) {
+                responseHTML += `<p style="margin-top: 20px; font-style: italic;">I'll email you at: ${email}</p>`;
+            }
+            
+            if (response.showDirectory) {
+                responseHTML += `<a href="#" class="directory-link" onclick="requestDirectory('${email}'); return false;">Access Contractor Directory</a>`;
+            }
+            
+            responseDiv.innerHTML = responseHTML;
+            responseDiv.className = `response-message visible ${response.class}`;
+            responseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        function requestDirectory(email) {
+            alert('Directory request sent! I\'ll email you the contractor list within 24 hours.');
+            console.log('Directory requested by:', email);
+        }
         
         // Google Apps Script submission function
         function submitToGoogleSheet(formType, data) {
@@ -729,6 +980,7 @@
             
             const scriptUrl = scriptUrls[formType];
             
+            // Submit to Google Apps Script
             fetch(scriptUrl, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -737,7 +989,7 @@
                 },
                 body: JSON.stringify(data)
             }).then(() => {
-                console.log(`${formType} form submitted successfully`);
+                console.log(`${formType} form submitted successfully to Google Sheets`);
             }).catch(error => {
                 console.error(`${formType} form submission error:`, error);
             });
