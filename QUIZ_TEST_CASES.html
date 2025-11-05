@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultation Quiz - Test Cases</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #8B4513;
+            margin-bottom: 10px;
+        }
+
+        .meta {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .test-case {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .test-case h2 {
+            color: #8B4513;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #8B4513;
+        }
+
+        .expected {
+            background: #E3F2FD;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #2196F3;
+        }
+
+        .expected h3 {
+            color: #1976D2;
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+
+        .question-block {
+            margin: 25px 0;
+            padding: 20px;
+            background: #FEFCF7;
+            border-left: 4px solid #CD853F;
+            border-radius: 5px;
+        }
+
+        .question {
+            font-weight: bold;
+            color: #8B4513;
+            margin-bottom: 10px;
+        }
+
+        .answer {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: Georgia, serif;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+
+        .prediction {
+            background: #F1F8E9;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .prediction h4 {
+            color: #2E7D32;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .prediction ul {
+            margin-left: 20px;
+            font-size: 0.9em;
+        }
+
+        .prediction li {
+            margin-bottom: 5px;
+        }
+
+        .total-score {
+            background: #FFE082;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            border-left: 4px solid #FFA000;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .red-flag {
+            background: #FFEBEE;
+            border-left-color: #D32F2F;
+        }
+
+        .red-flag h3 {
+            color: #D32F2F;
+        }
+
+        .trigger-detection {
+            background: #FCE4EC;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #C2185B;
+        }
+
+        .trigger-detection h4 {
+            color: #C2185B;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #8B4513;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background: #F5F2E8;
+        }
+
+        .checklist {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .checklist h2 {
+            color: #8B4513;
+            margin-bottom: 20px;
+        }
+
+        .checklist ul {
+            list-style: none;
+        }
+
+        .checklist li {
+            padding: 10px;
+            margin: 5px 0;
+            background: #F5F2E8;
+            border-radius: 5px;
+        }
+
+        .checklist li:before {
+            content: "☐ ";
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+
+        .note {
+            background: #FFF3E0;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #FF9800;
+            margin: 20px 0;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .test-case {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Consultation Quiz - Test Cases</h1>
+        <div class="meta">
+            <p><strong>Purpose:</strong> Test all 7 consultation quiz outcomes with realistic responses</p>
+            <p><strong>Date Created:</strong> November 5, 2025</p>
+            <p><strong>Test URL:</strong> Add <code>?debug=true</code> to see scoring breakdown</p>
+        </div>
+    </div>
+
+    <!-- TEST CASE 1: CONSCIOUS -->
+    <div class="test-case">
+        <h2>Test Case 1: CONSCIOUS (60-100%)</h2>
+
+        <div class="expected">
+            <h3>Expected Outcome</h3>
+            <p><strong>Score:</strong> 12-20 points (60-100%)</p>
+            <p><strong>Landing Page:</strong> <code>consultation-conscious.html</code></p>
+            <p><strong>Action:</strong> Direct consultation within 1 week</p>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q1: What have you already tried to build?</div>
+            <div class="answer">I've built a 30-foot garden wall using clay-rich soil from my property. The first section cracked badly because I didn't compact enough in layers. I learned to test moisture content by hand and adjust my mix ratio to about 70% sand, 30% clay. It took me 6 months of weekends, and I documented every failure. The wall is still standing after two winters, though I can see where my technique improved section by section.</div>
+
+            <div class="prediction">
+                <h4>Scoring Prediction:</h4>
+                <ul>
+                    <li>Length >80, no "nothing" → +1.5</li>
+                    <li>Specifics (30-foot, 70%, 30%, 6 months, two winters) → +1.5</li>
+                    <li>Materials (clay, soil, sand, moisture, mix, ratio) = 6 mentions → +1.5</li>
+                    <li>Failure (cracked, didn't compact) → +1</li>
+                    <li><strong>Experience Total: 5/5</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q2: Why do you want to build with rammed earth?</div>
+            <div class="answer">I want to understand the relationship between compression and time. There's something about working with earth that demands presence—you can't rush it. I'm drawn to the craft of reading soil and knowing when the material is ready. It feels like a practice, not just a technique. I've learned more about patience from watching earth dry than from any meditation retreat.</div>
+
+            <div class="prediction">
+                <h4>Scoring Prediction:</h4>
+                <ul>
+                    <li>Deep words (understand, relationship, craft, practice, presence) = 5 → +2.5</li>
+                    <li>Journey language (drawn to, feels like, demands) → +1.5</li>
+                    <li>Sentences = 5, vocabulary richness ≈ 0.70 → +1</li>
+                    <li><strong>Motivation Total: 5/5</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q3: What's your primary hurdle?</div>
+            <div class="answer">My own patience. I want to move faster than the material allows. I struggle with not knowing if I'm doing it right until weeks later when it's dried. The uncertainty challenges my need for control. I'm learning to trust the process and read the subtle signs—how the earth feels, sounds when tamped, responds to pressure. Building my confidence to listen rather than force.</div>
+
+            <div class="prediction">
+                <h4>Scoring Prediction:</h4>
+                <ul>
+                    <li>Internal (patience, not knowing, confidence, trust, learning) = 5 → +2.5</li>
+                    <li>Specifics (weeks later, subtle signs) → yes</li>
+                    <li>Sentences = 5 → +1</li>
+                    <li><strong>Self-Awareness Total: 3.5/4</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q4: What did the earth teach you when it failed?</div>
+            <div class="answer">When my wall cracked, I realized I was treating earth like concrete—trying to control it rather than listen to what it needed. The cracks showed me I was rushing. Now I understand that failure is the material teaching me to pay attention to moisture, to compression, to rhythm. The earth doesn't lie—it shows you exactly where you weren't present. That humbled me.</div>
+
+            <div class="prediction">
+                <h4>Scoring Prediction:</h4>
+                <ul>
+                    <li>Reflective words (realized, listen, understand, teaching, humbled) = 5, sentences = 4 → +4</li>
+                    <li>Specifics (moisture, compression, rhythm) → +1</li>
+                    <li><strong>Reflection Total: 5/6</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="total-score">
+            TOTAL PREDICTED: 18.5/20 = 92.5% → CONSCIOUS ✓
+        </div>
+    </div>
+
+    <!-- TEST CASE 2: DEVELOPING -->
+    <div class="test-case">
+        <h2>Test Case 2: DEVELOPING (40-59%)</h2>
+
+        <div class="expected">
+            <h3>Expected Outcome</h3>
+            <p><strong>Score:</strong> 8-11.9 points (40-59%)</p>
+            <p><strong>Landing Page:</strong> <code>consultation-developing.html</code></p>
+            <p><strong>Action:</strong> Four essential practices, return later</p>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q1: What have you already tried to build?</div>
+            <div class="answer">I built a small test wall last summer, about 3 feet tall and 6 feet long. Used local soil that I think had too much clay because it cracked quite a bit. I mixed it pretty dry and tamped it with a 2x4. It held up through the winter okay despite the cracks. I also made a bunch of test bricks with different ratios but didn't document which was which, so that was a mistake.</div>
+
+            <div class="prediction">
+                <h4>Scoring Prediction:</h4>
+                <ul>
+                    <li>Length >80, no "nothing" → +1.5</li>
+                    <li>Specifics (3 feet, 6 feet, last summer, 2x4) → +1.5</li>
+                    <li>Materials (soil, clay, mixed, dry) = 4 → +1.5</li>
+                    <li>Failure (cracked, mistake) → +1</li>
+                    <li><strong>Experience Total: 5/5</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q2: Why do you want to build with rammed earth?</div>
+            <div class="answer">I want to build with natural materials and rammed earth seems sustainable and interesting.</div>
+
+            <div class="prediction">
+                <h4>Scoring Prediction:</h4>
+                <ul>
+                    <li>Surface words (natural, sustainable) = 2 → +0.5</li>
+                    <li><strong>Motivation Total: 0.5/5</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q3: What's your primary hurdle?</div>
+            <div class="answer">Finding reliable information about the right techniques. There's a lot of conflicting advice online about soil ratios and moisture content. I'm also not sure how to test if what I'm doing will actually be structurally sound. Time is somewhat limited too since I work full-time.</div>
+
+            <div class="prediction">
+                <h4>Scoring Prediction:</h4>
+                <ul>
+                    <li>Internal (not sure) = 1 → +1.5</li>
+                    <li>External (time) = 1, length >60 → +0.5</li>
+                    <li>Sentences = 3 → +1</li>
+                    <li><strong>Self-Awareness Total: 3/4</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q4: What did the earth teach you when it failed?</div>
+            <div class="answer">It showed me I need to learn more about soil composition and proper moisture levels.</div>
+
+            <div class="prediction">
+                <h4>Scoring Prediction:</h4>
+                <ul>
+                    <li>Reflective words (learn) = 1 → +1.5</li>
+                    <li>Length <40 chars, not eligible for bonus → +0</li>
+                    <li><strong>Reflection Total: 1.5/6</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="total-score">
+            TOTAL PREDICTED: 10/20 = 50% → DEVELOPING ✓
+        </div>
+    </div>
+
+    <!-- TEST CASE 3: BEGINNER -->
+    <div class="test-case">
+        <h2>Test Case 3: BEGINNER (25-39%)</h2>
+
+        <div class="expected">
+            <h3>Expected Outcome</h3>
+            <p><strong>Score:</strong> 5-7.9 points (25-39%)</p>
+            <p><strong>Landing Page:</strong> <code>consultation-beginner.html</code></p>
+            <p><strong>Action:</strong> Four foundational steps</p>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q1: What have you already tried to build?</div>
+            <div class="answer">Nothing yet, but I've been reading about it and I'm really interested in trying it.</div>
+
+            <div class="prediction">
+                <h4>Scoring Prediction:</h4>
+                <ul>
+                    <li>Contains "nothing yet", too short → +0</li>
+                    <li><strong>Experience Total: 0/5</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q2: Why do you want to build with rammed earth?</div>
+            <div class="answer">It's a sustainable building method that uses natural materials and has a low environmental impact. I like the aesthetic and the idea of building something myself. It seems more connected to the earth than conventional construction.</div>
+
+            <div class="prediction">
+                <h4>Scoring Prediction:</h4>
+                <ul>
+                    <li>Surface words (sustainable, natural, environmental, earth) = 4 → +0.5</li>
+                    <li>Journey language (connected to) → +1.5</li>
+                    <li>Sentences = 3, vocabulary ≈ 0.58 → +0</li>
+                    <li><strong>Motivation Total: 2/5</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q3: What's your primary hurdle?</div>
+            <div class="answer">Lack of knowledge and resources. I don't know where to start.</div>
+
+            <div class="prediction">
+                <h4>Scoring Prediction:</h4>
+                <ul>
+                    <li>Internal (knowledge, don't know) = 2 → +2.5</li>
+                    <li>External (resources) = 1, but length <60 → +0</li>
+                    <li>Sentences = 2 → +1</li>
+                    <li><strong>Self-Awareness Total: 3.5/4</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q4: What did the earth teach you when it failed?</div>
+            <div class="answer">(Not shown - hidden because Q1 contains "nothing yet")</div>
+
+            <div class="prediction">
+                <h4>Scoring Prediction:</h4>
+                <ul>
+                    <li><strong>Reflection Total: 0/6</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="total-score">
+            TOTAL PREDICTED: 6/20 = 30% → BEGINNER ✓
+        </div>
+    </div>
+
+    <!-- TEST CASE 4: THEORETICAL -->
+    <div class="test-case">
+        <h2>Test Case 4: THEORETICAL (15-24%)</h2>
+
+        <div class="expected">
+            <h3>Expected Outcome</h3>
+            <p><strong>Score:</strong> 3-4.9 points (15-24%)</p>
+            <p><strong>Landing Page:</strong> <code>consultation-theoretical.html</code></p>
+            <p><strong>Action:</strong> Close the gap - hands-on challenge</p>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q1: What have you already tried to build?</div>
+            <div class="answer">I've watched videos and read about the techniques online.</div>
+
+            <div class="prediction">
+                <h4>Scoring Prediction:</h4>
+                <ul>
+                    <li>No hands-on, too short → +0</li>
+                    <li><strong>Experience Total: 0/5</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q2: Why do you want to build with rammed earth?</div>
+            <div class="answer">I'm interested in sustainable building methods and earth construction seems like a natural approach that makes sense environmentally. It's an ancient technique that's stood the test of time.</div>
+
+            <div class="prediction">
+                <h4>Scoring Prediction:</h4>
+                <ul>
+                    <li>Surface words (sustainable, natural, environmentally) = 3 → +0.5</li>
+                    <li>No journey language → +0</li>
+                    <li>Sentences = 2, vocabulary ≈ 0.62 → +1</li>
+                    <li><strong>Motivation Total: 1.5/5</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q3: What's your primary hurdle?</div>
+            <div class="answer">I need to learn the techniques first.</div>
+
+            <div class="prediction">
+                <h4>Scoring Prediction:</h4>
+                <ul>
+                    <li>Internal (learn) = 1 → +1.5</li>
+                    <li>Sentences = 1 → +0</li>
+                    <li><strong>Self-Awareness Total: 1.5/4</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q4: What did the earth teach you when it failed?</div>
+            <div class="answer">(Not shown - no failure experience)</div>
+
+            <div class="prediction">
+                <h4>Scoring Prediction:</h4>
+                <ul>
+                    <li><strong>Reflection Total: 0/6</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="total-score">
+            TOTAL PREDICTED: 3/20 = 15% → THEORETICAL ✓
+        </div>
+    </div>
+
+    <!-- TEST CASE 5: NOT-READY -->
+    <div class="test-case">
+        <h2>Test Case 5: NOT-READY (0-14%)</h2>
+
+        <div class="expected">
+            <h3>Expected Outcome</h3>
+            <p><strong>Score:</strong> 0-2.9 points (0-14%)</p>
+            <p><strong>Landing Page:</strong> <code>consultation-not-ready.html</code></p>
+            <p><strong>Action:</strong> Explore if this truly calls you</p>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q1: What have you already tried to build?</div>
+            <div class="answer">Nothing yet.</div>
+
+            <div class="prediction">
+                <h4>Scoring Prediction:</h4>
+                <ul>
+                    <li><strong>Experience Total: 0/5</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q2: Why do you want to build with rammed earth?</div>
+            <div class="answer">It seems interesting and eco-friendly.</div>
+
+            <div class="prediction">
+                <h4>Scoring Prediction:</h4>
+                <ul>
+                    <li>Surface words (eco-friendly) = 1 → +0.5</li>
+                    <li>Sentences = 1, vocabulary low → +0</li>
+                    <li><strong>Motivation Total: 0.5/5</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q3: What's your primary hurdle?</div>
+            <div class="answer">I don't know much about it.</div>
+
+            <div class="prediction">
+                <h4>Scoring Prediction:</h4>
+                <ul>
+                    <li>Internal (don't know) = 1 → +1.5</li>
+                    <li>Sentences = 1 → +0</li>
+                    <li><strong>Self-Awareness Total: 1.5/4</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q4: What did the earth teach you when it failed?</div>
+            <div class="answer">(Not shown)</div>
+
+            <div class="prediction">
+                <h4>Scoring Prediction:</h4>
+                <ul>
+                    <li><strong>Reflection Total: 0/6</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="total-score">
+            TOTAL PREDICTED: 2/20 = 10% → NOT-READY ✓
+        </div>
+    </div>
+
+    <!-- TEST CASE 6: COST-FOCUSED -->
+    <div class="test-case">
+        <h2>Test Case 6: COST-FOCUSED (Red Flag)</h2>
+
+        <div class="expected red-flag">
+            <h3>Expected Outcome</h3>
+            <p><strong>Score:</strong> N/A (immediate redirect)</p>
+            <p><strong>Landing Page:</strong> <code>consultation-cost-focused.html</code></p>
+            <p><strong>Action:</strong> Contractor directory</p>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q1: What have you already tried to build?</div>
+            <div class="answer">Nothing yet, but I've been looking into different building methods.</div>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q2: Why do you want to build with rammed earth?</div>
+            <div class="answer">I need to build on a tight budget and I've heard rammed earth can be a cheaper option than conventional construction. I want to save money on materials and labor if possible.</div>
+
+            <div class="trigger-detection">
+                <h4>Trigger Detection:</h4>
+                <ul>
+                    <li>Contains "tight budget" → cost phrase ✓</li>
+                    <li>Contains "cheaper" → cost keyword ✓</li>
+                    <li>Contains "save money" → cost phrase ✓</li>
+                    <li>Learning context: "if possible" doesn't trigger exception</li>
+                    <li>Length = 140 chars but no learning keywords</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="total-score" style="background: #FFEBEE; border-left-color: #D32F2F;">
+            REDIRECT: COST-FOCUSED ✓
+        </div>
+
+        <div class="note">
+            <strong>Note:</strong> Alternative test with learning context that should PASS:
+            <div style="margin-top: 10px; font-style: italic;">
+                "I'm on a budget but I really want to learn the craft of earth building and understand the material deeply. While cost is a factor, I'm more interested in developing the skill and knowledge over time. I'm willing to invest the time to learn properly even if it means saving money isn't the primary benefit."
+            </div>
+            <div style="margin-top: 10px;">
+                <strong>Detection:</strong> Contains "budget" (cost keyword) BUT also contains: learn, craft, understand, knowledge, skill (learning context) + length >100 → Should bypass cost-focused flag ✓
+            </div>
+        </div>
+    </div>
+
+    <!-- TEST CASE 7: WANTS-CONTRACTOR -->
+    <div class="test-case">
+        <h2>Test Case 7: WANTS-CONTRACTOR (Red Flag)</h2>
+
+        <div class="expected red-flag">
+            <h3>Expected Outcome</h3>
+            <p><strong>Score:</strong> N/A (immediate redirect)</p>
+            <p><strong>Landing Page:</strong> <code>consultation-wants-contractor.html</code></p>
+            <p><strong>Action:</strong> Contractor directory</p>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q1: What have you already tried to build?</div>
+            <div class="answer">Nothing personally, but I've looked at some rammed earth buildings and I'm impressed with the results.</div>
+        </div>
+
+        <div class="question-block">
+            <div class="question">Q2: Why do you want to build with rammed earth?</div>
+            <div class="answer">I'd like to hire someone to build a rammed earth home for me. I'm looking for contractors who can give me a quote for the project. Can you build my house or connect me with your team?</div>
+
+            <div class="trigger-detection">
+                <h4>Trigger Detection:</h4>
+                <ul>
+                    <li>Contains "hire someone" → contractor phrase</li>
+                    <li>Contains "build for me" → contractor phrase ✓</li>
+                    <li>Contains "give me a quote" → contractor phrase ✓</li>
+                    <li>Contains "your team" → contractor phrase ✓</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="total-score" style="background: #FFEBEE; border-left-color: #D32F2F;">
+            REDIRECT: WANTS-CONTRACTOR ✓
+        </div>
+    </div>
+
+    <!-- SUMMARY TABLE -->
+    <div class="test-case">
+        <h2>Summary Table</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Test Case</th>
+                    <th>Predicted Score</th>
+                    <th>%</th>
+                    <th>Landing Page</th>
+                    <th>Key Indicators</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>1. Conscious</strong></td>
+                    <td>18.5/20</td>
+                    <td>92.5%</td>
+                    <td>consultation-conscious.html</td>
+                    <td>Hands-on experience, deep reflection, material knowledge</td>
+                </tr>
+                <tr>
+                    <td><strong>2. Developing</strong></td>
+                    <td>10/20</td>
+                    <td>50%</td>
+                    <td>consultation-developing.html</td>
+                    <td>Some experience, genuine interest, developing awareness</td>
+                </tr>
+                <tr>
+                    <td><strong>3. Beginner</strong></td>
+                    <td>6/20</td>
+                    <td>30%</td>
+                    <td>consultation-beginner.html</td>
+                    <td>No experience, surface understanding, willing to learn</td>
+                </tr>
+                <tr>
+                    <td><strong>4. Theoretical</strong></td>
+                    <td>3/20</td>
+                    <td>15%</td>
+                    <td>consultation-theoretical.html</td>
+                    <td>No hands-on, intellectual interest, abstract understanding</td>
+                </tr>
+                <tr>
+                    <td><strong>5. Not-Ready</strong></td>
+                    <td>2/20</td>
+                    <td>10%</td>
+                    <td>consultation-not-ready.html</td>
+                    <td>Very brief responses, minimal engagement</td>
+                </tr>
+                <tr>
+                    <td><strong>6. Cost-Focused</strong></td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                    <td>consultation-cost-focused.html</td>
+                    <td>Budget language, "save money", "cheaper"</td>
+                </tr>
+                <tr>
+                    <td><strong>7. Wants-Contractor</strong></td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                    <td>consultation-wants-contractor.html</td>
+                    <td>"Build for me", "hire you", "give me a quote"</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- VALIDATION CHECKLIST -->
+    <div class="checklist">
+        <h2>Validation Checklist</h2>
+        <ul>
+            <li>Test Case 1 (Conscious) → consultation-conscious.html</li>
+            <li>Test Case 2 (Developing) → consultation-developing.html</li>
+            <li>Test Case 3 (Beginner) → consultation-beginner.html</li>
+            <li>Test Case 4 (Theoretical) → consultation-theoretical.html</li>
+            <li>Test Case 5 (Not-Ready) → consultation-not-ready.html</li>
+            <li>Test Case 6 (Cost-Focused) → consultation-cost-focused.html</li>
+            <li>Test Case 7 (Wants-Contractor) → consultation-wants-contractor.html</li>
+            <li>Debug mode shows accurate scoring breakdown</li>
+            <li>Google Sheets receives all data (email, answers, level, score, flags)</li>
+            <li>Mobile responsiveness on landing pages</li>
+            <li>Back navigation works from all landing pages</li>
+        </ul>
+    </div>
+
+    <div class="note">
+        <h3>How to Test</h3>
+        <ol>
+            <li>Go to index.html on your site</li>
+            <li>Add <code>?debug=true</code> to URL to see scoring breakdown</li>
+            <li>Fill out consultation form with test case responses (copy from above)</li>
+            <li>Click "Send"</li>
+            <li>Verify correct landing page loads</li>
+            <li>Check sessionStorage contains: consultationEmail, consultationLevel, consultationScore</li>
+        </ol>
+    </div>
+</body>
+</html>
