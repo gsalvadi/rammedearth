@@ -366,25 +366,29 @@
                 flex-direction: column;
             }
         }
-        .directory-pill {
-     display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: .45rem .8rem;
-    border: 1px solid #CD853F;
-    border-radius: 999px;
-    color: #8B4513;
-    font-size: .95rem;
-    text-decoration: underline;
-    background: #FEFCF7;
-    font-family: Georgia, serif;
-}
 
-.directory-pill:hover {
-    color: #3E2723;
-    border-color: #8B4513;
-    box-shadow: 0 0 0 3px rgba(139,69,19,.15);
-}
+            .directory-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: .45rem .9rem;
+            border: 1px solid #CD853F;
+            border-radius: 999px;
+            color: #8B4513;
+            font-size: .95rem;
+            text-decoration: none;      /* underline removed */
+            background: #FEFCF7;
+            font-family: Georgia, serif;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+
+    .directory-pill:hover {
+        color: #3E2723;
+        border-color: #8B4513;
+        background: #FFF8EF;
+        box-shadow: 0 0 0 3px rgba(139,69,19,.15);
+    }
 
     </style>
 </head>
@@ -399,9 +403,10 @@
             There are excellent people who do the job. I can redirect you to a directory. 
             This is for people who want to learn the craft themselves, who've already heard the earth calling. 
             
-       <div style="margin: 25px 0; text-align: left;">
-         <a href="directory.html" class="directory-pill">Find a rammed earth builder located near you</a>
-      </div>
+         <a href="directory.html" class="directory-pill">
+            Find a rammed earth builder located near you
+        </a>
+
 
         
             
