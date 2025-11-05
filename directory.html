@@ -38,6 +38,26 @@ hr.sep{border:0;border-top:1px solid #F5F2E8;margin:14px 0}
   .index{margin:0 -20px}
   .index .inner{padding:.6rem 20px}
 }
+.back-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: .4rem .9rem;
+    border: 1px solid #8B4513;
+    border-radius: 999px;
+    background: #8B4513;
+    color: #fff;
+    font-size: .88rem;
+    font-family: Georgia, serif;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background .2s ease, box-shadow .2s ease;
+}
+
+.back-pill:hover {
+    background: #6D3410;
+    box-shadow: 0 0 0 3px rgba(139,69,19,.18);
+}
 
   </style>
 </head>
@@ -62,9 +82,10 @@ hr.sep{border:0;border-top:1px solid #F5F2E8;margin:14px 0}
       </div>
     </nav>
 
-    <div class="top small" style="margin-top:12px;margin-bottom:18px;">
-      Click a country to jump. Cards fade in as you scroll.
-    </div>
+   <div style="margin-top:12px;margin-bottom:18px;">
+    <a href="index.html" class="back-pill">← Back to Home</a>
+  </div>
+
 
     <section class="country" id="canada">
   <header><h2>Canada</h2><div class="count">1</div></header>
