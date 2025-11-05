@@ -602,6 +602,50 @@
     </div>
     
     <script>
+        /*
+         * QUIZ EVALUATION SYSTEM - Enhanced Version
+         *
+         * Improvements implemented:
+         *
+         * 1. CONTEXT-AWARE KEYWORD MATCHING
+         *    - Detects negations ("not cheap" vs "cheap")
+         *    - Uses phrases instead of isolated words
+         *    - Reduces false positives
+         *
+         * 2. ANSWER QUALITY METRICS
+         *    - Vocabulary richness (unique words / total words)
+         *    - Sentence count and complexity
+         *    - Specificity detection (numbers, examples, concrete details)
+         *    - Generic answer detection (copy-paste patterns)
+         *
+         * 3. WEIGHTED SCORING SYSTEM
+         *    - Consultation: 20 possible points across 4 categories
+         *    - Tech Transfer: 20 possible points across 3 categories
+         *    - Percentage-based thresholds instead of arbitrary numbers
+         *    - Different weights for depth vs surface-level responses
+         *
+         * 4. DYNAMIC CLASSIFICATION
+         *    - Consultation: 60%+ conscious, 40-60% developing, 25-40% beginner, 15-25% theoretical, <15% not-ready
+         *    - Tech Transfer: 65%+ qualified, 45-65% developing, 30-45% willing beginner, <30% not-qualified
+         *    - Borderline cases (±5% of thresholds) flagged for human review
+         *
+         * 5. HUMAN REVIEW FLAGS
+         *    - Borderline scores automatically flagged
+         *    - Low individual category scores flagged
+         *    - Generic/template responses flagged
+         *    - All flags sent to Google Sheets for admin review
+         *
+         * 6. DEBUG MODE
+         *    - Add ?debug=true to URL to see scoring breakdown
+         *    - Shows detailed scores, flags, and reasoning
+         *    - Helps refine scoring algorithm over time
+         *
+         * 7. ENHANCED DATA CAPTURE
+         *    - Percentage scores logged to Google Sheets
+         *    - Flags and reasoning sent for analysis
+         *    - Category breakdown for tech transfer
+         */
+
         function showSection(sectionName) {
             // Hide all sections
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -656,101 +700,476 @@
             }
         });
         
-        // Analyze consultation responses
+        // Enhanced answer quality analysis
+        function analyzeAnswerQuality(text) {
+            const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 10);
+            const words = text.toLowerCase().split(/\s+/);
+            const uniqueWords = new Set(words);
+
+            return {
+                sentenceCount: sentences.length,
+                wordCount: words.length,
+                vocabularyRichness: uniqueWords.size / words.length, // 0-1 score
+                avgSentenceLength: words.length / Math.max(sentences.length, 1),
+                hasSpecifics: /\d+|specific|example|instance|time when|tried|built|made/.test(text.toLowerCase())
+            };
+        }
+
+        // Context-aware keyword detection (checks for negations)
+        function contextualMatch(text, keyword) {
+            const lowerText = text.toLowerCase();
+            const index = lowerText.indexOf(keyword.toLowerCase());
+            if (index === -1) return false;
+
+            // Check for negation words before keyword (within 10 chars)
+            const before = lowerText.substring(Math.max(0, index - 20), index);
+            const negations = ['not', "n't", 'no', 'never', 'without', 'except', 'but'];
+            return !negations.some(neg => before.includes(neg));
+        }
+
+        // Check if answer is generic/copy-paste
+        function isGenericAnswer(text) {
+            const genericPhrases = [
+                'i am interested in',
+                'i would like to',
+                'please help me',
+                'i want to learn',
+                'it is important',
+                'this is important'
+            ];
+            const matchCount = genericPhrases.filter(phrase =>
+                text.toLowerCase().includes(phrase)
+            ).length;
+
+            return matchCount >= 2; // Multiple generic phrases suggests low effort
+        }
+
+        // Analyze consultation responses with improved logic
         function analyzeResponse(answers) {
             const [tried, why, hurdle, failure] = answers;
-            
-            // Check for cost-focused responses (RED FLAG)
-            const costWords = ['cheap', 'cheaper', 'budget', 'save money', 'economic', 'affordable', 'cost less', 'inexpensive'];
-            if (costWords.some(word => why.toLowerCase().includes(word))) {
-                return 'cost-focused';
+            const debug = { scores: {}, flags: [], reasoning: [] };
+
+            // Check for cost-focused responses (RED FLAG) - but with context
+            const costPhrases = ['save money', 'cost less', 'cheaper than', 'budget constraint', 'can\'t afford'];
+            const costWords = ['cheap', 'cheaper', 'budget', 'economic', 'affordable', 'inexpensive'];
+
+            let costFocused = false;
+            if (costPhrases.some(phrase => why.toLowerCase().includes(phrase))) {
+                costFocused = true;
+                debug.flags.push('Direct cost-focused phrases detected');
+            } else if (costWords.filter(word => contextualMatch(why, word)).length >= 2) {
+                costFocused = true;
+                debug.flags.push('Multiple cost keywords without negation');
             }
-            
+
+            // Check if cost is mentioned but with learning context
+            const learningContext = /learn|understand|craft|skill|knowledge|experience/.test(why.toLowerCase());
+            if (costFocused && learningContext && why.length > 100) {
+                costFocused = false; // Give benefit of doubt if they elaborate
+                debug.reasoning.push('Cost mentioned but balanced with learning focus');
+            }
+
+            if (costFocused && !learningContext) {
+                debug.reasoning.push('Primary motivation appears cost-driven');
+                return { level: 'cost-focused', debug };
+            }
+
             // Check for construction service requests (RED FLAG)
-            const contractWords = ['build for me', 'construct', 'hire you', 'quote', 'contract', 'build my', 'your team', 'you build'];
-            if (contractWords.some(word => why.toLowerCase().includes(word))) {
-                return 'wants-contractor';
+            const contractPhrases = ['build for me', 'build my', 'hire you', 'your team', 'you build', 'give me a quote'];
+            if (contractPhrases.some(phrase => why.toLowerCase().includes(phrase))) {
+                debug.reasoning.push('Requesting construction service, not learning');
+                return { level: 'wants-contractor', debug };
             }
-            
-            // Analyze consciousness level
+
+            // Quality check
+            const triedQuality = analyzeAnswerQuality(tried);
+            const whyQuality = analyzeAnswerQuality(why);
+            const hurdleQuality = analyzeAnswerQuality(hurdle);
+
+            // Generic answer detection
+            if (isGenericAnswer(why) || isGenericAnswer(tried)) {
+                debug.flags.push('Generic/template-like responses detected');
+            }
+
+            // Analyze consciousness level with weighted scoring
             let consciousness = 0;
-            
-            // Experience markers
-            if (tried.length > 50 && !tried.toLowerCase().includes('nothing')) consciousness++;
-            if (tried.includes('mix') || tried.includes('clay') || tried.includes('sand')) consciousness++;
-            if (tried.includes('fail') || tried.includes('crack') || tried.includes('collaps')) consciousness++;
-            
-            // Motivation markers
-            if (why.includes('sustainable') || why.includes('natural') || why.includes('earth')) consciousness++;
-            if (why.includes('connect') || why.includes('rhythm') || why.includes('craft')) consciousness++;
-            if (why.includes('learn') && !why.includes('technique')) consciousness++;
-            
-            // Self-awareness markers
-            if (hurdle.includes('myself') || hurdle.includes('patience') || hurdle.includes('knowledge')) consciousness++;
-            if (hurdle.includes('permission') || hurdle.includes('fear') || hurdle.includes('confidence')) consciousness++;
-            
-            // Deep understanding markers
-            if (failure && failure.length > 30) {
-                if (failure.includes('patience') || failure.includes('humble') || failure.includes('listen')) consciousness += 2;
-                if (failure.includes('teach') || failure.includes('show') || failure.includes('mirror')) consciousness += 2;
+            let maxScore = 0;
+
+            // Experience markers (0-5 points)
+            maxScore += 5;
+            const isNothingYet = /nothing yet|haven't|never|no experience/i.test(tried);
+
+            if (!isNothingYet && tried.length > 80) {
+                consciousness += 1.5;
+                debug.scores.experienceLength = 1.5;
+            } else if (!isNothingYet && tried.length > 50) {
+                consciousness += 0.5;
+                debug.scores.experienceLength = 0.5;
             }
-            
-            // Classification
-            if (consciousness >= 7) return 'conscious';
-            if (consciousness >= 4) return 'developing';
-            if (consciousness >= 2) return 'beginner';
-            return 'theoretical';
+
+            if (triedQuality.hasSpecifics) {
+                consciousness += 1.5;
+                debug.scores.experienceSpecifics = 1.5;
+            }
+
+            // Material knowledge
+            const materials = ['mix', 'clay', 'sand', 'soil', 'aggregate', 'water', 'ratio', 'moisture'];
+            const materialMentions = materials.filter(m => tried.toLowerCase().includes(m)).length;
+            if (materialMentions >= 2) {
+                consciousness += 1.5;
+                debug.scores.materialKnowledge = 1.5;
+            } else if (materialMentions === 1) {
+                consciousness += 0.5;
+                debug.scores.materialKnowledge = 0.5;
+            }
+
+            // Failure/learning experience
+            const failureWords = ['fail', 'crack', 'collaps', 'mistake', 'wrong', 'learned'];
+            if (failureWords.some(word => tried.toLowerCase().includes(word))) {
+                consciousness += 1;
+                debug.scores.learningFromFailure = 1;
+            }
+
+            // Motivation markers (0-5 points)
+            maxScore += 5;
+            const deepMotivation = ['understand', 'connect', 'rhythm', 'craft', 'consciousness', 'relationship', 'material', 'calling'];
+            const surfaceMotivation = ['sustainable', 'natural', 'earth', 'eco', 'green'];
+
+            const deepMatches = deepMotivation.filter(m => contextualMatch(why, m)).length;
+            const surfaceMatches = surfaceMotivation.filter(m => contextualMatch(why, m)).length;
+
+            if (deepMatches >= 2) {
+                consciousness += 2.5;
+                debug.scores.deepMotivation = 2.5;
+            } else if (deepMatches >= 1) {
+                consciousness += 1.5;
+                debug.scores.deepMotivation = 1.5;
+            } else if (surfaceMatches >= 1) {
+                consciousness += 0.5;
+                debug.scores.surfaceMotivation = 0.5;
+            }
+
+            // Check for personal journey language
+            if (/I feel|I sense|drawn to|calls me|calling|journey/i.test(why)) {
+                consciousness += 1.5;
+                debug.scores.personalJourney = 1.5;
+            }
+
+            // Sentence complexity in motivation
+            if (whyQuality.sentenceCount >= 3 && whyQuality.vocabularyRichness > 0.6) {
+                consciousness += 1;
+                debug.scores.motivationDepth = 1;
+            }
+
+            // Self-awareness markers (0-4 points)
+            maxScore += 4;
+            const internalHurdles = ['myself', 'patience', 'knowledge', 'understanding', 'confidence', 'fear', 'learning'];
+            const externalHurdles = ['money', 'time', 'resources', 'tools', 'permit'];
+
+            const internalMatches = internalHurdles.filter(h => hurdle.toLowerCase().includes(h)).length;
+            const externalMatches = externalHurdles.filter(h => hurdle.toLowerCase().includes(h)).length;
+
+            if (internalMatches >= 2 || (internalMatches >= 1 && hurdleQuality.hasSpecifics)) {
+                consciousness += 2.5;
+                debug.scores.selfAwareness = 2.5;
+            } else if (internalMatches >= 1) {
+                consciousness += 1.5;
+                debug.scores.selfAwareness = 1.5;
+            } else if (externalMatches >= 1 && hurdle.length > 60) {
+                consciousness += 0.5;
+                debug.scores.externalAwareness = 0.5;
+            }
+
+            if (hurdleQuality.sentenceCount >= 2) {
+                consciousness += 1;
+                debug.scores.hurdleDepth = 1;
+            }
+
+            // Deep understanding markers from failure question (0-6 points)
+            maxScore += 6;
+            if (failure && failure.length > 40) {
+                const failureQuality = analyzeAnswerQuality(failure);
+                const reflectiveWords = ['patience', 'humble', 'listen', 'teach', 'show', 'mirror', 'realize', 'understand', 'respect', 'relationship'];
+                const reflectiveMatches = reflectiveWords.filter(w => failure.toLowerCase().includes(w)).length;
+
+                if (reflectiveMatches >= 2 && failureQuality.sentenceCount >= 2) {
+                    consciousness += 4;
+                    debug.scores.deepReflection = 4;
+                } else if (reflectiveMatches >= 2) {
+                    consciousness += 2.5;
+                    debug.scores.deepReflection = 2.5;
+                } else if (reflectiveMatches >= 1) {
+                    consciousness += 1.5;
+                    debug.scores.deepReflection = 1.5;
+                }
+
+                if (failureQuality.hasSpecifics) {
+                    consciousness += 1;
+                    debug.scores.specificFailure = 1;
+                }
+            }
+
+            // Calculate percentage score
+            const percentScore = (consciousness / maxScore) * 100;
+            debug.totalScore = consciousness.toFixed(1);
+            debug.maxScore = maxScore;
+            debug.percentScore = percentScore.toFixed(1);
+
+            // Dynamic thresholds based on percentage
+            let level;
+            if (percentScore >= 60) {
+                level = 'conscious';
+                debug.reasoning.push('High consciousness score - shows deep understanding and genuine engagement');
+            } else if (percentScore >= 40) {
+                level = 'developing';
+                debug.reasoning.push('Developing consciousness - genuine interest with room to deepen');
+            } else if (percentScore >= 25) {
+                level = 'beginner';
+                debug.reasoning.push('Beginning stage - basic interest, needs foundational experience');
+            } else if (percentScore >= 15) {
+                level = 'theoretical';
+                debug.reasoning.push('Theoretical understanding - lacks hands-on engagement');
+            } else {
+                level = 'not-ready';
+                debug.reasoning.push('Very low engagement - may need to explore interest further');
+            }
+
+            // Flag borderline cases for human review
+            if (percentScore >= 35 && percentScore <= 45) {
+                debug.flags.push('BORDERLINE - Recommend human review');
+            }
+
+            return { level, debug };
         }
         
-        // Analyze tech transfer responses
+        // Analyze tech transfer responses with enhanced logic
         function analyzeTechTransfer(answers) {
             const [role, handsOn, technology, application] = answers;
-            
-            // Auto-reject patterns
-            if (role === 'contractor' || role === 'representative') return 'redirect-to-directory';
-            if (application.toLowerCase().includes('one project') || application.toLowerCase().includes('quick')) return 'redirect-to-directory';
-            if (technology.toLowerCase().includes('cheap') || technology.toLowerCase().includes('fast')) return 'redirect-to-directory';
-            
-            // Check for hands-on willingness (not just past experience)
-            const unwillingMarkers = ['no time', 'too busy', 'delegate', 'my team will', 'others will do', 'supervise only', 'design only'];
-            const willingMarkers = ['willing', 'ready', 'want to learn', 'hands-on', 'get dirty', 'personally', 'myself', 'learn by doing'];
-            
-            let willingnessScore = 0;
-            if (unwillingMarkers.some(marker => handsOn.toLowerCase().includes(marker))) {
-                return 'unwilling-hands-on';
+            const debug = { scores: {}, flags: [], reasoning: [] };
+
+            // Auto-reject patterns with context
+            if (role === 'contractor' || role === 'representative') {
+                debug.reasoning.push('Role indicates seeking contractors, not knowledge transfer');
+                return { level: 'redirect-to-directory', debug };
             }
-            if (willingMarkers.some(marker => handsOn.toLowerCase().includes(marker))) {
-                willingnessScore += 2;
+
+            const quickProjectPhrases = ['one project', 'single project', 'one-time', 'quick turnaround', 'urgent'];
+            if (quickProjectPhrases.some(phrase => application.toLowerCase().includes(phrase))) {
+                debug.reasoning.push('Application indicates one-off project, not long-term capability building');
+                return { level: 'redirect-to-directory', debug };
             }
-            if (handsOn.length < 30) return 'no-hands-on-response';
-            
-            // Check for genuine hands-on experience OR clear willingness
+
+            if (technology.toLowerCase().includes('cheap') || technology.toLowerCase().includes('fast')) {
+                debug.reasoning.push('Focus on speed/cost rather than knowledge depth');
+                return { level: 'redirect-to-directory', debug };
+            }
+
+            // Quality analysis
+            const handsOnQuality = analyzeAnswerQuality(handsOn);
+            const techQuality = analyzeAnswerQuality(technology);
+            const appQuality = analyzeAnswerQuality(application);
+
+            if (handsOn.length < 30) {
+                debug.reasoning.push('Insufficient detail about hands-on involvement');
+                return { level: 'no-hands-on-response', debug };
+            }
+
+            // Check for unwillingness with context awareness
+            const unwillingPhrases = ['no time for', 'too busy to', 'will delegate', 'my team will handle', 'others will do', 'supervise only', 'design only'];
+            const unwillingWords = ['delegate', 'supervise'];
+
+            let hasUnwillingPhrase = unwillingPhrases.some(phrase => handsOn.toLowerCase().includes(phrase));
+            let hasUnwillingContext = unwillingWords.filter(word => contextualMatch(handsOn, word)).length >= 1;
+
+            if (hasUnwillingPhrase || (hasUnwillingContext && !handsOn.toLowerCase().includes('but') && !handsOn.toLowerCase().includes('however'))) {
+                debug.reasoning.push('Indicates unwillingness for hands-on engagement');
+                return { level: 'unwilling-hands-on', debug };
+            }
+
+            // Start weighted scoring
+            let totalScore = 0;
+            let maxScore = 0;
+
+            // Hands-on willingness AND experience (0-8 points)
+            maxScore += 8;
             let handsOnScore = 0;
-            if (handsOn.includes('clay') || handsOn.includes('mud') || handsOn.includes('concrete')) handsOnScore++;
-            if (handsOn.includes('mix') || handsOn.includes('ratio') || handsOn.includes('water')) handsOnScore++;
-            if (handsOn.includes('hands') || handsOn.includes('touch') || handsOn.includes('feel')) handsOnScore++;
-            if (handsOn.includes('fail') || handsOn.includes('mistake') || handsOn.includes('learn')) handsOnScore++;
-            
-            // Add willingness score to experience score
-            handsOnScore += willingnessScore;
-            
-            // Check technology specificity
+
+            // Willingness markers
+            const willingPhrases = ['willing to', 'ready to get', 'want to learn', 'eager to', 'committed to'];
+            const willingWords = ['willing', 'ready', 'hands-on', 'personally', 'myself', 'learn by doing'];
+
+            const willingPhraseMatches = willingPhrases.filter(phrase => handsOn.toLowerCase().includes(phrase)).length;
+            const willingWordMatches = willingWords.filter(word => contextualMatch(handsOn, word)).length;
+
+            if (willingPhraseMatches >= 1 || willingWordMatches >= 2) {
+                handsOnScore += 2;
+                debug.scores.willingness = 2;
+            } else if (willingWordMatches >= 1) {
+                handsOnScore += 1;
+                debug.scores.willingness = 1;
+            }
+
+            // Material experience
+            const materials = ['clay', 'mud', 'concrete', 'earth', 'soil', 'mortar', 'plaster'];
+            const materialMentions = materials.filter(m => handsOn.toLowerCase().includes(m)).length;
+            if (materialMentions >= 2) {
+                handsOnScore += 2;
+                debug.scores.materialExperience = 2;
+            } else if (materialMentions >= 1) {
+                handsOnScore += 1;
+                debug.scores.materialExperience = 1;
+            }
+
+            // Technical experience
+            const technicalTerms = ['mix', 'ratio', 'water', 'compression', 'formwork', 'testing'];
+            const techMentions = technicalTerms.filter(t => handsOn.toLowerCase().includes(t)).length;
+            if (techMentions >= 2) {
+                handsOnScore += 2;
+                debug.scores.technicalExperience = 2;
+            } else if (techMentions >= 1) {
+                handsOnScore += 1;
+                debug.scores.technicalExperience = 1;
+            }
+
+            // Tactile/learning language
+            const tactileWords = ['hands', 'touch', 'feel', 'experience'];
+            const learningWords = ['fail', 'mistake', 'learn', 'understand'];
+            if (tactileWords.some(w => handsOn.toLowerCase().includes(w))) {
+                handsOnScore += 1;
+                debug.scores.tactileAwareness = 1;
+            }
+            if (learningWords.some(w => handsOn.toLowerCase().includes(w))) {
+                handsOnScore += 1;
+                debug.scores.learningOrientation = 1;
+            }
+
+            // Specificity bonus
+            if (handsOnQuality.hasSpecifics && handsOnQuality.sentenceCount >= 3) {
+                handsOnScore += 1;
+                debug.scores.handsOnDetail = 1;
+            }
+
+            totalScore += handsOnScore;
+
+            // Technology specificity (0-6 points)
+            maxScore += 6;
             let techScore = 0;
-            if (technology.includes('mix') || technology.includes('soil') || technology.includes('test')) techScore++;
-            if (technology.includes('formwork') || technology.includes('construction') || technology.includes('sequence')) techScore++;
-            if (technology.includes('specific') || technology.length > 100) techScore++;
-            
-            // Check application seriousness
+
+            // Specific technical areas
+            const techAreas = ['mix design', 'soil testing', 'formwork', 'construction sequence', 'compression', 'moisture', 'curing', 'stabilization'];
+            const techAreaMentions = techAreas.filter(area => technology.toLowerCase().includes(area)).length;
+
+            if (techAreaMentions >= 3) {
+                techScore += 3;
+                debug.scores.technicalBreadth = 3;
+            } else if (techAreaMentions >= 2) {
+                techScore += 2;
+                debug.scores.technicalBreadth = 2;
+            } else if (techAreaMentions >= 1) {
+                techScore += 1;
+                debug.scores.technicalBreadth = 1;
+            }
+
+            // Check for specific questions/challenges
+            if (/how to|how do|what is|understanding|learn about/i.test(technology)) {
+                techScore += 1;
+                debug.scores.specificQuestions = 1;
+            }
+
+            // Length and detail
+            if (techQuality.sentenceCount >= 3 && technology.length > 100) {
+                techScore += 2;
+                debug.scores.technicalDetail = 2;
+            } else if (technology.length > 60) {
+                techScore += 1;
+                debug.scores.technicalDetail = 1;
+            }
+
+            totalScore += techScore;
+
+            // Application seriousness (0-6 points)
+            maxScore += 6;
             let appScore = 0;
-            if (application.includes('team') || application.includes('practice') || application.includes('long')) appScore++;
-            if (application.includes('capability') || application.includes('skill') || application.includes('knowledge')) appScore++;
-            
-            const totalScore = handsOnScore + techScore + appScore;
-            
-            if (totalScore >= 6) return 'qualified-professional';
-            if (totalScore >= 4) return 'developing-professional'; 
-            if (totalScore >= 2) return 'willing-beginner-professional';
-            return 'not-qualified';
+
+            // Long-term commitment indicators
+            const longTermWords = ['practice', 'ongoing', 'long-term', 'capability', 'building', 'develop', 'integrate'];
+            const longTermMatches = longTermWords.filter(w => contextualMatch(application, w)).length;
+
+            if (longTermMatches >= 3) {
+                appScore += 3;
+                debug.scores.longTermCommitment = 3;
+            } else if (longTermMatches >= 2) {
+                appScore += 2;
+                debug.scores.longTermCommitment = 2;
+            } else if (longTermMatches >= 1) {
+                appScore += 1;
+                debug.scores.longTermCommitment = 1;
+            }
+
+            // Team/organizational language
+            if (/team|staff|organization|company|practice/i.test(application)) {
+                appScore += 1;
+                debug.scores.organizationalContext = 1;
+            }
+
+            // Professional growth language
+            if (/skill|knowledge|capability|expertise|competence/i.test(application)) {
+                appScore += 1;
+                debug.scores.professionalGrowth = 1;
+            }
+
+            // Specificity
+            if (appQuality.hasSpecifics && appQuality.sentenceCount >= 2) {
+                appScore += 1;
+                debug.scores.applicationDetail = 1;
+            }
+
+            totalScore += appScore;
+
+            // Calculate percentage
+            const percentScore = (totalScore / maxScore) * 100;
+            debug.totalScore = totalScore.toFixed(1);
+            debug.maxScore = maxScore;
+            debug.percentScore = percentScore.toFixed(1);
+            debug.breakdown = {
+                handsOn: `${handsOnScore}/8`,
+                technology: `${techScore}/6`,
+                application: `${appScore}/6`
+            };
+
+            // Dynamic classification
+            let level;
+            if (percentScore >= 65) {
+                level = 'qualified-professional';
+                debug.reasoning.push('Strong professional readiness - hands-on commitment, technical specificity, and long-term vision');
+            } else if (percentScore >= 45) {
+                level = 'developing-professional';
+                debug.reasoning.push('Genuine professional interest with room to strengthen commitment or specificity');
+            } else if (percentScore >= 30) {
+                level = 'willing-beginner-professional';
+                debug.reasoning.push('Shows willingness but needs more hands-on foundation or technical clarity');
+            } else {
+                level = 'not-qualified';
+                debug.reasoning.push('Insufficient readiness for professional knowledge transfer at this time');
+            }
+
+            // Flag borderline cases
+            if (percentScore >= 40 && percentScore <= 50) {
+                debug.flags.push('BORDERLINE - Recommend human review');
+            }
+
+            // Special flags
+            if (handsOnScore <= 2) {
+                debug.flags.push('LOW hands-on score - may need more practical engagement');
+            }
+            if (techScore <= 1) {
+                debug.flags.push('LOW technical specificity - unclear what they want to learn');
+            }
+            if (appScore <= 1) {
+                debug.flags.push('LOW application clarity - unclear how knowledge will be used');
+            }
+
+            return { level, debug };
         }
         
         function generateConsultationResponse(level, email) {
@@ -811,9 +1230,21 @@
                         "Start a daily practice of working with clay or earth in small ways",
                         "When you've actually experienced failure with the material, come back"
                     ]
+                },
+                'not-ready': {
+                    title: "Perhaps Take More Time",
+                    content: "Thank you for reaching out. Based on your responses, I sense you may still be in the very early stages of exploring this interest.",
+                    action: "Spend time understanding whether earth building truly calls to you. When you're ready to engage more deeply, the door is open.",
+                    class: "red-flag",
+                    resources: [
+                        "Explore why earth building interests you - is it more than a passing curiosity?",
+                        "Read about others' experiences with rammed earth and natural building",
+                        "Consider attending a workshop or site visit to see if this resonates with you",
+                        "Take time before committing to a consultation"
+                    ]
                 }
             };
-            
+
             return responses[level];
         }
         
@@ -951,12 +1382,12 @@
             }
             
             const answers = [tried, why, hurdle, failure];
-            
-            const level = analyzeResponse(answers);
-            const response = generateConsultationResponse(level, email);
-            
-            displayResponse('response', response, email);
-            
+
+            const result = analyzeResponse(answers);
+            const response = generateConsultationResponse(result.level, email, result.debug);
+
+            displayResponse('response', response, email, result.debug);
+
             // Submit to Google Sheets via Apps Script
             submitToGoogleSheet('consultation', {
                 email: email,
@@ -964,7 +1395,10 @@
                 why: answers[1],
                 hurdle: answers[2],
                 failure: answers[3],
-                level: level
+                level: result.level,
+                score: result.debug.percentScore,
+                flags: result.debug.flags.join('; '),
+                reasoning: result.debug.reasoning.join('; ')
             });
             
             // Clear form fields
@@ -1054,12 +1488,12 @@
             }
             
             const answers = [role, handsOn, technology, application];
-            
-            const level = analyzeTechTransfer(answers);
-            const response = generateTechResponse(level, email);
-            
-            displayResponse('tech-response', response, email);
-            
+
+            const result = analyzeTechTransfer(answers);
+            const response = generateTechResponse(result.level, email, result.debug);
+
+            displayResponse('tech-response', response, email, result.debug);
+
             // Submit to Google Sheets via Apps Script
             submitToGoogleSheet('tech-transfer', {
                 email: email,
@@ -1067,7 +1501,11 @@
                 handsOn: answers[1],
                 technology: answers[2],
                 application: answers[3],
-                level: level
+                level: result.level,
+                score: result.debug.percentScore,
+                breakdown: result.debug.breakdown ? JSON.stringify(result.debug.breakdown) : '',
+                flags: result.debug.flags.join('; '),
+                reasoning: result.debug.reasoning.join('; ')
             });
             
             // Clear form fields
@@ -1090,14 +1528,14 @@
             // Form submission now handled by button click
         });
         
-        function displayResponse(divId, response, email) {
+        function displayResponse(divId, response, email, debug) {
             const responseDiv = document.getElementById(divId);
             let responseHTML = `
                 <h3>${response.title}</h3>
                 <p>${response.content}</p>
                 <p><strong>${response.action}</strong></p>
             `;
-            
+
             if (response.resources) {
                 responseHTML += `
                     <div class="resource-list">
@@ -1107,15 +1545,46 @@
                     </div>
                 `;
             }
-            
+
             if (response.showContact) {
                 responseHTML += `<p style="margin-top: 20px; font-style: italic;">I'll email you at: ${email}</p>`;
             }
-            
+
             if (response.showDirectory) {
                 responseHTML += `<a href="#" class="directory-link" onclick="requestDirectory('${email}'); return false;">Access Contractor Directory</a>`;
             }
-            
+
+            // Add debug information (collapsible)
+            if (debug && window.location.search.includes('debug=true')) {
+                responseHTML += `
+                    <div style="margin-top: 25px; padding: 15px; background: #f5f5f5; border: 1px solid #ccc; border-radius: 5px; font-size: 0.85em;">
+                        <strong onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'" style="cursor: pointer; color: #666;">
+                            🔍 Debug Info (click to toggle)
+                        </strong>
+                        <div style="display: none; margin-top: 10px;">
+                            <p><strong>Score:</strong> ${debug.totalScore}/${debug.maxScore} (${debug.percentScore}%)</p>
+                            ${debug.breakdown ? `<p><strong>Breakdown:</strong> ${JSON.stringify(debug.breakdown)}</p>` : ''}
+                            <p><strong>Detailed Scores:</strong></p>
+                            <ul style="margin-left: 20px; list-style: disc;">
+                                ${Object.entries(debug.scores).map(([key, value]) => `<li>${key}: ${value}</li>`).join('')}
+                            </ul>
+                            ${debug.flags.length > 0 ? `
+                                <p><strong>Flags:</strong></p>
+                                <ul style="margin-left: 20px; list-style: disc; color: #d32f2f;">
+                                    ${debug.flags.map(flag => `<li>${flag}</li>`).join('')}
+                                </ul>
+                            ` : ''}
+                            ${debug.reasoning.length > 0 ? `
+                                <p><strong>Reasoning:</strong></p>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    ${debug.reasoning.map(reason => `<li>${reason}</li>`).join('')}
+                                </ul>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+
             responseDiv.innerHTML = responseHTML;
             responseDiv.className = `response-message visible ${response.class}`;
             responseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
