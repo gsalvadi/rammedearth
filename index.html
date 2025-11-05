@@ -1172,7 +1172,18 @@
             return { level, debug };
         }
         
-        function generateConsultationResponse(level, email) {
+        // Landing page mappings for consultation results
+        const consultationLandingPages = {
+            'conscious': 'consultation-conscious.html',
+            'developing': 'consultation-developing.html',
+            'beginner': 'consultation-beginner.html',
+            'theoretical': 'consultation-theoretical.html',
+            'not-ready': 'consultation-not-ready.html',
+            'cost-focused': 'consultation-cost-focused.html',
+            'wants-contractor': 'consultation-wants-contractor.html'
+        };
+
+        function generateConsultationResponse(level, email, debug) {
             const responses = {
                 'cost-focused': {
                     title: "Different Paths for Different Needs",
@@ -1384,9 +1395,6 @@
             const answers = [tried, why, hurdle, failure];
 
             const result = analyzeResponse(answers);
-            const response = generateConsultationResponse(result.level, email, result.debug);
-
-            displayResponse('response', response, email, result.debug);
 
             // Submit to Google Sheets via Apps Script
             submitToGoogleSheet('consultation', {
@@ -1400,19 +1408,34 @@
                 flags: result.debug.flags.join('; '),
                 reasoning: result.debug.reasoning.join('; ')
             });
-            
-            // Clear form fields
-            this.reset();
-            document.getElementById('failure-question').style.display = 'none';
-            
-            // Disable form temporarily
-            const submitBtn = this.querySelector('.submit-btn');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Sent';
-            setTimeout(() => {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Send';
-            }, 3000);
+
+            // Store email in session storage for landing page
+            sessionStorage.setItem('consultationEmail', email);
+            sessionStorage.setItem('consultationLevel', result.level);
+            sessionStorage.setItem('consultationScore', result.debug.percentScore);
+
+            // Redirect to appropriate landing page
+            const landingPage = consultationLandingPages[result.level];
+            if (landingPage) {
+                window.location.href = landingPage;
+            } else {
+                // Fallback to inline display if no landing page exists
+                const response = generateConsultationResponse(result.level, email, result.debug);
+                displayResponse('response', response, email, result.debug);
+
+                // Clear form fields
+                this.reset();
+                document.getElementById('failure-question').style.display = 'none';
+
+                // Disable form temporarily
+                const submitBtn = this.querySelector('.submit-btn');
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sent';
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Send';
+                }, 3000);
+            }
         });
         
         // Handle workshop form
