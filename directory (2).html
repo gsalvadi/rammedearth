@@ -23,8 +23,27 @@ h1{font-size:1.9em;margin-bottom:10px;font-weight:normal;color:#8B4513}
 .subtitle{font-style:italic;color:#D2691E;margin-bottom:30px;font-size:1.05em}
 .index{position:sticky;top:0;z-index:10;backdrop-filter:blur(6px);background:linear-gradient(to bottom, rgba(245,242,232,.92), rgba(245,242,232,.75));border-bottom:1px solid #CD853F;margin:0 -30px}
 .index .inner{max-width:700px;margin:0 auto;padding:.6rem 30px;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
-.pill{display:inline-flex;align-items:center;justify-content:center;padding:.35rem .6rem;border:1px solid #CD853F;border-radius:999px;color:#8B4513;font-size:.85rem;text-decoration:underline;background:#FEFCF7}
-.pill:hover{color:#3E2723;border-color:#8B4513;box-shadow:0 0 0 3px rgba(139,69,19,.15)}
+.pill{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:.35rem .6rem;
+    border:1px solid #CD853F;
+    border-radius:999px;
+    color:#8B4513;
+    font-size:.85rem;
+    background:#FEFCF7;
+    font-family:Georgia, serif;
+    text-decoration:none;           /* ← remove underline */
+}
+
+.pill:hover{
+    color:#3E2723;
+    border-color:#8B4513;
+    box-shadow:0 0 0 3px rgba(139,69,19,.15);
+    text-decoration:none;           /* ← no underline on hover */
+}
+
 .country{padding-top:2.5rem;margin-top:1rem;scroll-margin-top:90px}
 .country header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:.8rem}
 .country h2{font-size:1.4rem;color:#8B4513}
