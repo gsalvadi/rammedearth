@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Your Listing - Rammed Earth Directory</title>
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%238B4513' x='10' y='30' width='80' height='40' rx='2'/><rect fill='%23CD853F' x='10' y='35' width='80' height='8'/><rect fill='%23D2691E' x='10' y='48' width='80' height='8'/><rect fill='%23F4A460' x='10' y='61' width='80' height='4'/></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            color: #3E2723;
+            background: #F5F2E8;
+            padding: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .container {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 3px;
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.1);
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 1.9em;
+            margin-bottom: 10px;
+            font-weight: normal;
+            color: #8B4513;
+        }
+
+        h2 {
+            font-size: 1.4em;
+            margin: 30px 0 15px 0;
+            font-weight: normal;
+            color: #8B4513;
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: #D2691E;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .intro {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #E3F2FD;
+            border-left: 5px solid #2196F3;
+            color: #3E2723;
+            font-size: 1.05em;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+        }
+
+        .field-list {
+            background: #FEFCF7;
+            border: 1px solid #CD853F;
+            border-radius: 5px;
+            padding: 20px 20px 20px 40px;
+            margin: 20px 0;
+        }
+
+        .field-list li {
+            margin-bottom: 15px;
+            color: #3E2723;
+        }
+
+        .field-list .required {
+            color: #D32F2F;
+            font-weight: 600;
+        }
+
+        .field-name {
+            font-weight: 600;
+            color: #8B4513;
+        }
+
+        .field-note {
+            font-size: 0.95em;
+            color: #666;
+            font-style: italic;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .cta-box {
+            background: #E8F5E9;
+            padding: 30px;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .cta-box h2 {
+            color: #2E7D32;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .submit-button {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 18px 40px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            font-weight: 600;
+            margin: 20px 0 10px 0;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+        }
+
+        .submit-button:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(76, 175, 80, 0.4);
+        }
+
+        .approval-box {
+            background: #FFF8E1;
+            padding: 20px;
+            border-left: 4px solid #FFB300;
+            margin: 20px 0;
+        }
+
+        .approval-box h3 {
+            color: #F57C00;
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #CD853F;
+        }
+
+        .back-link a {
+            color: #8B4513;
+            text-decoration: none;
+            font-style: italic;
+        }
+
+        .back-link a:hover {
+            color: #D2691E;
+            text-decoration: underline;
+        }
+
+        .highlight-box {
+            background: #FEFCF7;
+            padding: 20px;
+            border: 1px solid #CD853F;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 25px 20px;
+            }
+            .submit-button {
+                font-size: 1.1em;
+                padding: 15px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Submit Your Listing</h1>
+        <div class="subtitle">Join our directory of earthen building professionals</div>
+
+        <div class="intro">
+            Submit your details to get listed in our directory. If your service or products are related to earthen buildings, you will be included. Once your listing is approved, we will notify you by email.
+        </div>
+
+        <div class="section">
+            <h2>Who Should Submit?</h2>
+            <p>We welcome submissions from:</p>
+            <ul style="margin-left: 25px; margin-top: 10px;">
+                <li style="margin-bottom: 10px;"><strong>Builders & Contractors:</strong> Rammed earth, cob, adobe, compressed earth blocks, earthbag, and other natural building specialists</li>
+                <li style="margin-bottom: 10px;"><strong>Architects & Designers:</strong> Professionals experienced in earthen architecture and natural building design</li>
+                <li style="margin-bottom: 10px;"><strong>Consultants:</strong> Technical advisors, project coaches, and earthen building experts</li>
+                <li style="margin-bottom: 10px;"><strong>Educators:</strong> Workshop facilitators, trainers, and natural building educators</li>
+                <li style="margin-bottom: 10px;"><strong>Suppliers:</strong> Material suppliers, equipment providers, and specialized product vendors</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Before You Submit: Prepare Your Information</h2>
+            <p>The submission form will ask for the following information. Have these details ready before you start:</p>
+
+            <div class="field-list">
+                <ul style="list-style: none; padding: 0;">
+                    <li>
+                        <span class="field-name">Name</span> <span class="required">*</span>
+                        <span class="field-note">Your full name or business name</span>
+                    </li>
+                    <li>
+                        <span class="field-name">Email</span> <span class="required">*</span>
+                        <span class="field-note">We'll use this to notify you about your listing approval</span>
+                    </li>
+                    <li>
+                        <span class="field-name">City</span> <span class="required">*</span>
+                        <span class="field-note">Your primary location</span>
+                    </li>
+                    <li>
+                        <span class="field-name">What earthen building service/products you offer?</span> <span class="required">*</span>
+                        <span class="field-note">Describe your specialties (e.g., "Rammed Earth", "Builder", "Architect", "Consultancy", etc.)</span>
+                    </li>
+                    <li>
+                        <span class="field-name">Tell us in which locations you can serve</span> (optional)
+                        <span class="field-note">If you are a builder, you may work only with people from your state or country. If you are a consultant, you may work with people worldwide.</span>
+                    </li>
+                    <li>
+                        <span class="field-name">How people can contact you?</span> <span class="required">*</span>
+                        <span class="field-note">Input your email, phone number, website, etc.</span>
+                    </li>
+                    <li>
+                        <span class="field-name">What additional information you want to be displayed in listing?</span> (optional)
+                        <span class="field-note">Any other details you'd like visitors to know about your work</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="approval-box">
+            <h3>📋 Approval Process</h3>
+            <p><strong>Review Time:</strong> We review all submissions manually to ensure quality and relevance. You'll typically hear back within 3-5 business days.</p>
+            <p style="margin-top: 10px;"><strong>Criteria:</strong> We list professionals and businesses genuinely involved in earthen building practices. Your submission should demonstrate real experience or offering in this field.</p>
+            <p style="margin-top: 10px;"><strong>Notification:</strong> Once approved, we'll email you with a link to your listing in the directory.</p>
+        </div>
+
+        <div class="cta-box">
+            <h2>Ready to Submit?</h2>
+            <p style="color: #666; margin-bottom: 10px;">The form opens in a new window and takes about 3-5 minutes to complete.</p>
+            <a href="https://airtable.com/app57OdRXBhwd2yYt/shrSOJ7NPbrbV0uql" target="_blank" class="submit-button">
+                Submit Your Listing →
+            </a>
+            <p style="color: #666; font-size: 0.9em; margin-top: 15px; font-style: italic;">Opens in Airtable (free and secure)</p>
+        </div>
+
+        <div class="section">
+            <h2>Questions?</h2>
+            <p>If you have questions about the submission process or listing criteria, you can email your inquiry to:</p>
+            <p style="margin-top: 10px;"><strong>info (at) rammedearth (dot) in</strong></p>
+        </div>
+
+        <div class="highlight-box">
+            <p style="font-style: italic; text-align: center; color: #8B4513;">
+                "We're building a trusted directory of earthen building professionals. Your submission helps connect people seeking natural building expertise with qualified practitioners."
+            </p>
+        </div>
+
+        <div class="back-link">
+            <a href="directory.html">← Back to Directory</a> |
+            <a href="index.html">Home</a>
+        </div>
+    </div>
+</body>
+</html>
