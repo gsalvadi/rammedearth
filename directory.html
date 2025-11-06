@@ -288,38 +288,22 @@ hr.sep{border:0;border-top:1px solid #F5F2E8;margin:14px 0}
 <!-- Statistics Bar -->
 <div class="stats-bar">
     <div class="stat-item">
-        <span>📊 Total:</span>
-        <span class="stat-number" id="stat-total">33</span>
+        <span>Total Listings:</span>
+        <span class="stat-number" id="stat-total">34</span>
     </div>
     <div class="stat-item">
-        <span>🌍 Countries:</span>
+        <span>Countries:</span>
         <span class="stat-number" id="stat-countries">13</span>
     </div>
     <div class="stat-item">
-        <span>✓ Verified:</span>
-        <span class="stat-number" id="stat-verified">0</span>
-    </div>
-    <div class="stat-item">
-        <span>👁️ Showing:</span>
-        <span class="stat-number" id="stat-showing">33</span>
+        <span>Currently Showing:</span>
+        <span class="stat-number" id="stat-showing">34</span>
     </div>
 </div>
 
 <!-- Search Box -->
 <div class="search-box">
-    <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search by name, category, location, or specialty...">
-</div>
-
-<!-- Category Filters -->
-<div class="category-filters">
-    <span class="filter-label">Filter:</span>
-    <div class="category-pill active" data-category="all">All <span class="count" id="count-all">33</span></div>
-    <div class="category-pill" data-category="Rammed Earth">Rammed Earth <span class="count" id="count-rammed-earth">0</span></div>
-    <div class="category-pill" data-category="Builder">Builder <span class="count" id="count-builder">0</span></div>
-    <div class="category-pill" data-category="Architect">Architect <span class="count" id="count-architect">0</span></div>
-    <div class="category-pill" data-category="Consultant">Consultancy <span class="count" id="count-consultant">0</span></div>
-    <div class="category-pill" data-category="Workshop">Workshops <span class="count" id="count-workshop">0</span></div>
-    <div class="category-pill" data-category="Supplier">Supplier <span class="count" id="count-supplier">0</span></div>
+    <input type="text" class="search-input" id="searchInput" placeholder="Search by name, category, location, or specialty...">
 </div>
 
 <!-- Country Navigation -->
@@ -370,8 +354,8 @@ If you don't find someone suitable or in your location, you can email your requi
 
 <!-- No Results Message -->
 <div class="no-results hidden" id="noResults">
-    <p style="font-size:1.2em;margin-bottom:10px;">🔍 No listings found</p>
-    <p>Try adjusting your search or filter criteria</p>
+    <p style="font-size:1.2em;margin-bottom:10px;">No listings found</p>
+    <p>Try adjusting your search terms</p>
 </div>
 
 <section class="country" id="canada">
@@ -475,41 +459,6 @@ If you don't find someone suitable or in your location, you can email your requi
   },{root:null,rootMargin:'0px 0px -10% 0px',threshold:0.05});
   cards.forEach(c=>io.observe(c));
 
-  // Calculate initial category counts
-  function calculateCategoryCounts() {
-    const counts = {
-      'Rammed Earth': 0,
-      'Builder': 0,
-      'Architect': 0,
-      'Consultant': 0,
-      'Workshop': 0,
-      'Supplier': 0
-    };
-
-    document.querySelectorAll('.card').forEach(card => {
-      const categories = card.getAttribute('data-categories') || '';
-      Object.keys(counts).forEach(cat => {
-        if (categories.includes(cat)) {
-          counts[cat]++;
-        }
-      });
-    });
-
-    // Update count displays
-    document.getElementById('count-rammed-earth').textContent = counts['Rammed Earth'];
-    document.getElementById('count-builder').textContent = counts['Builder'];
-    document.getElementById('count-architect').textContent = counts['Architect'];
-    document.getElementById('count-consultant').textContent = counts['Consultant'];
-    document.getElementById('count-workshop').textContent = counts['Workshop'];
-    document.getElementById('count-supplier').textContent = counts['Supplier'];
-
-    // Update verified count
-    const verifiedCount = document.querySelectorAll('[data-verified="true"]').length;
-    document.getElementById('stat-verified').textContent = verifiedCount;
-  }
-
-  calculateCategoryCounts();
-
   // Mobile country select
   document.getElementById('countrySelect').addEventListener('change', function(e) {
     if (e.target.value) {
@@ -518,14 +467,12 @@ If you don't find someone suitable or in your location, you can email your requi
     }
   });
 
-  // Search and filter functionality
+  // Search functionality
   const searchInput = document.getElementById('searchInput');
-  const categoryPills = document.querySelectorAll('.category-pill');
   const allCards = document.querySelectorAll('.card');
   const allCountries = document.querySelectorAll('.country');
   const noResults = document.getElementById('noResults');
 
-  let activeCategory = 'all';
   let searchTerm = '';
 
   function filterListings() {
@@ -534,12 +481,9 @@ If you don't find someone suitable or in your location, you can email your requi
 
     allCards.forEach(card => {
       const cardText = card.textContent.toLowerCase();
-      const cardCategories = card.getAttribute('data-categories') || '';
-
       const matchesSearch = searchTerm === '' || cardText.includes(searchTerm);
-      const matchesCategory = activeCategory === 'all' || cardCategories.includes(activeCategory);
 
-      if (matchesSearch && matchesCategory) {
+      if (matchesSearch) {
         card.classList.remove('hidden');
         visibleCount++;
         const countrySection = card.closest('.country');
@@ -576,16 +520,6 @@ If you don't find someone suitable or in your location, you can email your requi
   searchInput.addEventListener('input', function(e) {
     searchTerm = e.target.value.toLowerCase();
     filterListings();
-  });
-
-  // Category filter handlers
-  categoryPills.forEach(pill => {
-    pill.addEventListener('click', function() {
-      categoryPills.forEach(p => p.classList.remove('active'));
-      this.classList.add('active');
-      activeCategory = this.getAttribute('data-category');
-      filterListings();
-    });
   });
 })();
 </script>
