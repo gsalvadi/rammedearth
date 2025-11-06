@@ -684,10 +684,10 @@
             // Hide all sections
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            
+
             // Show selected section
             document.getElementById(sectionName).classList.add('active');
-            
+
             // Highlight corresponding tab if it exists
             const tabs = document.querySelectorAll('.tab');
             tabs.forEach(tab => {
@@ -695,9 +695,12 @@
                     tab.classList.add('active');
                 }
             });
-            
-            // Scroll to top smoothly
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Scroll to the tabs section to keep context visible
+            const tabsSection = document.querySelector('.section-tabs');
+            if (tabsSection) {
+                tabsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }
         
         function showInstructions() {
