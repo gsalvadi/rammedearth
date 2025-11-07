@@ -1,0 +1,26 @@
+<!-- TEMPLATE: Copy this block for new entries -->
+<div class="card" data-categories="CATEGORY_TAGS">
+  <div class="name">FULL_NAME</div>
+  <div class="category">SERVICE_TAGS_COMMA_SEPARATED</div>
+  <div class="row small">SHORT_DESCRIPTION</div>
+  <hr class="sep">
+  <div class="row"><span class="label">Country:</span>COUNTRY_NAME</div>
+  <div class="row"><span class="label">City:</span>CITY_NAME</div>
+  <div class="row"><span class="label">Locations Served:</span>LOCATIONS_IF_WORLDWIDE</div>
+  <div class="row"><span class="label">Email:</span><a href="mailto:EMAIL">EMAIL</a></div>
+  <div class="row"><span class="label">Phone:</span><a href="tel:PHONE_NUMBERS">PHONE_DISPLAY</a></div>
+  <div class="row"><span class="label">Website:</span><a href="https://WEBSITE_URL" target="_blank">WEBSITE_URL</a></div>
+</div>
+
+<!-- Field Guide:
+- CATEGORY_TAGS: For filtering (e.g., "Builder,Consultant,Workshop")
+- FULL_NAME: Person or company name
+- SERVICE_TAGS_COMMA_SEPARATED: Display tags (e.g., "Rammed Earth,Cob,Training")
+- SHORT_DESCRIPTION: One-line summary OR full description
+- COUNTRY_NAME, CITY_NAME: Location
+- LOCATIONS_IF_WORLDWIDE: Optional, show if serves multiple regions
+- EMAIL: Email address
+- PHONE_NUMBERS: Use format tel:+27214621614 (no spaces in href)
+- PHONE_DISPLAY: What user sees (can include formatting/labels)
+- WEBSITE_URL: Without http:// prefix
+-->
