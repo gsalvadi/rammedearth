@@ -202,17 +202,25 @@
             <p style="margin-bottom: 0; font-style: italic; color: #666;">Email: <span id="user-email">your submission</span></p>
         </div>
 
-        <div class="section">
-            <h2>What the Algorithm Thinks</h2>
-            <p id="algorithm-assessment">My algorithm placed your responses in a category. It's trying to find patterns—looking for certain words, counting sentences, measuring detail. Logic doing what logic does.</p>
-        </div>
+        <div class="section" style="background: #FFF8E1; padding: 25px; border-radius: 8px; border-left: 4px solid #FFB300; margin: 30px 0;">
+            <h2 style="margin-top: 0; color: #E65100;">What the Algorithm Calculated</h2>
 
-        <div class="honest-box" id="philosophy-box">
-            <p style="margin-bottom: 15px;"><em>Interesting how algorithms work, isn't it?</em> At times the logic breaks. It always does eventually—that's the nature of trying to measure something like consciousness or commitment with patterns and thresholds.</p>
+            <div id="score-display" style="background: white; padding: 20px; border-radius: 5px; margin: 20px 0; text-align: center;">
+                <div style="font-size: 2em; font-weight: bold; color: #8B4513; margin-bottom: 10px;" id="score-number">Calculating...</div>
+                <div style="font-size: 1.2em; color: #666; margin-bottom: 15px;" id="level-name">Processing your responses...</div>
+                <div style="font-size: 0.9em; color: #999; font-style: italic;">This is what the pattern-matching thinks</div>
+            </div>
 
-            <p style="margin-bottom: 15px;">It's not really about algorithms. Logic will ultimately break at a point. That is why we need to touch and work with earth. <span id="level-specific-insight"></span></p>
+            <div id="level-specific-commentary" style="margin-top: 20px;">
+                <p style="margin-bottom: 15px;">My algorithm tries to find patterns—certain words, sentence complexity, specific details. It's looking for signals of experience and commitment.</p>
+                <p style="margin-bottom: 15px;" id="level-insight">Loading your assessment...</p>
+            </div>
 
-            <p style="margin-bottom: 0;"><strong>I rebuild broken algorithms like I build walls—only when I understand why it broke.</strong> That's why it's still here, doing its imperfect work while I do mine. You'll hear from me within a week.</p>
+            <p style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #FFD54F; font-style: italic;">
+                <strong>Here's the thing about algorithms:</strong> They break. A builder who's completed three rammed earth houses might write brief, matter-of-fact responses. Someone just beginning might write beautiful, detailed paragraphs. The algorithm can't always tell which is which. That's why I read everything myself.
+            </p>
+
+            <p style="margin-top: 15px;"><strong>I rebuild broken algorithms like I build walls—only when I understand why it broke.</strong> This one's still learning. I'll review your actual responses within a week.</p>
         </div>
 
         <div class="timeline-box">
@@ -310,31 +318,46 @@
         const score = sessionStorage.getItem('consultationScore');
 
         if (level && score) {
-            const assessmentEl = document.getElementById('algorithm-assessment');
-            const insightEl = document.getElementById('level-specific-insight');
+            // Update score display
+            const scoreNumber = document.getElementById('score-number');
+            const levelNameEl = document.getElementById('level-name');
+            const insightEl = document.getElementById('level-insight');
 
-            // Display what the algorithm calculated
+            // Display score prominently
+            scoreNumber.textContent = `${score}% score`;
+            scoreNumber.style.color = score >= 50 ? '#2E7D32' : score >= 30 ? '#F57C00' : '#666';
+
+            // Display what the algorithm categorized
             const levelNames = {
-                'conscious': 'high consciousness',
-                'developing': 'developing practice',
-                'beginner': 'beginner stage',
-                'theoretical': 'theoretical understanding',
-                'not-ready': 'early exploration'
+                'conscious': 'High Consciousness',
+                'developing': 'Developing Practice',
+                'beginner': 'Beginning Stage',
+                'theoretical': 'Theoretical Interest',
+                'not-ready': 'Early Exploration'
             };
 
             const levelName = levelNames[level] || level;
-            assessmentEl.innerHTML = `My algorithm placed your responses in the <strong>"${levelName}"</strong> category (${score}% of maximum scoring). It's trying to find patterns—looking for certain words, counting sentences, measuring detail. Logic doing what logic does.`;
+            levelNameEl.textContent = `Categorized as: ${levelName}`;
 
-            // Level-specific philosophical insights
+            // Softer, more encouraging level-specific insights
             const insights = {
-                'conscious': 'The algorithm saw depth in your responses, patterns it associates with embodied knowledge. Maybe it's right. Maybe you wrote what it wanted to hear. The earth will tell me which.',
-                'developing': 'Your responses showed genuine engagement, but the algorithm wanted more specifics, more material language. Perhaps you're past words and into doing. Or perhaps you need more time with earth before words can capture it.',
-                'beginner': 'The algorithm saw interest but wanted evidence of hands-on time. Maybe you haven\'t built yet. Maybe you built plenty but write briefly. The earth doesn\'t care about word count.',
-                'theoretical': 'Your responses stayed in the realm of ideas, and the algorithm noticed. But sometimes the most theoretical people become the deepest practitioners once they finally touch the material. Sometimes they don\'t. Time will tell.',
-                'not-ready': 'The algorithm found your responses brief or surface-level. It might be right—you might be exploring whether this is for you. Or you might be someone who does more than they say. I\'ll find out which when I read what you actually wrote.'
+                'conscious': 'Your responses showed depth and specificity. The algorithm detected patterns it associates with hands-on experience and material understanding. It might be reading you accurately—or you might just write well. Either way, I\'ll engage with what you actually said when I review it properly.',
+
+                'developing': 'The algorithm found genuine engagement in your responses, though it wanted more technical detail or material-specific language. You might be someone who\'s already doing the work and doesn\'t feel the need to prove it with words. Or you might be finding your way into deeper practice. Both are fine places to be.',
+
+                'beginner': 'Your responses suggested interest and curiosity. The algorithm was looking for evidence of hands-on time with earth and didn\'t find much. That might mean you\'re just starting—which is a perfectly honest place to be. Or it might mean you\'re someone who builds more than you describe. I\'ll know better when I read your actual words.',
+
+                'theoretical': 'The algorithm noticed your responses stayed more in concepts than in material specifics. Sometimes people who think deeply about earth building become the most thoughtful practitioners once they engage with the material. Sometimes the interest stays intellectual. There\'s no judgment either way—just different paths.',
+
+                'not-ready': 'Your responses were brief, and the algorithm scored that as early-stage exploration. You might genuinely be testing the waters, seeing if earth building resonates. Or you might be someone who does a lot and says little. The algorithm can\'t tell the difference. I\'ll read what you wrote and we\'ll go from there.'
             };
 
-            insightEl.textContent = insights[level] || 'The algorithm made its assessment. We\'ll see if it understood what you meant.';
+            insightEl.textContent = insights[level] || 'The algorithm made its best guess based on patterns. I\'ll review your actual responses and see if it got things right.';
+        } else {
+            // Fallback if sessionStorage isn't available
+            document.getElementById('score-number').textContent = 'Score unavailable';
+            document.getElementById('level-name').textContent = 'Algorithm assessment pending';
+            document.getElementById('level-insight').textContent = 'Your responses are recorded. I\'ll review them manually within a week.';
         }
 
         // Handle workshop link click to navigate to workshop section
