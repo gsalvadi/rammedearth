@@ -191,7 +191,7 @@
             </div>
 
             <div id="level-specific-commentary" style="margin-top: 20px;">
-                <p style="margin-bottom: 15px;">My algorithm looks for signals—hands-on commitment language, technical specificity, long-term professional thinking. It's trying to assess readiness for knowledge transfer.</p>
+                <p style="margin-bottom: 15px;"><strong>How it works:</strong> My algorithm looks for signals—hands-on commitment language, technical specificity, long-term professional thinking. It's trying to assess readiness for knowledge transfer. Sometimes it reads professionals accurately. Sometimes it mistakes brevity for lack of experience or eloquence for commitment.</p>
                 <p style="margin-bottom: 15px;" id="level-insight">Loading your assessment...</p>
             </div>
 
@@ -312,15 +312,15 @@
 
             // Softer, more encouraging professional insights
             const insights = {
-                'qualified-professional': 'Your inquiry showed clear signals of professional readiness—hands-on commitment, technical specificity, long-term thinking. The algorithm detected patterns it associates with serious practitioners. It might be reading you accurately. Or you might write better than you build. Either way, I\'ll engage with your actual words when I review properly.',
+                'qualified-professional': 'The algorithm placed you here. It might be reading you accurately. Or you might write better than you build. Or it might have completely misunderstood your inquiry. I\'ll engage with your actual words when I review properly.',
 
-                'developing-professional': 'The algorithm found professional seriousness in your inquiry, though it wanted stronger evidence of hands-on engagement or technical depth. You might be someone already deep in practice who doesn\'t elaborate much in writing. Or you might be building toward that depth. Both are legitimate places to be as a professional.',
+                'developing-professional': 'The algorithm placed you here. You might be someone already deep in practice who doesn\'t elaborate much in writing. Or you might be building toward that depth. Or the algorithm might have it backwards. Both serious practitioners and beginners land in this category.',
 
-                'willing-beginner-professional': 'Your inquiry showed openness and willingness to engage, though the algorithm looked for more concrete material experience. The most committed learners often become the strongest practitioners. Where you are now doesn\'t determine where you\'ll be after genuine engagement with the craft.',
+                'willing-beginner-professional': 'The algorithm placed you here. The most committed learners often become the strongest practitioners. Where you are now doesn\'t determine where you\'ll be after genuine engagement with the craft. Or maybe the algorithm just guessed wrong.',
 
-                'not-qualified': 'The algorithm assessed that more groundwork might help before professional knowledge transfer makes sense. That might be accurate—everyone starts somewhere. Or it might have missed context in your responses. I\'ll read what you actually wrote and we\'ll figure out what makes sense.',
+                'not-qualified': 'The algorithm placed you here. That might be accurate—everyone starts somewhere. Or it might have missed context entirely. I\'ll read what you actually wrote and we\'ll figure out what makes sense.',
 
-                'no-hands-on-response': 'The algorithm couldn\'t clearly assess your hands-on commitment from what you wrote. Perhaps you assumed professional credibility was obvious. Perhaps you\'re still figuring out your relationship to material practice. Either way, I\'ll review your actual inquiry and we\'ll go from there.'
+                'no-hands-on-response': 'The algorithm placed you here. Perhaps your professional credibility was obvious but the algorithm missed it. Perhaps you\'re still figuring things out. Either way, I\'ll review your actual inquiry and we\'ll go from there.'
             };
 
             insightEl.textContent = insights[level] || 'The algorithm made its professional assessment. I\'ll review your actual inquiry and see if it understood correctly.';
