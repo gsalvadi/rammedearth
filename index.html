@@ -1634,9 +1634,6 @@
             const answers = [role, handsOn, technology, application];
 
             const result = analyzeTechTransfer(answers);
-            const response = generateTechResponse(result.level, email, result.debug);
-
-            displayResponse('tech-response', response, email, result.debug);
 
             // Submit to Google Sheets via Apps Script
             submitToGoogleSheet('tech-transfer', {
@@ -1651,11 +1648,37 @@
                 flags: result.debug.flags.join('; '),
                 reasoning: result.debug.reasoning.join('; ')
             });
-            
+
+            // Store email in session storage for landing page
+            sessionStorage.setItem('techTransferEmail', email);
+            sessionStorage.setItem('techTransferLevel', result.level);
+            sessionStorage.setItem('techTransferScore', result.debug.percentScore);
+
+            // Redirect to appropriate landing page
+            const techLandingPages = {
+                'redirect-to-directory': 'consultation-wants-contractor.html',  // Reuse contractor page
+                'unwilling-hands-on': 'consultation-wants-contractor.html',      // Reuse contractor page
+                // All other levels go to tech transfer received page
+                'qualified-professional': 'tech-transfer-received.html',
+                'developing-professional': 'tech-transfer-received.html',
+                'willing-beginner-professional': 'tech-transfer-received.html',
+                'not-qualified': 'tech-transfer-received.html',
+                'no-hands-on-response': 'tech-transfer-received.html'
+            };
+
+            const landingPage = techLandingPages[result.level];
+            if (landingPage) {
+                window.location.href = landingPage;
+            } else {
+                // Fallback to inline display if no landing page
+                const response = generateTechResponse(result.level, email, result.debug);
+                displayResponse('tech-response', response, email, result.debug);
+            }
+
             // Clear form fields
             form.reset();
             checkbox.checked = false;
-            
+
             // Disable button temporarily
             const submitBtn = document.getElementById('tech-submit-btn');
             submitBtn.disabled = true;
