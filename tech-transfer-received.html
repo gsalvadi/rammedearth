@@ -181,17 +181,25 @@
             <p style="margin-bottom: 0; font-style: italic; color: #666;">Email: <span id="user-email">your submission</span></p>
         </div>
 
-        <div class="section">
-            <h2>What the Algorithm Thinks</h2>
-            <p id="algorithm-assessment">My algorithm assessed your professional inquiry. It's looking for signals—hands-on commitment language, technical specificity, long-term thinking. Logic trying to measure something that's ultimately about craft and relationship.</p>
-        </div>
+        <div class="section" style="background: #FFF8E1; padding: 25px; border-radius: 8px; border-left: 4px solid #FFB300; margin: 30px 0;">
+            <h2 style="margin-top: 0; color: #E65100;">What the Algorithm Calculated</h2>
 
-        <div class="honest-box" id="philosophy-box">
-            <p style="margin-bottom: 15px;"><em>Algorithms break.</em> They're useful until they're not. A builder optimizing their third rammed earth house might write three concise sentences. Someone dreaming about maybe starting someday might write eloquent paragraphs. The algorithm scores the paragraphs higher. That's when logic breaks.</p>
+            <div id="score-display" style="background: white; padding: 20px; border-radius: 5px; margin: 20px 0; text-align: center;">
+                <div style="font-size: 2em; font-weight: bold; color: #8B4513; margin-bottom: 10px;" id="score-number">Calculating...</div>
+                <div style="font-size: 1.2em; color: #666; margin-bottom: 15px;" id="level-name">Processing your inquiry...</div>
+                <div style="font-size: 0.9em; color: #999; font-style: italic;">This is what the pattern-matching thinks</div>
+            </div>
 
-            <p style="margin-bottom: 15px;">It's not really about algorithms. It's about whether you're ready to get your hands in the earth, to fail, to learn by doing. <span id="level-specific-insight"></span></p>
+            <div id="level-specific-commentary" style="margin-top: 20px;">
+                <p style="margin-bottom: 15px;">My algorithm looks for signals—hands-on commitment language, technical specificity, long-term professional thinking. It's trying to assess readiness for knowledge transfer.</p>
+                <p style="margin-bottom: 15px;" id="level-insight">Loading your assessment...</p>
+            </div>
 
-            <p style="margin-bottom: 0;"><strong>I rebuild broken algorithms like I build walls—only when I understand why it broke.</strong> That's why it's still here. It helps me organize, then I check its work. You'll hear from me within a week.</p>
+            <p style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #FFD54F; font-style: italic;">
+                <strong>Here's the thing:</strong> Algorithms break. A builder optimizing their third rammed earth house might write three concise, practical sentences. Someone exploring hypothetically might write eloquent, detailed paragraphs. The algorithm can't always tell which is which. That's why I read everything myself.
+            </p>
+
+            <p style="margin-top: 15px;"><strong>I rebuild broken algorithms like I build walls—only when I understand why it broke.</strong> This one's still learning. I'll review your actual inquiry within a week.</p>
         </div>
 
         <div class="terms-reminder">
@@ -281,31 +289,46 @@
         const score = sessionStorage.getItem('techTransferScore');
 
         if (level && score) {
-            const assessmentEl = document.getElementById('algorithm-assessment');
-            const insightEl = document.getElementById('level-specific-insight');
+            // Update score display
+            const scoreNumber = document.getElementById('score-number');
+            const levelNameEl = document.getElementById('level-name');
+            const insightEl = document.getElementById('level-insight');
 
-            // Display what the algorithm calculated
+            // Display score prominently
+            scoreNumber.textContent = `${score}% score`;
+            scoreNumber.style.color = score >= 60 ? '#2E7D32' : score >= 40 ? '#F57C00' : '#666';
+
+            // Display what the algorithm categorized
             const levelNames = {
-                'qualified-professional': 'highly qualified professional',
-                'developing-professional': 'developing professional',
-                'willing-beginner-professional': 'willing beginner professional',
-                'not-qualified': 'not yet qualified',
-                'no-hands-on-response': 'unclear hands-on commitment'
+                'qualified-professional': 'Highly Qualified Professional',
+                'developing-professional': 'Developing Professional',
+                'willing-beginner-professional': 'Willing Beginner Professional',
+                'not-qualified': 'Needs More Foundation',
+                'no-hands-on-response': 'Unclear Commitment Level'
             };
 
             const levelName = levelNames[level] || level;
-            assessmentEl.innerHTML = `My algorithm placed your inquiry in the <strong>"${levelName}"</strong> category (${score}% of maximum scoring). It's looking for signals—hands-on commitment language, technical specificity, long-term thinking. Logic trying to measure something that's ultimately about craft and relationship.`;
+            levelNameEl.textContent = `Categorized as: ${levelName}`;
 
-            // Level-specific philosophical insights for professionals
+            // Softer, more encouraging professional insights
             const insights = {
-                'qualified-professional': 'The algorithm saw strong signals in your responses—hands-on commitment, technical specificity, long-term vision. Maybe it read you right. Maybe you know how to write what sounds good. Our conversation will reveal which.',
-                'developing-professional': 'Your responses showed professional seriousness, but the algorithm wanted more concrete evidence of hands-on commitment or technical clarity. Perhaps you're already deep in the work and didn\'t feel the need to prove it. Perhaps you\'re still finding your way. I\'ll know when I read it properly.',
-                'willing-beginner-professional': 'The algorithm saw willingness but wanted more evidence of material engagement. Sometimes the most willing learners become the best practitioners. Sometimes willingness stays theoretical. The earth reveals which.',
-                'not-qualified': 'Your responses didn\'t convince the algorithm of readiness for professional knowledge transfer. Maybe it\'s right—you might need more groundwork first. Maybe it missed that you\'re someone who does rather than describes. I\'ll sort it out.',
-                'no-hands-on-response': 'The algorithm couldn\'t assess your hands-on commitment from what you wrote. Perhaps you assumed it was obvious. Perhaps it isn\'t clear yet to you either. Let\'s find out.'
+                'qualified-professional': 'Your inquiry showed clear signals of professional readiness—hands-on commitment, technical specificity, long-term thinking. The algorithm detected patterns it associates with serious practitioners. It might be reading you accurately. Or you might write better than you build. Either way, I\'ll engage with your actual words when I review properly.',
+
+                'developing-professional': 'The algorithm found professional seriousness in your inquiry, though it wanted stronger evidence of hands-on engagement or technical depth. You might be someone already deep in practice who doesn\'t elaborate much in writing. Or you might be building toward that depth. Both are legitimate places to be as a professional.',
+
+                'willing-beginner-professional': 'Your inquiry showed openness and willingness to engage, though the algorithm looked for more concrete material experience. The most committed learners often become the strongest practitioners. Where you are now doesn\'t determine where you\'ll be after genuine engagement with the craft.',
+
+                'not-qualified': 'The algorithm assessed that more groundwork might help before professional knowledge transfer makes sense. That might be accurate—everyone starts somewhere. Or it might have missed context in your responses. I\'ll read what you actually wrote and we\'ll figure out what makes sense.',
+
+                'no-hands-on-response': 'The algorithm couldn\'t clearly assess your hands-on commitment from what you wrote. Perhaps you assumed professional credibility was obvious. Perhaps you\'re still figuring out your relationship to material practice. Either way, I\'ll review your actual inquiry and we\'ll go from there.'
             };
 
-            insightEl.textContent = insights[level] || 'The algorithm made its assessment. Time will tell if it understood your inquiry correctly.';
+            insightEl.textContent = insights[level] || 'The algorithm made its professional assessment. I\'ll review your actual inquiry and see if it understood correctly.';
+        } else {
+            // Fallback if sessionStorage isn't available
+            document.getElementById('score-number').textContent = 'Score unavailable';
+            document.getElementById('level-name').textContent = 'Algorithm assessment pending';
+            document.getElementById('level-insight').textContent = 'Your inquiry is recorded. I\'ll review it manually within a week.';
         }
     </script>
 </body>
