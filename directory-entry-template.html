@@ -1,0 +1,178 @@
+<!-- ============================================
+     DIRECTORY ENTRY TEMPLATE
+     Use this template for manual additions/updates
+     ============================================ -->
+
+<!-- FULL TEMPLATE WITH ALL FIELDS -->
+<div class="card" data-categories="CATEGORY_TAGS">
+  <div class="name">FULL_NAME</div>
+  <div class="category">SERVICE_TAGS</div>
+  <div class="row small">DESCRIPTION_TEXT</div>
+  <hr class="sep">
+  <div class="row"><span class="label">Country:</span>COUNTRY</div>
+  <div class="row"><span class="label">City:</span>CITY</div>
+  <div class="row"><span class="label">Locations Served:</span>LOCATIONS</div>
+  <div class="row"><span class="label">Email:</span><a href="mailto:EMAIL">EMAIL</a></div>
+  <div class="row"><span class="label">Phone:</span><a href="tel:PHONE_NUMBER">PHONE_DISPLAY</a></div>
+  <div class="row"><span class="label">Website:</span><a href="https://WEBSITE" target="_blank">WEBSITE</a></div>
+</div>
+
+<!-- ============================================
+     FIELD GUIDE
+     ============================================ -->
+
+CATEGORY_TAGS (data-categories attribute):
+  Purpose: For filtering functionality
+  Format: Comma-separated, no spaces
+  Examples: "Builder,Consultant,Workshop"
+            "Architect,Natural Building"
+            "Rammed Earth,Supplier"
+
+FULL_NAME:
+  Purpose: Person or organization name
+  Examples: "Andrew Raymond Horn"
+            "Scott Howard"
+            "Rammed Earth Pakistan"
+
+SERVICE_TAGS (visible tags):
+  Purpose: What user sees as service categories
+  Format: Comma-separated with spaces for readability
+  Examples: "Architect,Ecological Design,Natural Building,Training,Consultancy"
+            "Rammed Earth,Passive Solar Design"
+            "Cob Oven,Scullpture,Fine Plaster"
+
+DESCRIPTION_TEXT:
+  Purpose: Short summary OR detailed description
+  Can be: - One line: "Architect and natural building consultant"
+          - Or full paragraph with all details
+  Note: No character limit, display will auto-adjust
+
+COUNTRY:
+  Purpose: Country name
+  Examples: "South Africa", "United States of America", "Pakistan"
+
+CITY:
+  Purpose: City or region
+  Use "'-" if not applicable or unknown
+  Examples: "Cape Town", "TAUNTON", "'-"
+
+LOCATIONS (optional field):
+  Purpose: If serves multiple regions
+  Use only when applicable
+  Examples: "Worldwide", "West Coast USA", "Southern Africa"
+  Omit line if not applicable
+
+EMAIL:
+  Purpose: Primary contact email
+  Format: Use same email in both href and display
+  Example: <a href="mailto:andy@ecodesignarchitects.co.za">andy@ecodesignarchitects.co.za</a>
+
+PHONE_NUMBER (tel: attribute):
+  Purpose: Machine-readable phone for click-to-call
+  Format: Remove all spaces, keep only digits and +
+  Examples: tel:+27214621614
+            tel:+18329069154
+            tel:5032872442
+
+PHONE_DISPLAY (what user sees):
+  Purpose: Human-readable phone with formatting
+  Can include: - Labels: "+27 21 462 1614 (Landline)"
+               - Multiple: "+27 21 462 1614 (Landline) | +27 82 6762 110 (WhatsApp)"
+               - Simple: "904-392-3262"
+
+WEBSITE:
+  Purpose: Website URL
+  Format: Without http:// or https:// prefix (added automatically)
+  Examples: "www.ecodesignarchitects.co.za"
+            "earthenhand.com"
+  Full tag: <a href="https://www.ecodesignarchitects.co.za" target="_blank">www.ecodesignarchitects.co.za</a>
+  Omit line if no website
+
+<!-- ============================================
+     MINIMAL TEMPLATE (Required fields only)
+     ============================================ -->
+
+<div class="card">
+  <div class="name">FULL_NAME</div>
+  <div class="category">SERVICE_TAGS</div>
+  <hr class="sep">
+  <div class="row"><span class="label">Country:</span>COUNTRY</div>
+  <div class="row"><span class="label">City:</span>CITY</div>
+  <div class="row"><span class="label">Email:</span><a href="mailto:EMAIL">EMAIL</a></div>
+</div>
+
+<!-- ============================================
+     REAL EXAMPLES
+     ============================================ -->
+
+<!-- EXAMPLE 1: Full entry with all fields -->
+<div class="card" data-categories="Architect,Natural Building,Training,Consultancy">
+  <div class="name">Andrew Raymond Horn</div>
+  <div class="category">Architect,Ecological Design,Natural Building,Training,Consultancy</div>
+  <div class="row small">Architect, ecological designer, non-toxic construction, natural building consultant, author of various natural building manuals, specialist artisanal building services and hands-on workshop facilitator with specialist skills in: Straw bale, light clay straw, sandbag, cob, adobe construction, earth building soil testing, brick making, water wise design, and masonry dome building.</div>
+  <hr class="sep">
+  <div class="row"><span class="label">Country:</span>South Africa</div>
+  <div class="row"><span class="label">City:</span>Cape Town</div>
+  <div class="row"><span class="label">Locations Served:</span>Worldwide</div>
+  <div class="row"><span class="label">Email:</span><a href="mailto:andy@ecodesignarchitects.co.za">andy@ecodesignarchitects.co.za</a></div>
+  <div class="row"><span class="label">Phone:</span><a href="tel:+27214621614">+27 21 462 1614 (Landline)</a> | <a href="tel:+27826762110">+27 82 6762 110 (WhatsApp)</a></div>
+  <div class="row"><span class="label">Website:</span><a href="https://www.ecodesignarchitects.co.za" target="_blank">www.ecodesignarchitects.co.za</a></div>
+</div>
+
+<!-- EXAMPLE 2: Minimal entry -->
+<div class="card">
+  <div class="name">Jeffrey Hart</div>
+  <div class="category">Earthen floors,Clay plaster,Cob</div>
+  <hr class="sep">
+  <div class="row"><span class="label">Country:</span>United Kingdom</div>
+  <div class="row"><span class="label">City:</span>TAUNTON</div>
+  <div class="row"><span class="label">Email:</span><a href="mailto:jeffreythenaturalbuilder@gmail.com">jeffreythenaturalbuilder@gmail.com</a></div>
+</div>
+
+<!-- EXAMPLE 3: With phone, no website -->
+<div class="card" data-categories="Rammed Earth,Builder">
+  <div class="name">Christopher Koloc</div>
+  <div class="category">Rammed Earth,Passive Solar Design</div>
+  <div class="row small">Tiny home builder using passive house designs and eco friendly methods</div>
+  <hr class="sep">
+  <div class="row"><span class="label">Country:</span>United States of America</div>
+  <div class="row"><span class="label">City:</span>Florida</div>
+  <div class="row"><span class="label">Email:</span><a href="mailto:chriskoloc@hotmail.com">chriskoloc@hotmail.com</a></div>
+  <div class="row"><span class="label">Phone:</span><a href="tel:9043923262">904-392-3262</a></div>
+</div>
+
+<!-- ============================================
+     USAGE NOTES
+     ============================================ -->
+
+1. ADDING NEW ENTRY:
+   - Copy the template (full or minimal)
+   - Fill in placeholders
+   - Find the correct country section
+   - Paste entry inside that section
+   - Update country count (header count div)
+
+2. UPDATING EXISTING ENTRY:
+   - Search for email address to locate entry
+   - Replace entire <div class="card">...</div> block
+   - Use updated template structure
+
+3. PHONE NUMBERS:
+   - Multiple phones: Separate with " | "
+   - Include labels in parentheses for clarity
+   - Remove spaces in tel: attribute
+   - Keep formatting in display text
+
+4. OPTIONAL FIELDS:
+   - Description (row small): Omit if no description
+   - Locations Served: Omit if not applicable
+   - Phone: Omit if no phone provided
+   - Website: Omit if no website
+   - data-categories: Omit if not needed for filtering
+
+5. COUNTRY SECTIONS:
+   Format:
+   <section class="country" id="country-name-lowercase">
+     <header><h2>Country Name</h2><div class="count">NUMBER</div></header>
+     <!-- entries here -->
+   </section>
