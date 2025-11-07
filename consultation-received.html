@@ -203,14 +203,16 @@
         </div>
 
         <div class="section">
-            <h2>What Happens Next</h2>
-            <p>I personally review every submission. An algorithm helps me organize responses based on patterns it detects—experience level, motivation depth, specific challenges mentioned. It's not perfect. Sometimes it misses context, reads brevity as lack of engagement, or fails to recognize that someone who built a two-story rammed earth house knows more than someone who wrote eloquently about wanting to build one.</p>
-
-            <p>So I check its work. If the algorithm gets it wrong, I fix it—like I fix rammed earth walls. Manual review, human judgment, actual engagement with what you wrote.</p>
+            <h2>What the Algorithm Thinks</h2>
+            <p id="algorithm-assessment">My algorithm placed your responses in a category. It's trying to find patterns—looking for certain words, counting sentences, measuring detail. Logic doing what logic does.</p>
         </div>
 
-        <div class="honest-box">
-            <strong>The algorithm's initial assessment is noted in my records.</strong> But that's just a starting point. I read everything. If your responses suggest genuine engagement with earth building—even if brief or imperfect—I'll reach out.
+        <div class="honest-box" id="philosophy-box">
+            <p style="margin-bottom: 15px;"><em>Interesting how algorithms work, isn't it?</em> At times the logic breaks. It always does eventually—that's the nature of trying to measure something like consciousness or commitment with patterns and thresholds.</p>
+
+            <p style="margin-bottom: 15px;">It's not really about algorithms. Logic will ultimately break at a point. That is why we need to touch and work with earth. <span id="level-specific-insight"></span></p>
+
+            <p style="margin-bottom: 0;"><strong>I rebuild broken algorithms like I build walls—only when I understand why it broke.</strong> That's why it's still here, doing its imperfect work while I do mine. You'll hear from me within a week.</p>
         </div>
 
         <div class="timeline-box">
@@ -301,6 +303,38 @@
         const email = sessionStorage.getItem('consultationEmail');
         if (email) {
             document.getElementById('user-email').textContent = email;
+        }
+
+        // Display algorithm assessment and level-specific insight
+        const level = sessionStorage.getItem('consultationLevel');
+        const score = sessionStorage.getItem('consultationScore');
+
+        if (level && score) {
+            const assessmentEl = document.getElementById('algorithm-assessment');
+            const insightEl = document.getElementById('level-specific-insight');
+
+            // Display what the algorithm calculated
+            const levelNames = {
+                'conscious': 'high consciousness',
+                'developing': 'developing practice',
+                'beginner': 'beginner stage',
+                'theoretical': 'theoretical understanding',
+                'not-ready': 'early exploration'
+            };
+
+            const levelName = levelNames[level] || level;
+            assessmentEl.innerHTML = `My algorithm placed your responses in the <strong>"${levelName}"</strong> category (${score}% of maximum scoring). It's trying to find patterns—looking for certain words, counting sentences, measuring detail. Logic doing what logic does.`;
+
+            // Level-specific philosophical insights
+            const insights = {
+                'conscious': 'The algorithm saw depth in your responses, patterns it associates with embodied knowledge. Maybe it's right. Maybe you wrote what it wanted to hear. The earth will tell me which.',
+                'developing': 'Your responses showed genuine engagement, but the algorithm wanted more specifics, more material language. Perhaps you're past words and into doing. Or perhaps you need more time with earth before words can capture it.',
+                'beginner': 'The algorithm saw interest but wanted evidence of hands-on time. Maybe you haven\'t built yet. Maybe you built plenty but write briefly. The earth doesn\'t care about word count.',
+                'theoretical': 'Your responses stayed in the realm of ideas, and the algorithm noticed. But sometimes the most theoretical people become the deepest practitioners once they finally touch the material. Sometimes they don\'t. Time will tell.',
+                'not-ready': 'The algorithm found your responses brief or surface-level. It might be right—you might be exploring whether this is for you. Or you might be someone who does more than they say. I\'ll find out which when I read what you actually wrote.'
+            };
+
+            insightEl.textContent = insights[level] || 'The algorithm made its assessment. We\'ll see if it understood what you meant.';
         }
 
         // Handle workshop link click to navigate to workshop section
