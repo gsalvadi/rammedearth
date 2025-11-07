@@ -1210,14 +1210,16 @@
         }
         
         // Landing page mappings for consultation results
+        // Only red flags get specific pages, everyone else gets the generic received page
         const consultationLandingPages = {
-            'conscious': 'consultation-conscious.html',
-            'developing': 'consultation-developing.html',
-            'beginner': 'consultation-beginner.html',
-            'theoretical': 'consultation-theoretical.html',
-            'not-ready': 'consultation-not-ready.html',
             'cost-focused': 'consultation-cost-focused.html',
-            'wants-contractor': 'consultation-wants-contractor.html'
+            'wants-contractor': 'consultation-wants-contractor.html',
+            // All other levels go to the same page
+            'conscious': 'consultation-received.html',
+            'developing': 'consultation-received.html',
+            'beginner': 'consultation-received.html',
+            'theoretical': 'consultation-received.html',
+            'not-ready': 'consultation-received.html'
         };
 
         function generateConsultationResponse(level, email, debug) {
