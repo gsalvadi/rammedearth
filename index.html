@@ -424,16 +424,18 @@
     <img src="re.png" alt="The Rammed Earth Chronicles" style="max-width: 100%; height: auto; max-height: 120px;">
         </div>
 
+        <div class="subtitle" style="text-align: center;">A hub for people who love and work with earthen buildings</div>
+
         <!-- About Section -->
         <div style="background: #F5F2E8; padding: 20px 25px; border-radius: 5px; margin: 25px 0; border-left: 3px solid #8B4513;">
             <h2 style="color: #8B4513; margin-top: 0; font-size: 1.3em;">Two Things Happen Here</h2>
 
             <p style="margin-bottom: 15px;">
-                <strong style="color: #8B4513;">Community Directory</strong> — Find rammed earth builders worldwide, or submit your own listing if you're a practitioner.
+                <strong style="color: #8B4513;">1. Find a Professional in the Directory</strong> — Browse our directory of rammed earth builders worldwide. If you find someone in your region, contact them directly and move forward with your project.
             </p>
 
             <p style="margin-bottom: 15px;">
-                <strong style="color: #8B4513;">Working With Me</strong> — If you want to learn to build with rammed earth yourself (not hire someone to build for you), the forms below help me understand where you are. I work with people through consultations and workshops.
+                <strong style="color: #8B4513;">2. No Match? Fill Out the Form Below</strong> — If you don't find someone suitable in the directory, or if you want to work with me directly, fill out one of the forms below. I'll either work with you myself or connect you with another professional from the directory who's a better match for your location or needs.
             </p>
 
             <p style="margin-bottom: 0; font-style: italic; color: #666; font-size: 0.95em;">
@@ -564,8 +566,93 @@
                     <div class="question">What did the earth teach you when it failed?</div>
                     <textarea name="failure" placeholder="Not the technical lesson. What did you understand about yourself when the wall cracked?"></textarea>
                 </div>
-                
+
+                <div class="question-block">
+                    <div class="question">Your Location</div>
+                    <select name="country" required>
+                        <option value="">Select your country...</option>
+                        <option value="Afghanistan">Afghanistan</option>
+                        <option value="Albania">Albania</option>
+                        <option value="Algeria">Algeria</option>
+                        <option value="Argentina">Argentina</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Austria">Austria</option>
+                        <option value="Bangladesh">Bangladesh</option>
+                        <option value="Belgium">Belgium</option>
+                        <option value="Brazil">Brazil</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Chile">Chile</option>
+                        <option value="China">China</option>
+                        <option value="Colombia">Colombia</option>
+                        <option value="Costa Rica">Costa Rica</option>
+                        <option value="Croatia">Croatia</option>
+                        <option value="Czech Republic">Czech Republic</option>
+                        <option value="Denmark">Denmark</option>
+                        <option value="Egypt">Egypt</option>
+                        <option value="Ethiopia">Ethiopia</option>
+                        <option value="Finland">Finland</option>
+                        <option value="France">France</option>
+                        <option value="Germany">Germany</option>
+                        <option value="Ghana">Ghana</option>
+                        <option value="Greece">Greece</option>
+                        <option value="Hungary">Hungary</option>
+                        <option value="India">India</option>
+                        <option value="Indonesia">Indonesia</option>
+                        <option value="Iran">Iran</option>
+                        <option value="Iraq">Iraq</option>
+                        <option value="Ireland">Ireland</option>
+                        <option value="Israel">Israel</option>
+                        <option value="Italy">Italy</option>
+                        <option value="Japan">Japan</option>
+                        <option value="Jordan">Jordan</option>
+                        <option value="Kenya">Kenya</option>
+                        <option value="Malaysia">Malaysia</option>
+                        <option value="Mexico">Mexico</option>
+                        <option value="Morocco">Morocco</option>
+                        <option value="Nepal">Nepal</option>
+                        <option value="Netherlands">Netherlands</option>
+                        <option value="New Zealand">New Zealand</option>
+                        <option value="Nigeria">Nigeria</option>
+                        <option value="Norway">Norway</option>
+                        <option value="Pakistan">Pakistan</option>
+                        <option value="Peru">Peru</option>
+                        <option value="Philippines">Philippines</option>
+                        <option value="Poland">Poland</option>
+                        <option value="Portugal">Portugal</option>
+                        <option value="Romania">Romania</option>
+                        <option value="Russia">Russia</option>
+                        <option value="Saudi Arabia">Saudi Arabia</option>
+                        <option value="Serbia">Serbia</option>
+                        <option value="Singapore">Singapore</option>
+                        <option value="South Africa">South Africa</option>
+                        <option value="South Korea">South Korea</option>
+                        <option value="Spain">Spain</option>
+                        <option value="Sri Lanka">Sri Lanka</option>
+                        <option value="Sweden">Sweden</option>
+                        <option value="Switzerland">Switzerland</option>
+                        <option value="Thailand">Thailand</option>
+                        <option value="Turkey">Turkey</option>
+                        <option value="Uganda">Uganda</option>
+                        <option value="Ukraine">Ukraine</option>
+                        <option value="United Arab Emirates">United Arab Emirates</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="United States of America">United States of America</option>
+                        <option value="Vietnam">Vietnam</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="question-block">
+                    <input type="text" name="city" placeholder="City or Region" required>
+                </div>
+
                 <input type="email" placeholder="Your email" required>
+
+                <div class="terms-checkbox" style="margin-top: 20px;">
+                    <input type="checkbox" id="consultation-consent" required>
+                    <label for="consultation-consent">I understand my inquiry may be forwarded to other professionals in the directory if that's a better match for my location or needs. I'll be notified if this happens. <a href="privacy-policy.html" target="_blank" style="color: #8B4513;">Privacy Policy</a></label>
+                </div>
+
                 <button type="submit" class="submit-btn">Send</button>
             </form>
             
@@ -577,16 +664,93 @@
         <!-- Workshop Section -->
         <div id="workshop" class="section">
             <p style="margin-bottom: 30px; color: #3E2723;">
-                Workshops happen when enough conscious people gather in one region. 
+                Workshops happen when enough conscious people gather in one region.
                 Leave your details and I'll notify you when something forms near you.
             </p>
-            
+
             <form class="workshop-form" id="workshop-form">
-                <input type="text" placeholder="Your name" required>
-                <div class="form-row">
-                    <input type="email" placeholder="Email" required>
-                    <input type="text" placeholder="Location (city, region)" required>
+                <input type="text" name="name" placeholder="Your name" required>
+                <input type="email" name="email" placeholder="Email" required>
+
+                <select name="country" required>
+                    <option value="">Select your country...</option>
+                    <option value="Afghanistan">Afghanistan</option>
+                    <option value="Albania">Albania</option>
+                    <option value="Algeria">Algeria</option>
+                    <option value="Argentina">Argentina</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Austria">Austria</option>
+                    <option value="Bangladesh">Bangladesh</option>
+                    <option value="Belgium">Belgium</option>
+                    <option value="Brazil">Brazil</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Chile">Chile</option>
+                    <option value="China">China</option>
+                    <option value="Colombia">Colombia</option>
+                    <option value="Costa Rica">Costa Rica</option>
+                    <option value="Croatia">Croatia</option>
+                    <option value="Czech Republic">Czech Republic</option>
+                    <option value="Denmark">Denmark</option>
+                    <option value="Egypt">Egypt</option>
+                    <option value="Ethiopia">Ethiopia</option>
+                    <option value="Finland">Finland</option>
+                    <option value="France">France</option>
+                    <option value="Germany">Germany</option>
+                    <option value="Ghana">Ghana</option>
+                    <option value="Greece">Greece</option>
+                    <option value="Hungary">Hungary</option>
+                    <option value="India">India</option>
+                    <option value="Indonesia">Indonesia</option>
+                    <option value="Iran">Iran</option>
+                    <option value="Iraq">Iraq</option>
+                    <option value="Ireland">Ireland</option>
+                    <option value="Israel">Israel</option>
+                    <option value="Italy">Italy</option>
+                    <option value="Japan">Japan</option>
+                    <option value="Jordan">Jordan</option>
+                    <option value="Kenya">Kenya</option>
+                    <option value="Malaysia">Malaysia</option>
+                    <option value="Mexico">Mexico</option>
+                    <option value="Morocco">Morocco</option>
+                    <option value="Nepal">Nepal</option>
+                    <option value="Netherlands">Netherlands</option>
+                    <option value="New Zealand">New Zealand</option>
+                    <option value="Nigeria">Nigeria</option>
+                    <option value="Norway">Norway</option>
+                    <option value="Pakistan">Pakistan</option>
+                    <option value="Peru">Peru</option>
+                    <option value="Philippines">Philippines</option>
+                    <option value="Poland">Poland</option>
+                    <option value="Portugal">Portugal</option>
+                    <option value="Romania">Romania</option>
+                    <option value="Russia">Russia</option>
+                    <option value="Saudi Arabia">Saudi Arabia</option>
+                    <option value="Serbia">Serbia</option>
+                    <option value="Singapore">Singapore</option>
+                    <option value="South Africa">South Africa</option>
+                    <option value="South Korea">South Korea</option>
+                    <option value="Spain">Spain</option>
+                    <option value="Sri Lanka">Sri Lanka</option>
+                    <option value="Sweden">Sweden</option>
+                    <option value="Switzerland">Switzerland</option>
+                    <option value="Thailand">Thailand</option>
+                    <option value="Turkey">Turkey</option>
+                    <option value="Uganda">Uganda</option>
+                    <option value="Ukraine">Ukraine</option>
+                    <option value="United Arab Emirates">United Arab Emirates</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="United States of America">United States of America</option>
+                    <option value="Vietnam">Vietnam</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <input type="text" name="city" placeholder="City or Region" required>
+
+                <div class="terms-checkbox" style="margin-top: 20px;">
+                    <input type="checkbox" id="workshop-consent" required>
+                    <label for="workshop-consent">I understand my information may be shared with other workshop participants or professionals in the directory for collaboration purposes. <a href="privacy-policy.html" target="_blank" style="color: #8B4513;">Privacy Policy</a></label>
                 </div>
+
                 <button type="submit" class="submit-btn">Notify Me of Workshops</button>
             </form>
             
@@ -631,10 +795,89 @@
                     <div class="question">How will you use this knowledge?</div>
                     <textarea name="application" placeholder="Training team for ongoing practice? One-time project? Adding to service offerings?" required></textarea>
                 </div>
-                
+
+                <div class="question-block">
+                    <div class="question">Your Location</div>
+                    <select name="country" required>
+                        <option value="">Select your country...</option>
+                        <option value="Afghanistan">Afghanistan</option>
+                        <option value="Albania">Albania</option>
+                        <option value="Algeria">Algeria</option>
+                        <option value="Argentina">Argentina</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Austria">Austria</option>
+                        <option value="Bangladesh">Bangladesh</option>
+                        <option value="Belgium">Belgium</option>
+                        <option value="Brazil">Brazil</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Chile">Chile</option>
+                        <option value="China">China</option>
+                        <option value="Colombia">Colombia</option>
+                        <option value="Costa Rica">Costa Rica</option>
+                        <option value="Croatia">Croatia</option>
+                        <option value="Czech Republic">Czech Republic</option>
+                        <option value="Denmark">Denmark</option>
+                        <option value="Egypt">Egypt</option>
+                        <option value="Ethiopia">Ethiopia</option>
+                        <option value="Finland">Finland</option>
+                        <option value="France">France</option>
+                        <option value="Germany">Germany</option>
+                        <option value="Ghana">Ghana</option>
+                        <option value="Greece">Greece</option>
+                        <option value="Hungary">Hungary</option>
+                        <option value="India">India</option>
+                        <option value="Indonesia">Indonesia</option>
+                        <option value="Iran">Iran</option>
+                        <option value="Iraq">Iraq</option>
+                        <option value="Ireland">Ireland</option>
+                        <option value="Israel">Israel</option>
+                        <option value="Italy">Italy</option>
+                        <option value="Japan">Japan</option>
+                        <option value="Jordan">Jordan</option>
+                        <option value="Kenya">Kenya</option>
+                        <option value="Malaysia">Malaysia</option>
+                        <option value="Mexico">Mexico</option>
+                        <option value="Morocco">Morocco</option>
+                        <option value="Nepal">Nepal</option>
+                        <option value="Netherlands">Netherlands</option>
+                        <option value="New Zealand">New Zealand</option>
+                        <option value="Nigeria">Nigeria</option>
+                        <option value="Norway">Norway</option>
+                        <option value="Pakistan">Pakistan</option>
+                        <option value="Peru">Peru</option>
+                        <option value="Philippines">Philippines</option>
+                        <option value="Poland">Poland</option>
+                        <option value="Portugal">Portugal</option>
+                        <option value="Romania">Romania</option>
+                        <option value="Russia">Russia</option>
+                        <option value="Saudi Arabia">Saudi Arabia</option>
+                        <option value="Serbia">Serbia</option>
+                        <option value="Singapore">Singapore</option>
+                        <option value="South Africa">South Africa</option>
+                        <option value="South Korea">South Korea</option>
+                        <option value="Spain">Spain</option>
+                        <option value="Sri Lanka">Sri Lanka</option>
+                        <option value="Sweden">Sweden</option>
+                        <option value="Switzerland">Switzerland</option>
+                        <option value="Thailand">Thailand</option>
+                        <option value="Turkey">Turkey</option>
+                        <option value="Uganda">Uganda</option>
+                        <option value="Ukraine">Ukraine</option>
+                        <option value="United Arab Emirates">United Arab Emirates</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="United States of America">United States of America</option>
+                        <option value="Vietnam">Vietnam</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="question-block">
+                    <input type="text" name="city" placeholder="City or Region" required>
+                </div>
+
                 <input type="email" placeholder="Your email" required>
             </form>
-            
+
             <div class="terms-section">
                 <h4>Technology Transfer Terms</h4>
                 <ul>
@@ -643,10 +886,15 @@
                     <li>Requires genuine hands-on commitment from your team</li>
                     <li>Focus on long-term capability building, not quick fixes</li>
                 </ul>
-                
+
                 <div class="terms-checkbox">
                     <input type="checkbox" id="accept-terms" onchange="toggleSubmitButton()">
                     <label for="accept-terms">I have read and accept these terms</label>
+                </div>
+
+                <div class="terms-checkbox" style="margin-top: 15px;">
+                    <input type="checkbox" id="tech-consent" required>
+                    <label for="tech-consent">I understand my inquiry may be forwarded to other professionals in the directory if that's a better match for my location or needs. I'll be notified if this happens. <a href="privacy-policy.html" target="_blank" style="color: #8B4513;">Privacy Policy</a></label>
                 </div>
                 
                 <div class="error-message" id="terms-error">
@@ -1491,12 +1739,14 @@
         document.getElementById('consultation-form').addEventListener('submit', function(e) {
             e.preventDefault();
             clearValidationErrors();
-            
+
             const tried = this.querySelector('[name="tried"]').value;
             const why = this.querySelector('[name="why"]').value;
             const hurdle = this.querySelector('[name="hurdle"]').value;
             const failure = this.querySelector('[name="failure"]').value || '';
             const email = this.querySelector('[type="email"]').value;
+            const country = this.querySelector('[name="country"]').value;
+            const city = this.querySelector('[name="city"]').value;
             
             // Validate response lengths
             if (!validateResponse(tried, 50)) {
@@ -1521,6 +1771,8 @@
             // Submit to Google Sheets via Apps Script
             submitToGoogleSheet('consultation', {
                 email: email,
+                country: country,
+                city: city,
                 tried: answers[0],
                 why: answers[1],
                 hurdle: answers[2],
@@ -1563,11 +1815,12 @@
         // Handle workshop form
         document.getElementById('workshop-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             const data = {
-                name: this.querySelector('[type="text"]').value,
-                email: this.querySelector('[type="email"]').value,
-                location: this.querySelectorAll('[type="text"]')[1].value
+                name: this.querySelector('[name="name"]').value,
+                email: this.querySelector('[name="email"]').value,
+                country: this.querySelector('[name="country"]').value,
+                city: this.querySelector('[name="city"]').value
             };
             
             const responseDiv = document.getElementById('workshop-response');
@@ -1600,21 +1853,23 @@
             const form = document.getElementById('tech-transfer-form');
             const checkbox = document.getElementById('accept-terms');
             const errorMsg = document.getElementById('terms-error');
-            
+
             clearValidationErrors();
-            
+
             // Check if terms are accepted
             if (!checkbox.checked) {
                 errorMsg.style.display = 'block';
                 errorMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 return;
             }
-            
+
             const email = form.querySelector('[type="email"]').value;
             const role = form.querySelector('[name="role"]').value;
             const handsOn = form.querySelector('[name="hands-on"]').value;
             const technology = form.querySelector('[name="technology"]').value;
             const application = form.querySelector('[name="application"]').value;
+            const country = form.querySelector('[name="country"]').value;
+            const city = form.querySelector('[name="city"]').value;
             
             // Validate response lengths
             if (!validateResponse(handsOn, 60)) {
@@ -1639,6 +1894,8 @@
             // Submit to Google Sheets via Apps Script
             submitToGoogleSheet('tech-transfer', {
                 email: email,
+                country: country,
+                city: city,
                 role: answers[0],
                 handsOn: answers[1],
                 technology: answers[2],
