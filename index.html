@@ -391,6 +391,10 @@
             .section-tabs {
                 flex-direction: column;
             }
+            .info-tab {
+                font-size: 0.85em !important;
+                padding: 10px !important;
+            }
         }
 
             .directory-pill {
@@ -426,16 +430,23 @@
 
         <div class="subtitle" style="text-align: center;">A hub for people who love and work with earthen buildings</div>
 
-        <!-- About Section -->
-        <div style="background: #F5F2E8; padding: 20px 25px; border-radius: 5px; margin: 25px 0; border-left: 3px solid #8B4513;">
-            <h2 style="color: #8B4513; margin-top: 0; font-size: 1.3em;">Two Things Happen Here</h2>
+        <!-- Top Navigation Tabs -->
+        <div style="display: flex; margin: 25px 0 0 0; border-bottom: 2px solid #CD853F; gap: 0;">
+            <button class="info-tab active" onclick="showInfoSection('pathways')" style="flex: 1; padding: 12px; background: #8B4513; border: none; font-family: Georgia, serif; font-size: 0.95em; cursor: pointer; color: white; transition: all 0.3s; border-radius: 3px 3px 0 0;">How It Works</button>
+            <button class="info-tab" onclick="showInfoSection('directory')" style="flex: 1; padding: 12px; background: #F5F2E8; border: none; font-family: Georgia, serif; font-size: 0.95em; cursor: pointer; color: #8B4513; transition: all 0.3s; border-radius: 3px 3px 0 0;">Builder Directory</button>
+            <button class="info-tab" onclick="showInfoSection('about')" style="flex: 1; padding: 12px; background: #F5F2E8; border: none; font-family: Georgia, serif; font-size: 0.95em; cursor: pointer; color: #8B4513; transition: all 0.3s; border-radius: 3px 3px 0 0;">About</button>
+        </div>
+
+        <!-- Pathways Section -->
+        <div id="pathways" class="info-section" style="background: #F5F2E8; padding: 25px; border-radius: 0 0 5px 5px; margin: 0 0 25px 0; border-left: 3px solid #8B4513; border-right: 3px solid #8B4513; border-bottom: 3px solid #8B4513;">
+            <h2 style="color: #8B4513; margin-top: 0; font-size: 1.3em;">Your Path Forward</h2>
 
             <p style="margin-bottom: 15px;">
-                <strong style="color: #8B4513;">1. Find a Professional in the Directory</strong> — Browse our directory of rammed earth builders worldwide. If you find someone in your region, contact them directly and move forward with your project.
+                <strong style="color: #8B4513;">1. Browse the Directory</strong> — Find rammed earth builders worldwide. If you find someone in your region, contact them directly and move forward with your project.
             </p>
 
             <p style="margin-bottom: 15px;">
-                <strong style="color: #8B4513;">2. No Match? Fill Out the Form Below</strong> — If you don't find someone suitable in the directory, or if you want to work with me directly, fill out one of the forms below. I'll either work with you myself or connect you with another professional from the directory who's a better match for your location or needs.
+                <strong style="color: #8B4513;">2. No Match? Fill the Form Below</strong> — If you don't find someone suitable in the directory, or if you want to work with me directly, fill out one of the forms below. I'll either work with you myself or connect you with another professional from the directory who's a better match for your location or needs.
             </p>
 
             <p style="margin-bottom: 0; font-style: italic; color: #666; font-size: 0.95em;">
@@ -444,7 +455,7 @@
         </div>
 
         <!-- Directory Section -->
-        <div style="background: #E8F5E9; padding: 25px; border-radius: 5px; margin: 30px 0; border: 1px solid #4CAF50;">
+        <div id="directory" class="info-section" style="display: none; background: #E8F5E9; padding: 25px; border-radius: 0 0 5px 5px; margin: 0 0 25px 0; border-left: 3px solid #4CAF50; border-right: 3px solid #4CAF50; border-bottom: 3px solid #4CAF50;">
             <h2 style="color: #2E7D32; margin-top: 0; font-size: 1.3em;">Looking for a Builder?</h2>
             <p style="color: #666; margin-bottom: 20px;">
                 If you want someone to construct your building for a quote, you need a contractor, not a consultant.
@@ -463,6 +474,23 @@
                     Submit your listing to the directory
                 </a>
             </div>
+        </div>
+
+        <!-- About Section -->
+        <div id="about" class="info-section" style="display: none; background: #FFF8F0; padding: 25px; border-radius: 0 0 5px 5px; margin: 0 0 25px 0; border-left: 3px solid #D2691E; border-right: 3px solid #D2691E; border-bottom: 3px solid #D2691E;">
+            <h2 style="color: #D2691E; margin-top: 0; font-size: 1.3em;">The Rammed Earth Chronicles</h2>
+
+            <p style="color: #3E2723; margin-bottom: 15px;">
+                This is an initiative to create a space for people who love and work with earthen buildings—a place where research meets practice, where knowledge is shared freely, and where the craft continues to evolve.
+            </p>
+
+            <p style="color: #3E2723; margin-bottom: 20px;">
+                The directory connects builders with clients. The forms help me understand where you are in your journey. The writing explores the deeper questions.
+            </p>
+
+            <p style="margin-bottom: 0;">
+                <a href="https://rammedearth.substack.com/" target="_blank" style="display: inline-block; padding: 10px 20px; background: #D2691E; color: white; text-decoration: none; border-radius: 3px; transition: all 0.3s;">Read the Chronicles →</a>
+            </p>
         </div>
 
         <!-- Consultation Section -->
@@ -955,6 +983,27 @@
          *    - Category breakdown for tech transfer
          */
 
+        function showInfoSection(sectionName) {
+            // Hide all info sections
+            document.querySelectorAll('.info-section').forEach(s => s.style.display = 'none');
+
+            // Reset all info tab styles
+            document.querySelectorAll('.info-tab').forEach(t => {
+                t.style.background = '#F5F2E8';
+                t.style.color = '#8B4513';
+                t.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionName).style.display = 'block';
+
+            // Highlight active tab
+            const activeTab = event.target;
+            activeTab.style.background = '#8B4513';
+            activeTab.style.color = 'white';
+            activeTab.classList.add('active');
+        }
+
         function showSection(sectionName) {
             // Hide all sections
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -977,7 +1026,7 @@
                 tabsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
-        
+
         function showInstructions() {
             showSection('instructions');
         }
