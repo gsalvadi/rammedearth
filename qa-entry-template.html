@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q&A Entry Template - For Admin Use</title>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #8B4513;
+            border-bottom: 3px solid #CD853F;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2E7D32;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #8B4513;
+            margin-top: 20px;
+        }
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 0.9em;
+        }
+        .example {
+            background: #FFF8E1;
+            padding: 15px;
+            border-left: 4px solid #FFB300;
+            margin: 15px 0;
+        }
+        .note {
+            background: #E3F2FD;
+            padding: 15px;
+            border-left: 4px solid #2196F3;
+            margin: 15px 0;
+        }
+        ul {
+            margin-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <h1>Q&A Entry Template & Workflow Guide</h1>
+        <p><strong>Purpose:</strong> This document shows you how to add new Q&As to your community pages after approving questions and receiving answers.</p>
+    </div>
+
+    <div class="section">
+        <h2>Quick Workflow Overview</h2>
+        <ol>
+            <li><strong>Question arrives</strong> via form → Goes to Google Sheets</li>
+            <li><strong>You review</strong> → Approve/reject/edit for clarity</li>
+            <li><strong>You decide who answers:</strong>
+                <ul>
+                    <li>You answer it yourself, OR</li>
+                    <li>Forward to relevant directory professional (see email templates below)</li>
+                </ul>
+            </li>
+            <li><strong>Answer received</strong> → You copy template below</li>
+            <li><strong>Fill in template</strong> with question + answer + metadata</li>
+            <li><strong>Paste into qa-noticeboard.html</strong> (all questions go here)</li>
+            <li><strong>If it's exceptional:</strong> Also paste into qa-curated.html with featured badge</li>
+            <li><strong>Commit and push</strong> to publish</li>
+            <li><strong>If user provided email:</strong> Send notification (see email templates)</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>Basic Q&A Entry Template</h2>
+        <p>Copy this HTML structure and fill in the placeholders:</p>
+
+        <pre><code>&lt;div class="qa-entry" data-tags="TAG1,TAG2"&gt;
+    &lt;div class="question"&gt;QUESTION TEXT HERE?&lt;/div&gt;
+    &lt;div class="question-meta"&gt;Asked by ASKER NAME • DATE&lt;/div&gt;
+
+    &lt;div class="answer"&gt;
+        &lt;div class="answer-label"&gt;Answer:&lt;/div&gt;
+        &lt;div class="answer-text"&gt;
+            &lt;p&gt;ANSWER PARAGRAPH 1&lt;/p&gt;
+
+            &lt;p&gt;ANSWER PARAGRAPH 2 (if needed)&lt;/p&gt;
+
+            &lt;p&gt;ANSWER PARAGRAPH 3 (if needed)&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="answerer"&gt;— Answered by &lt;a href="directory.html"&gt;PROFESSIONAL NAME&lt;/a&gt;, TITLE, LOCATION&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="tags"&gt;
+        &lt;span class="tag"&gt;TAG 1&lt;/span&gt;
+        &lt;span class="tag"&gt;TAG 2&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+        <div class="note">
+            <strong>Where to paste:</strong> Add this inside the <code>&lt;div id="qa-container"&gt;</code> section of <code>qa-noticeboard.html</code>. Newest questions go at the top (right after the opening tag).
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Field Guide</h2>
+
+        <h3>data-tags=""</h3>
+        <p>Add relevant tags separated by commas for filtering. Available tags:</p>
+        <ul>
+            <li><code>rammed-earth</code> - Rammed earth specific</li>
+            <li><code>cob</code> - Cob construction</li>
+            <li><code>adobe</code> - Adobe/mud brick</li>
+            <li><code>ceb</code> - Compressed earth blocks</li>
+            <li><code>straw-clay</code> - Light straw clay</li>
+            <li><code>earthbag</code> - Earthbag/superadobe</li>
+            <li><code>mixed</code> - Mixed techniques or general earthen building</li>
+            <li><code>professional</code> - Professional practice (permits, codes, business)</li>
+        </ul>
+        <p><strong>Example:</strong> <code>data-tags="rammed-earth,professional"</code></p>
+
+        <h3>Asker Name</h3>
+        <ul>
+            <li>If they provided name: Use it</li>
+            <li>If they left it blank: Use "Anonymous"</li>
+            <li>Never use email address as name</li>
+        </ul>
+
+        <h3>Date</h3>
+        <p>Use format: <code>Month Day, Year</code> (e.g., "January 15, 2025")</p>
+
+        <h3>Answerer Attribution</h3>
+        <ul>
+            <li>If <strong>you answered:</strong> <code>— Answered by Nathan Gordin</code> (no link)</li>
+            <li>If <strong>directory professional answered:</strong> Link their name to <code>directory.html</code></li>
+            <li>Include their title and location for context</li>
+        </ul>
+
+        <h3>Tags (visual)</h3>
+        <p>Choose 1-3 descriptive tags that help users understand the topic at a glance:</p>
+        <ul>
+            <li>Rammed Earth</li>
+            <li>Cob</li>
+            <li>Adobe</li>
+            <li>Equipment</li>
+            <li>Climate</li>
+            <li>Permits &amp; Codes</li>
+            <li>Troubleshooting</li>
+            <li>Materials</li>
+            <li>Techniques</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Example 1: Single Answer</h2>
+        <pre><code>&lt;div class="qa-entry" data-tags="rammed-earth,professional"&gt;
+    &lt;div class="question"&gt;What's the best pneumatic tamper for small residential projects?&lt;/div&gt;
+    &lt;div class="question-meta"&gt;Asked by John Smith • January 15, 2025&lt;/div&gt;
+
+    &lt;div class="answer"&gt;
+        &lt;div class="answer-label"&gt;Answer:&lt;/div&gt;
+        &lt;div class="answer-text"&gt;
+            &lt;p&gt;For small residential projects (under 2000 sq ft), I recommend starting with a mid-range pneumatic tamper in the 60-90 lb range. The Wacker Neuson BS60-2i is a reliable choice that balances power with maneuverability.&lt;/p&gt;
+
+            &lt;p&gt;Key considerations: Make sure you have adequate air compressor capacity (minimum 15 CFM at 90 PSI). For small projects, renting is often more economical than buying unless you're planning multiple builds.&lt;/p&gt;
+
+            &lt;p&gt;Alternative: If budget is tight, hand tamping with a manual tamper is still viable for small residential work—it just takes more time and labor.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="answerer"&gt;— Answered by &lt;a href="directory.html"&gt;Maria Santos&lt;/a&gt;, Rammed Earth Contractor, Portugal&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="tags"&gt;
+        &lt;span class="tag"&gt;Rammed Earth&lt;/span&gt;
+        &lt;span class="tag"&gt;Equipment&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="section">
+        <h2>Example 2: Multiple Answers</h2>
+        <p>When multiple professionals answer the same question, add additional answer blocks:</p>
+
+        <pre><code>&lt;div class="qa-entry" data-tags="cob,climate"&gt;
+    &lt;div class="question"&gt;Can cob walls survive in humid tropical climates?&lt;/div&gt;
+    &lt;div class="question-meta"&gt;Asked by Anonymous • January 20, 2025&lt;/div&gt;
+
+    &lt;div class="answer"&gt;
+        &lt;div class="answer-label"&gt;Answer:&lt;/div&gt;
+        &lt;div class="answer-text"&gt;
+            &lt;p&gt;Yes, but with careful design. I've built cob structures in Kerala, India (very humid) that have performed well for 15+ years. The key is generous roof overhangs (minimum 1 meter) and proper foundation height to prevent splash-back.&lt;/p&gt;
+
+            &lt;p&gt;Also critical: Allow 6-12 months drying time before plastering. Rush this and you'll trap moisture inside the wall.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="answerer"&gt;— Answered by &lt;a href="directory.html"&gt;Priya Sharma&lt;/a&gt;, Natural Builder, India&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="answer"&gt;
+        &lt;div class="answer-label"&gt;Answer:&lt;/div&gt;
+        &lt;div class="answer-text"&gt;
+            &lt;p&gt;Different perspective from Ecuador: I prefer stabilizing with small amounts of lime (5-8%) for tropical climates. Not traditional cob purists' approach, but significantly improves moisture resistance while maintaining breathability.&lt;/p&gt;
+
+            &lt;p&gt;The trade-off: Slightly less thermal mass, but better long-term durability in high-humidity environments.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="answerer"&gt;— Answered by &lt;a href="directory.html"&gt;Carlos Rodriguez&lt;/a&gt;, Architect, Ecuador&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="tags"&gt;
+        &lt;span class="tag"&gt;Cob&lt;/span&gt;
+        &lt;span class="tag"&gt;Climate&lt;/span&gt;
+        &lt;span class="tag"&gt;Troubleshooting&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+        <div class="note">
+            <strong>Multiple answers = valuable!</strong> Different perspectives show there's no single "right" answer and help users understand trade-offs.
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Example 3: You Answered</h2>
+        <p>When you answer instead of forwarding to a professional:</p>
+
+        <pre><code>&lt;div class="qa-entry" data-tags="rammed-earth,mixed"&gt;
+    &lt;div class="question"&gt;How do I fix erosion on an existing rammed earth wall?&lt;/div&gt;
+    &lt;div class="question-meta"&gt;Asked by Anonymous • January 18, 2025&lt;/div&gt;
+
+    &lt;div class="answer"&gt;
+        &lt;div class="answer-label"&gt;Answer:&lt;/div&gt;
+        &lt;div class="answer-text"&gt;
+            &lt;p&gt;First, identify the cause: Is it splash-back from inadequate roof overhang? Wind-driven rain? Rising damp from poor foundation drainage? The fix depends on the root cause.&lt;/p&gt;
+
+            &lt;p&gt;For surface erosion: Clean the damaged area, spray with water to dampen (not saturate), and patch with matching soil mix, compacting in thin layers. The patch should blend seamlessly if soil composition matches.&lt;/p&gt;
+
+            &lt;p&gt;Prevention: Extend roof overhangs if possible, improve site drainage, and consider applying a breathable lime wash as sacrificial weather protection.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="answerer"&gt;— Answered by Nathan Gordin&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="tags"&gt;
+        &lt;span class="tag"&gt;Rammed Earth&lt;/span&gt;
+        &lt;span class="tag"&gt;Troubleshooting&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="section">
+        <h2>Adding to Curated Best-Of Page</h2>
+        <p>When a question is exceptionally valuable, also add it to <code>qa-curated.html</code>:</p>
+
+        <ol>
+            <li>Copy the entire entry from noticeboard</li>
+            <li>Add <code>&lt;span class="featured-badge"&gt;Featured&lt;/span&gt;</code> as first line inside the entry</li>
+            <li>Optionally add a curator note explaining why it's featured</li>
+            <li>Paste into <code>qa-curated.html</code></li>
+        </ol>
+
+        <pre><code>&lt;div class="qa-entry" data-tags="rammed-earth,professional"&gt;
+    &lt;span class="featured-badge"&gt;Featured&lt;/span&gt;
+    &lt;div class="question"&gt;What's the best pneumatic tamper for small residential projects?&lt;/div&gt;
+    &lt;!-- rest of entry... --&gt;
+
+    &lt;div class="curator-note"&gt;
+        &lt;strong&gt;Why this is featured:&lt;/strong&gt; Practical advice with specific product recommendations and budget-conscious alternatives. Relevant for most owner-builders.
+    &lt;/div&gt;
+
+    &lt;div class="tags"&gt;
+        &lt;span class="tag"&gt;Rammed Earth&lt;/span&gt;
+        &lt;span class="tag"&gt;Equipment&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="section">
+        <h2>Publishing Workflow</h2>
+        <ol>
+            <li>Open <code>qa-noticeboard.html</code></li>
+            <li>Find the <code>&lt;div id="qa-container"&gt;</code> section</li>
+            <li>Add your new entry at the TOP (newest first)</li>
+            <li>Save file</li>
+            <li>Test locally (check filtering works with your tags)</li>
+            <li>If featuring: Repeat for <code>qa-curated.html</code></li>
+            <li>Commit: <code>git add . && git commit -m "Add Q&A: [brief description]"</code></li>
+            <li>Push: <code>git push -u origin [your-branch]</code></li>
+            <li>Send notification email if user provided email</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>Tips for Quality</h2>
+        <ul>
+            <li><strong>Edit questions for clarity:</strong> Rephrase if needed to make searchable/useful for others</li>
+            <li><strong>Break up long answers:</strong> Multiple paragraphs read better than walls of text</li>
+            <li><strong>Add context in answerer attribution:</strong> "Rammed Earth Contractor, Portugal" tells users the answer's perspective</li>
+            <li><strong>Use data-tags strategically:</strong> Tags enable filtering, so choose accurately</li>
+            <li><strong>Encourage multiple answers:</strong> Reach out to 2-3 professionals if question is substantial</li>
+            <li><strong>Credit fairly:</strong> Always attribute answers, link to directory when applicable</li>
+        </ul>
+    </div>
+</body>
+</html>

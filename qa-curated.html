@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best of Community Q&A - Rammed Earth Chronicles</title>
+    <meta name="description" content="Curated selection of the most valuable questions and answers about earthen building from professionals and practitioners.">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%238B4513' x='10' y='30' width='80' height='40' rx='2'/><rect fill='%23CD853F' x='10' y='35' width='80' height='8'/><rect fill='%23D2691E' x='10' y='48' width='80' height='8'/><rect fill='%23F4A460' x='10' y='61' width='80' height='4'/></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            color: #3E2723;
+            background: #F5F2E8;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .container {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 3px;
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.1);
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            font-weight: normal;
+            color: #8B4513;
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: #D2691E;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .intro {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #E8F5E9;
+            border-left: 5px solid #4CAF50;
+            color: #3E2723;
+        }
+
+        .ask-btn {
+            display: inline-block;
+            background: #8B4513;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 3px;
+            transition: all 0.3s;
+            font-size: 1em;
+            margin: 20px 10px 20px 0;
+        }
+
+        .ask-btn:hover {
+            background: #6D3410;
+        }
+
+        .browse-btn {
+            display: inline-block;
+            background: #2E7D32;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 3px;
+            transition: all 0.3s;
+            font-size: 1em;
+            margin: 20px 0;
+        }
+
+        .browse-btn:hover {
+            background: #1B5E20;
+        }
+
+        .qa-entry {
+            margin: 30px 0;
+            padding: 30px;
+            background: #FEFCF7;
+            border-left: 5px solid #2E7D32;
+            border-radius: 3px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .featured-badge {
+            display: inline-block;
+            background: #FFB300;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .question {
+            font-size: 1.3em;
+            color: #8B4513;
+            margin-bottom: 10px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .question-meta {
+            font-size: 0.85em;
+            color: #999;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .answer {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #E8DCC8;
+        }
+
+        .answer-label {
+            font-weight: 500;
+            color: #2E7D32;
+            margin-bottom: 12px;
+            font-size: 1em;
+        }
+
+        .answer-text {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .answer-text p {
+            margin-bottom: 15px;
+        }
+
+        .answerer {
+            font-size: 0.95em;
+            color: #666;
+            font-style: italic;
+            padding: 12px;
+            background: #F5F2E8;
+            border-radius: 3px;
+            margin-top: 15px;
+        }
+
+        .answerer a {
+            color: #8B4513;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .answerer a:hover {
+            color: #D2691E;
+            text-decoration: underline;
+        }
+
+        .tags {
+            margin-top: 20px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 14px;
+            background: #E8F5E9;
+            color: #2E7D32;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        .curator-note {
+            margin-top: 20px;
+            padding: 15px;
+            background: #FFF8E1;
+            border-left: 3px solid #FFB300;
+            font-size: 0.95em;
+            font-style: italic;
+            color: #666;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #CD853F;
+        }
+
+        .back-link a {
+            color: #8B4513;
+            text-decoration: none;
+            font-style: italic;
+        }
+
+        .back-link a:hover {
+            color: #D2691E;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 25px 20px;
+            }
+            .qa-entry {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Best of Community Q&A</h1>
+        <div class="subtitle">Curated selection of valuable questions and answers</div>
+
+        <div class="intro">
+            <p>These are the most valuable, frequently referenced, or instructive questions from our community Q&A. Each has been selected for its practical application, clarity, or insight into earthen building.</p>
+            <p style="margin-top: 15px;">Looking for something specific? Browse the complete archive or ask your own question.</p>
+            <div style="margin-top: 20px;">
+                <a href="qa-noticeboard.html" class="browse-btn">Browse All Q&A</a>
+                <a href="ask-question.html" class="ask-btn">Ask a Question</a>
+            </div>
+        </div>
+
+        <div id="qa-container">
+            <!-- Curated Q&A entries will be added here -->
+            <!-- Only the best/most valuable questions appear on this page -->
+            <!-- Use same template as noticeboard, but add <span class="featured-badge">Featured</span> -->
+        </div>
+
+        <div style="text-align: center; margin: 40px 0;">
+            <p style="margin-bottom: 20px; color: #666;">These are highlights. See the complete archive for more questions.</p>
+            <a href="qa-noticeboard.html" class="browse-btn">Browse All Community Q&A</a>
+        </div>
+
+        <div class="back-link">
+            <a href="ask-question.html">Ask a question</a> |
+            <a href="index.html">Back to main page</a>
+        </div>
+    </div>
+
+    <!--
+    TEMPLATE FOR CURATED Q&A ENTRIES:
+    Same as noticeboard template, but add the featured badge.
+    Copy entries from qa-noticeboard.html that you want to feature here.
+
+    <div class="qa-entry">
+        <span class="featured-badge">Featured</span>
+        <div class="question">What's the best pneumatic tamper for small residential projects?</div>
+        <div class="question-meta">Asked by John Smith • January 15, 2025</div>
+
+        <div class="answer">
+            <div class="answer-label">Answer:</div>
+            <div class="answer-text">
+                <p>For small residential projects (under 2000 sq ft), I recommend starting with a mid-range pneumatic tamper...</p>
+            </div>
+            <div class="answerer">— Answered by <a href="directory.html">Maria Santos</a>, Rammed Earth Contractor, Portugal</div>
+        </div>
+
+        <div class="curator-note">
+            <strong>Why this is featured:</strong> Practical advice with specific product recommendations and budget-conscious alternatives. Relevant for most owner-builders.
+        </div>
+
+        <div class="tags">
+            <span class="tag">Rammed Earth</span>
+            <span class="tag">Equipment</span>
+        </div>
+    </div>
+    -->
+</body>
+</html>
