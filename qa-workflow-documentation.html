@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Q&A Workflow Documentation</title>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #8B4513;
+            border-bottom: 3px solid #CD853F;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2E7D32;
+            margin-top: 30px;
+            border-bottom: 2px solid #E8DCC8;
+            padding-bottom: 8px;
+        }
+        h3 {
+            color: #8B4513;
+            margin-top: 20px;
+        }
+        .step {
+            background: #F5F2E8;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #8B4513;
+            border-radius: 3px;
+        }
+        .step-number {
+            display: inline-block;
+            background: #8B4513;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .tip {
+            background: #E8F5E9;
+            padding: 15px;
+            border-left: 4px solid #4CAF50;
+            margin: 15px 0;
+        }
+        .warning {
+            background: #FFF3E0;
+            padding: 15px;
+            border-left: 4px solid #FF9800;
+            margin: 15px 0;
+        }
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .quick-ref {
+            background: #E3F2FD;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .quick-ref ul {
+            margin: 10px 0 0 0;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <h1>Community Q&A System - Complete Workflow</h1>
+        <p><strong>Purpose:</strong> This document explains the entire process for managing the Community Q&A feature, from question submission to publication.</p>
+
+        <div class="quick-ref">
+            <h3>Quick Reference Files</h3>
+            <ul>
+                <li><code>ask-question.html</code> - Public question submission form</li>
+                <li><code>qa-noticeboard.html</code> - All approved Q&As (complete archive)</li>
+                <li><code>qa-curated.html</code> - Best-of selection (featured Q&As)</li>
+                <li><code>qa-entry-template.html</code> - HTML templates for adding Q&As</li>
+                <li><code>qa-email-templates.html</code> - Email templates for all communications</li>
+                <li><code>qa-professional-guide.html</code> - Secret guide for professionals (not linked publicly)</li>
+                <li><code>qa-workflow-documentation.html</code> - This file</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>The Complete Workflow</h2>
+
+        <div class="step">
+            <span class="step-number">1</span>
+            <strong>User Submits Question</strong>
+            <p>User fills out form at <code>ask-question.html</code> with:</p>
+            <ul>
+                <li>Question text (required)</li>
+                <li>Name/nickname (optional, defaults to "Anonymous")</li>
+                <li>Email (optional, but gets them notified when answered)</li>
+            </ul>
+            <p>Submission goes to Google Sheets via Apps Script webhook.</p>
+        </div>
+
+        <div class="step">
+            <span class="step-number">2</span>
+            <strong>Review Question in Google Sheets</strong>
+            <p>Check your Google Sheet for new questions. Evaluate:</p>
+            <ul>
+                <li><strong>Quality:</strong> Is it specific enough to answer usefully?</li>
+                <li><strong>Scope:</strong> Is it general enough to help others, or too project-specific?</li>
+                <li><strong>Duplication:</strong> Has this been answered already?</li>
+                <li><strong>Clarity:</strong> Does it need rewording for searchability?</li>
+            </ul>
+            <div class="tip">
+                <strong>Edit for clarity:</strong> Rephrase questions to make them more useful for future readers. "What's the best tamper for small residential projects?" is better than "what tamper should I buy?"
+            </div>
+        </div>
+
+        <div class="step">
+            <span class="step-number">3</span>
+            <strong>Decide: Answer or Forward?</strong>
+            <p>For approved questions, decide who should answer:</p>
+            <ul>
+                <li><strong>You answer:</strong> If it's general advice, outside professionals' specific expertise, or quick to answer</li>
+                <li><strong>Forward to professional:</strong> If it matches someone's specialty/location and would showcase their expertise</li>
+                <li><strong>Multiple professionals:</strong> For substantial questions where different perspectives add value</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <span class="step-number">4a</span>
+            <strong>If You're Answering</strong>
+            <p>Write your answer (2-4 paragraphs, 100-300 words). Focus on:</p>
+            <ul>
+                <li>Practical, actionable advice</li>
+                <li>Specific examples or recommendations</li>
+                <li>Acknowledging nuance and trade-offs</li>
+            </ul>
+            <p>Then skip to Step 5.</p>
+        </div>
+
+        <div class="step">
+            <span class="step-number">4b</span>
+            <strong>If Forwarding to Professional</strong>
+            <ol>
+                <li>Choose professional from directory based on specialty/location</li>
+                <li>Use email template from <code>qa-email-templates.html</code>:
+                    <ul>
+                        <li>"Requesting Answer (First Time)" if they haven't answered before</li>
+                        <li>"Requesting Answer (Returning)" if they have</li>
+                    </ul>
+                </li>
+                <li>Include professional guide link for first-timers: <code>[your-site]/qa-professional-guide.html</code></li>
+                <li>Wait for their response (usually 3-7 days)</li>
+                <li>Send thank-you email when received</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <span class="step-number">5</span>
+            <strong>Format the Q&A Entry</strong>
+            <ol>
+                <li>Open <code>qa-entry-template.html</code></li>
+                <li>Copy the basic template</li>
+                <li>Fill in:
+                    <ul>
+                        <li>Question text (edited for clarity if needed)</li>
+                        <li>Asker name or "Anonymous"</li>
+                        <li>Date (format: "January 15, 2025")</li>
+                        <li>Answer text (from you or professional)</li>
+                        <li>Answerer attribution with link to directory if applicable</li>
+                        <li>data-tags for filtering (e.g., "rammed-earth,professional")</li>
+                        <li>Visual tags (1-3 descriptive tags)</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <span class="step-number">6</span>
+            <strong>Publish to Notice Board</strong>
+            <ol>
+                <li>Open <code>qa-noticeboard.html</code></li>
+                <li>Find <code>&lt;div id="qa-container"&gt;</code></li>
+                <li>Paste your formatted entry at the TOP (newest first)</li>
+                <li>Save file</li>
+                <li>Test locally:
+                    <ul>
+                        <li>Open in browser</li>
+                        <li>Test tag filtering works</li>
+                        <li>Test search finds your content</li>
+                        <li>Check links work</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <span class="step-number">7</span>
+            <strong>Optional: Add to Curated Page</strong>
+            <p>If the Q&A is exceptionally valuable:</p>
+            <ol>
+                <li>Copy the entire entry from notice board</li>
+                <li>Add <code>&lt;span class="featured-badge"&gt;Featured&lt;/span&gt;</code> at top</li>
+                <li>Optionally add curator note explaining why it's featured</li>
+                <li>Paste into <code>qa-curated.html</code></li>
+            </ol>
+            <div class="tip">
+                <strong>What makes a Q&A "featured"?</strong> Practical advice, specific recommendations, represents multiple perspectives, or addresses common confusion.
+            </div>
+        </div>
+
+        <div class="step">
+            <span class="step-number">8</span>
+            <strong>Commit and Push</strong>
+            <ol>
+                <li><code>git add qa-noticeboard.html qa-curated.html</code> (or just noticeboard if not featured)</li>
+                <li><code>git commit -m "Add Q&A: [brief description of question]"</code></li>
+                <li><code>git push -u origin [your-branch]</code></li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <span class="step-number">9</span>
+            <strong>Notify Asker (If Email Provided)</strong>
+            <ol>
+                <li>Use email template: "Notifying Asker (Answer Posted)" from <code>qa-email-templates.html</code></li>
+                <li>Send from <code>noreply@yourdomain.com</code> to look automated</li>
+                <li>Include link to qa-noticeboard.html</li>
+                <li>Mention answerer's name and credentials</li>
+            </ol>
+            <div class="tip">
+                <strong>Tip:</strong> If multiple professionals answered, use the "Multiple Answers Posted" template instead.
+            </div>
+        </div>
+
+        <div class="step">
+            <span class="step-number">10</span>
+            <strong>Mark as Complete in Sheets</strong>
+            <p>Update your tracking sheet:</p>
+            <ul>
+                <li>Mark question as "Published"</li>
+                <li>Note date published</li>
+                <li>Note who answered</li>
+                <li>Note if user was notified</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Weekly Routine Suggestion</h2>
+        <ol>
+            <li><strong>Monday:</strong> Check Google Sheets for new questions</li>
+            <li><strong>Tuesday:</strong> Review/edit questions, decide who should answer, send requests to professionals</li>
+            <li><strong>Wednesday-Friday:</strong> Wait for professional responses, write your own answers</li>
+            <li><strong>Weekend:</strong> Format, publish, commit/push, notify askers</li>
+        </ol>
+
+        <div class="tip">
+            <strong>Time estimate:</strong> 1-2 hours per week for 3-5 questions. Scales linearly with volume.
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Quality Guidelines</h2>
+
+        <h3>Good Questions to Approve</h3>
+        <ul>
+            <li>Specific and practical</li>
+            <li>Has broader applicability beyond one person's project</li>
+            <li>Hasn't been answered already</li>
+            <li>Shows genuine interest in learning</li>
+        </ul>
+
+        <h3>Questions to Decline or Redirect</h3>
+        <ul>
+            <li>Too project-specific (requires site visit or detailed consultation)</li>
+            <li>Already answered in archive (point them to existing answer)</li>
+            <li>Not about earthen building</li>
+            <li>Asking for free design work</li>
+        </ul>
+
+        <h3>Good Answers</h3>
+        <ul>
+            <li>Practical and specific (not vague generalities)</li>
+            <li>Share real-world experience</li>
+            <li>Acknowledge nuance and trade-offs</li>
+            <li>100-300 words (2-4 paragraphs)</li>
+            <li>Honest about limits of knowledge</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Handling Edge Cases</h2>
+
+        <h3>Question is borderline quality</h3>
+        <p>Edit it to make it better. Example:</p>
+        <ul>
+            <li><strong>Original:</strong> "how do i fix my wall"</li>
+            <li><strong>Edited:</strong> "How do I fix erosion on an existing rammed earth wall?"</li>
+        </ul>
+
+        <h3>Professional declines to answer</h3>
+        <p>Thank them, ask someone else or answer yourself. No pressure.</p>
+
+        <h3>Professional's answer is low quality</h3>
+        <p>Email back asking for more detail: "This is helpful—could you add a bit more about [specific aspect]? A couple more sentences would make it more useful for readers."</p>
+
+        <h3>Duplicate question arrives</h3>
+        <p>If already answered: Reply to asker with link to existing answer.<br>
+        If not yet answered but in queue: Combine with existing question, note both askers.</p>
+
+        <h3>No professionals specialize in that topic</h3>
+        <p>Answer it yourself, or mark as "needs specialist" and revisit when you add relevant professionals to directory.</p>
+
+        <h3>Question sparks Substack post idea</h3>
+        <p>Perfect! Answer briefly in Q&A, then write expanded version for Substack. Link between them.</p>
+    </div>
+
+    <div class="section">
+        <h2>Setup Requirements (One-Time)</h2>
+
+        <h3>Google Apps Script</h3>
+        <ol>
+            <li>Create Google Sheet for Q&A submissions</li>
+            <li>Create Apps Script webhook (same as consultation forms)</li>
+            <li>Update <code>ask-question.html</code> with your webhook URL</li>
+        </ol>
+
+        <h3>Email Setup</h3>
+        <ul>
+            <li>Configure <code>noreply@yourdomain.com</code> forwarding to your email (for manual sending)</li>
+            <li>Or set up email alias that looks automated</li>
+        </ul>
+
+        <h3>Professional Guide URL</h3>
+        <ul>
+            <li>Once site is live, update email templates with actual URL to <code>qa-professional-guide.html</code></li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Success Metrics to Watch</h2>
+        <ul>
+            <li><strong>Questions per week:</strong> Volume indicator</li>
+            <li><strong>Professional participation:</strong> How many directory members answer questions</li>
+            <li><strong>SEO traffic:</strong> Does Q&A bring in search traffic?</li>
+            <li><strong>Conversion:</strong> Do Q&A readers book consultations or hire from directory?</li>
+            <li><strong>Quality:</strong> Are answers getting multiple perspectives?</li>
+            <li><strong>Themes:</strong> What topics come up repeatedly? (Fodder for Substack posts)</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>When to Evolve the System</h2>
+
+        <div class="warning">
+            <strong>If volume exceeds 10-15 questions/week:</strong>
+            <ul>
+                <li>Consider semi-automated publishing (Airtable + API)</li>
+                <li>Recruit volunteer moderators from directory professionals</li>
+                <li>Implement upvoting system to surface best answers</li>
+            </ul>
+        </div>
+
+        <div class="tip">
+            <strong>For now:</strong> Manual workflow is sustainable, gives you quality control, and lets you learn what questions actually come in. Don't over-engineer until you prove the demand.
+        </div>
+    </div>
+</body>
+</html>

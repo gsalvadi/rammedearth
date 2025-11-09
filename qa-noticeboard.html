@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Q&A - Rammed Earth Chronicles</title>
+    <meta name="description" content="Questions and answers about rammed earth, cob, adobe, and earthen building techniques from professionals and practitioners.">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%238B4513' x='10' y='30' width='80' height='40' rx='2'/><rect fill='%23CD853F' x='10' y='35' width='80' height='8'/><rect fill='%23D2691E' x='10' y='48' width='80' height='8'/><rect fill='%23F4A460' x='10' y='61' width='80' height='4'/></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            color: #3E2723;
+            background: #F5F2E8;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .container {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 3px;
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.1);
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            font-weight: normal;
+            color: #8B4513;
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: #D2691E;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .intro {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #FFF8E1;
+            border-left: 5px solid #FFB300;
+            color: #3E2723;
+        }
+
+        .ask-btn {
+            display: inline-block;
+            background: #8B4513;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 3px;
+            transition: all 0.3s;
+            font-size: 1em;
+            margin: 20px 0;
+        }
+
+        .ask-btn:hover {
+            background: #6D3410;
+        }
+
+        .filters {
+            margin: 30px 0;
+            padding: 20px;
+            background: #F5F2E8;
+            border-radius: 5px;
+        }
+
+        .filter-group {
+            margin-bottom: 15px;
+        }
+
+        .filter-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #8B4513;
+            font-weight: 500;
+        }
+
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filter-tag {
+            padding: 8px 15px;
+            background: white;
+            border: 2px solid #CD853F;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+            color: #8B4513;
+        }
+
+        .filter-tag:hover {
+            background: #FFF8E1;
+        }
+
+        .filter-tag.active {
+            background: #8B4513;
+            color: white;
+            border-color: #8B4513;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #CD853F;
+            border-radius: 3px;
+            font-family: Georgia, serif;
+            font-size: 0.95em;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #8B4513;
+        }
+
+        .qa-entry {
+            margin: 30px 0;
+            padding: 25px;
+            background: #FEFCF7;
+            border-left: 4px solid #8B4513;
+            border-radius: 3px;
+        }
+
+        .qa-entry.hidden {
+            display: none;
+        }
+
+        .question {
+            font-size: 1.2em;
+            color: #8B4513;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .question-meta {
+            font-size: 0.85em;
+            color: #999;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .answer {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #E8DCC8;
+        }
+
+        .answer-label {
+            font-weight: 500;
+            color: #2E7D32;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .answer-text {
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+
+        .answerer {
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+        }
+
+        .answerer a {
+            color: #8B4513;
+            text-decoration: none;
+        }
+
+        .answerer a:hover {
+            color: #D2691E;
+            text-decoration: underline;
+        }
+
+        .tags {
+            margin-top: 15px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #E8F5E9;
+            color: #2E7D32;
+            border-radius: 15px;
+            font-size: 0.8em;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-style: italic;
+            display: none;
+        }
+
+        .no-results.visible {
+            display: block;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #CD853F;
+        }
+
+        .back-link a {
+            color: #8B4513;
+            text-decoration: none;
+            font-style: italic;
+        }
+
+        .back-link a:hover {
+            color: #D2691E;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 25px 20px;
+            }
+            .filter-tags {
+                gap: 8px;
+            }
+            .filter-tag {
+                padding: 6px 12px;
+                font-size: 0.85em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Community Q&A</h1>
+        <div class="subtitle">Questions and answers about earthen building</div>
+
+        <div class="intro">
+            <p>This is a curated collection of questions about rammed earth, cob, adobe, and other earthen building techniques. Answers come from professionals in our directory and experienced practitioners.</p>
+            <p style="margin-top: 15px;">Have a question? It might already be answered below. If not, submit yours.</p>
+            <a href="ask-question.html" class="ask-btn">Ask a Question</a>
+        </div>
+
+        <div class="filters">
+            <div class="filter-group">
+                <span class="filter-label">Filter by topic:</span>
+                <div class="filter-tags">
+                    <span class="filter-tag active" data-filter="all">All Topics</span>
+                    <span class="filter-tag" data-filter="rammed-earth">Rammed Earth</span>
+                    <span class="filter-tag" data-filter="cob">Cob</span>
+                    <span class="filter-tag" data-filter="adobe">Adobe</span>
+                    <span class="filter-tag" data-filter="ceb">Compressed Earth Blocks</span>
+                    <span class="filter-tag" data-filter="straw-clay">Light Straw Clay</span>
+                    <span class="filter-tag" data-filter="earthbag">Earthbag</span>
+                    <span class="filter-tag" data-filter="mixed">Mixed Techniques</span>
+                    <span class="filter-tag" data-filter="professional">Professional Practice</span>
+                </div>
+            </div>
+
+            <div class="filter-group" style="margin-top: 15px;">
+                <span class="filter-label">Search:</span>
+                <input type="text" id="search-box" class="search-box" placeholder="Search questions and answers...">
+            </div>
+        </div>
+
+        <div id="qa-container">
+            <!-- Q&A entries will be added here -->
+            <!-- Template for entries is below in comments -->
+        </div>
+
+        <div class="no-results" id="no-results">
+            No questions match your search or filter. Try different keywords or browse all topics.
+        </div>
+
+        <div style="text-align: center; margin: 40px 0;">
+            <a href="ask-question.html" class="ask-btn">Ask a Question</a>
+        </div>
+
+        <div class="back-link">
+            <a href="qa-curated.html">View curated best-of Q&A</a> |
+            <a href="index.html">Back to main page</a>
+        </div>
+    </div>
+
+    <script>
+        // Filter and search functionality
+        const filterTags = document.querySelectorAll('.filter-tag');
+        const searchBox = document.getElementById('search-box');
+        const qaContainer = document.getElementById('qa-container');
+        const noResults = document.getElementById('no-results');
+
+        let activeFilter = 'all';
+
+        filterTags.forEach(tag => {
+            tag.addEventListener('click', function() {
+                // Remove active class from all tags
+                filterTags.forEach(t => t.classList.remove('active'));
+
+                // Add active class to clicked tag
+                this.classList.add('active');
+
+                // Update active filter
+                activeFilter = this.dataset.filter;
+
+                // Apply filters
+                applyFilters();
+            });
+        });
+
+        searchBox.addEventListener('input', applyFilters);
+
+        function applyFilters() {
+            const searchTerm = searchBox.value.toLowerCase();
+            const entries = qaContainer.querySelectorAll('.qa-entry');
+            let visibleCount = 0;
+
+            entries.forEach(entry => {
+                const matchesFilter = activeFilter === 'all' || entry.dataset.tags.includes(activeFilter);
+                const matchesSearch = searchTerm === '' || entry.textContent.toLowerCase().includes(searchTerm);
+
+                if (matchesFilter && matchesSearch) {
+                    entry.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    entry.classList.add('hidden');
+                }
+            });
+
+            // Show/hide no results message
+            if (visibleCount === 0) {
+                noResults.classList.add('visible');
+            } else {
+                noResults.classList.remove('visible');
+            }
+        }
+    </script>
+
+    <!--
+    TEMPLATE FOR Q&A ENTRIES:
+    Copy and paste this structure for each new Q&A, replacing the placeholder text.
+    Add to the #qa-container div above.
+
+    <div class="qa-entry" data-tags="rammed-earth,professional">
+        <div class="question">What's the best pneumatic tamper for small residential projects?</div>
+        <div class="question-meta">Asked by John Smith • January 15, 2025</div>
+
+        <div class="answer">
+            <div class="answer-label">Answer:</div>
+            <div class="answer-text">
+                <p>For small residential projects (under 2000 sq ft), I recommend starting with a mid-range pneumatic tamper in the 60-90 lb range. The Wacker Neuson BS60-2i is a reliable choice that balances power with maneuverability.</p>
+
+                <p>Key considerations: Make sure you have adequate air compressor capacity (minimum 15 CFM at 90 PSI). For small projects, renting is often more economical than buying unless you're planning multiple builds.</p>
+
+                <p>Alternative: If budget is tight, hand tamping with a manual tamper is still viable for small residential work—it just takes more time and labor.</p>
+            </div>
+            <div class="answerer">— Answered by <a href="directory.html">Maria Santos</a>, Rammed Earth Contractor, Portugal</div>
+        </div>
+
+        <div class="tags">
+            <span class="tag">Rammed Earth</span>
+            <span class="tag">Equipment</span>
+        </div>
+    </div>
+
+    FOR MULTIPLE ANSWERS TO SAME QUESTION:
+    Just add another answer div:
+
+    <div class="answer">
+        <div class="answer-label">Answer:</div>
+        <div class="answer-text">
+            <p>Different perspective: I prefer lighter tampers (40-50 lb) for residential because they're less fatiguing...</p>
+        </div>
+        <div class="answerer">— Answered by <a href="directory.html">James Chen</a>, Natural Builder, Australia</div>
+    </div>
+    -->
+</body>
+</html>

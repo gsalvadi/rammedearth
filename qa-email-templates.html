@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q&A Email Templates - For Admin Use</title>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #8B4513;
+            border-bottom: 3px solid #CD853F;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2E7D32;
+            margin-top: 30px;
+            border-bottom: 2px solid #E8DCC8;
+            padding-bottom: 8px;
+        }
+        h3 {
+            color: #8B4513;
+            margin-top: 20px;
+        }
+        .template {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #8B4513;
+        }
+        .note {
+            background: #E3F2FD;
+            padding: 15px;
+            border-left: 4px solid #2196F3;
+            margin: 15px 0;
+            font-size: 0.95em;
+        }
+        .variable {
+            background: #FFE0B2;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            color: #E65100;
+        }
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <h1>Q&A Email Templates</h1>
+        <p><strong>Purpose:</strong> Copy-paste email templates for managing the Community Q&A system.</p>
+        <p>Variables to replace are shown in <span class="variable">ORANGE</span>.</p>
+    </div>
+
+    <div class="section">
+        <h2>Template 1: Requesting Answer from Professional (First Time)</h2>
+        <p><strong>When to use:</strong> First time asking a specific professional to answer a question</p>
+
+        <div class="template">
+            <p><strong>Subject:</strong> Question for Community Q&A - <span class="variable">[TOPIC]</span></p>
+
+            <p>Hi <span class="variable">[PROFESSIONAL_NAME]</span>,</p>
+
+            <p>I received a question through the Rammed Earth Chronicles Community Q&A that matches your expertise, and I thought you might be interested in answering it.</p>
+
+            <p><strong>The Question:</strong><br>
+            "<span class="variable">[QUESTION_TEXT]</span>"</p>
+
+            <p><strong>Context from asker (if provided):</strong><br>
+            <span class="variable">[OPTIONAL: Any context the asker provided about their situation, location, or constraints]</span></p>
+
+            <p>The Community Q&A is a curated archive where professionals like you answer questions about earthen building. When you answer, your response gets published with attribution linking back to your directory listing—free visibility and a way to demonstrate your expertise.</p>
+
+            <p>If you're interested, I've put together a short guide about contributing answers:<br>
+            <span class="variable">[YOUR_SITE_URL]</span>/qa-professional-guide.html</p>
+
+            <p><strong>No pressure</strong>—if you don't have time or this isn't your specialty, no worries at all. Just let me know.</p>
+
+            <p>If you'd like to answer, simply reply to this email with your response (2-4 paragraphs works well). I'll handle formatting and publishing.</p>
+
+            <p>Thanks for considering it!<br>
+            <span class="variable">[YOUR_NAME]</span></p>
+        </div>
+
+        <div class="note">
+            <strong>Note:</strong> First-time requests include the guide link to explain the process. Subsequent requests to the same professional can use the shorter template below.
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Template 2: Requesting Answer from Professional (Returning)</h2>
+        <p><strong>When to use:</strong> Asking a professional who has previously answered questions</p>
+
+        <div class="template">
+            <p><strong>Subject:</strong> Q&A Question - <span class="variable">[TOPIC]</span></p>
+
+            <p>Hi <span class="variable">[PROFESSIONAL_NAME]</span>,</p>
+
+            <p>Got another question that's right in your wheelhouse:</p>
+
+            <p>"<span class="variable">[QUESTION_TEXT]</span>"</p>
+
+            <p><strong>Context:</strong><br>
+            <span class="variable">[OPTIONAL: Asker's location, project details, or constraints if provided]</span></p>
+
+            <p>Interested in answering? Just reply with your thoughts (2-4 paragraphs). I'll publish it on the Q&A page with attribution to your directory listing.</p>
+
+            <p>If you're too busy or it's outside your expertise, no worries—let me know and I'll find someone else.</p>
+
+            <p>Thanks!<br>
+            <span class="variable">[YOUR_NAME]</span></p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Template 3: Requesting Second Opinion / Multiple Answers</h2>
+        <p><strong>When to use:</strong> You already have one answer but want a different perspective</p>
+
+        <div class="template">
+            <p><strong>Subject:</strong> Second opinion needed - <span class="variable">[TOPIC]</span></p>
+
+            <p>Hi <span class="variable">[PROFESSIONAL_NAME]</span>,</p>
+
+            <p>I have a question that's already been answered by <span class="variable">[FIRST_ANSWERER_NAME]</span>, but I think a second perspective would be valuable since the topic has nuance.</p>
+
+            <p><strong>The Question:</strong><br>
+            "<span class="variable">[QUESTION_TEXT]</span>"</p>
+
+            <p><strong>First answer summary:</strong><br>
+            <span class="variable">[BRIEF 1-2 SENTENCE SUMMARY OF FIRST ANSWER]</span></p>
+
+            <p>I think your experience with <span class="variable">[THEIR_SPECIALTY_OR_REGION]</span> would add a different angle. Interested in contributing your perspective?</p>
+
+            <p>Just reply with your thoughts (2-4 paragraphs). Multiple answers help questioners understand there's no single "right" way.</p>
+
+            <p>Thanks!<br>
+            <span class="variable">[YOUR_NAME]</span></p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Template 4: Thanking Professional for Answer</h2>
+        <p><strong>When to use:</strong> After receiving an answer from a professional</p>
+
+        <div class="template">
+            <p><strong>Subject:</strong> Re: Q&A Question - <span class="variable">[TOPIC]</span></p>
+
+            <p>Hi <span class="variable">[PROFESSIONAL_NAME]</span>,</p>
+
+            <p>Perfect, thank you! This is exactly the kind of practical insight that makes the Q&A valuable.</p>
+
+            <p>I'll publish it this week with attribution to your directory listing. If the asker provided their email, I'll notify them the answer is up.</p>
+
+            <p>Really appreciate you taking the time to contribute.<br>
+            <span class="variable">[YOUR_NAME]</span></p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Template 5: Notifying Asker (Answer Posted)</h2>
+        <p><strong>When to use:</strong> When asker provided email and you've published the answer</p>
+        <p><strong>From:</strong> Use <code>noreply@yourdomain.com</code> to look automated</p>
+
+        <div class="template">
+            <p><strong>Subject:</strong> Your question has been answered - Community Q&A</p>
+
+            <p>Hello,</p>
+
+            <p>Your question submitted to the Rammed Earth Chronicles Community Q&A has been answered:</p>
+
+            <p><strong>Your Question:</strong><br>
+            "<span class="variable">[QUESTION_TEXT]</span>"</p>
+
+            <p><strong>View the answer:</strong><br>
+            <span class="variable">[YOUR_SITE_URL]</span>/qa-noticeboard.html</p>
+
+            <p>The answer comes from <span class="variable">[ANSWERER_NAME]</span>, a <span class="variable">[ANSWERER_TITLE]</span> based in <span class="variable">[ANSWERER_LOCATION]</span>.</p>
+
+            <p>If you have follow-up questions, feel free to submit another question through the site.</p>
+
+            <p>—<br>
+            The Rammed Earth Chronicles<br>
+            <span class="variable">[YOUR_SITE_URL]</span></p>
+        </div>
+
+        <div class="note">
+            <strong>Tip:</strong> Using "noreply@" as sender makes it look automated even though you're sending manually. This discourages replies and sets expectations.
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Template 6: Notifying Asker (Multiple Answers Posted)</h2>
+        <p><strong>When to use:</strong> When question received multiple professional answers</p>
+
+        <div class="template">
+            <p><strong>Subject:</strong> Your question received multiple answers - Community Q&A</p>
+
+            <p>Hello,</p>
+
+            <p>Your question submitted to the Rammed Earth Chronicles Community Q&A has been answered by multiple professionals:</p>
+
+            <p><strong>Your Question:</strong><br>
+            "<span class="variable">[QUESTION_TEXT]</span>"</p>
+
+            <p><strong>View all answers:</strong><br>
+            <span class="variable">[YOUR_SITE_URL]</span>/qa-noticeboard.html</p>
+
+            <p><strong>Answers from:</strong></p>
+            <ul>
+                <li><span class="variable">[ANSWERER_1_NAME]</span>, <span class="variable">[ANSWERER_1_TITLE]</span>, <span class="variable">[ANSWERER_1_LOCATION]</span></li>
+                <li><span class="variable">[ANSWERER_2_NAME]</span>, <span class="variable">[ANSWERER_2_TITLE]</span>, <span class="variable">[ANSWERER_2_LOCATION]</span></li>
+            </ul>
+
+            <p>Multiple perspectives can help you understand different approaches and trade-offs for your specific situation.</p>
+
+            <p>—<br>
+            The Rammed Earth Chronicles<br>
+            <span class="variable">[YOUR_SITE_URL]</span></p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Template 7: Question Declined (Not Suitable)</h2>
+        <p><strong>When to use:</strong> When a question isn't suitable for public Q&A but you want to respond kindly</p>
+
+        <div class="template">
+            <p><strong>Subject:</strong> Re: Your question submission</p>
+
+            <p>Hi <span class="variable">[ASKER_NAME]</span>,</p>
+
+            <p>Thank you for your question about <span class="variable">[TOPIC]</span>.</p>
+
+            <p>This is too specific to your individual project for the community Q&A (which focuses on questions with broader applicability). However, I'd be happy to discuss it through a consultation.</p>
+
+            <p><strong>Two options:</strong></p>
+
+            <ol>
+                <li><strong>Work with me directly:</strong> Fill out the consultation form at <span class="variable">[YOUR_SITE_URL]</span></li>
+                <li><strong>Find a local professional:</strong> Browse the directory at <span class="variable">[YOUR_SITE_URL]</span>/directory.html</li>
+            </ol>
+
+            <p>Best of luck with your project!<br>
+            <span class="variable">[YOUR_NAME]</span></p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Using These Templates</h2>
+        <ol>
+            <li>Copy the template text</li>
+            <li>Replace all <span class="variable">ORANGE VARIABLES</span> with actual content</li>
+            <li>Adjust tone/wording as needed for your voice</li>
+            <li>Send from appropriate email address:
+                <ul>
+                    <li>Your personal email for professional requests</li>
+                    <li>noreply@ for automated-looking notifications</li>
+                </ul>
+            </li>
+        </ol>
+
+        <div class="note">
+            <strong>Efficiency tip:</strong> Save these as drafts or text snippets in your email client for quick access. Update the variables each time you use them.
+        </div>
+    </div>
+</body>
+</html>
