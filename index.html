@@ -443,14 +443,14 @@
 
         <!-- Top Navigation Tabs -->
         <div style="display: flex; margin: 25px 0 0 0; border-bottom: 2px solid #CD853F; gap: 0;">
-            <button class="info-tab active" onclick="showInfoSection('pathways')" style="flex: 1; padding: 12px; background: #8B4513; border: none; font-family: Georgia, serif; font-size: 0.95em; cursor: pointer; color: white; transition: all 0.3s; border-radius: 3px 3px 0 0;">How It Works</button>
+            <button class="info-tab active" onclick="showInfoSection('about')" style="flex: 1; padding: 12px; background: #8B4513; border: none; font-family: Georgia, serif; font-size: 0.95em; cursor: pointer; color: white; transition: all 0.3s; border-radius: 3px 3px 0 0;">About</button>
+            <button class="info-tab" onclick="showInfoSection('pathways')" style="flex: 1; padding: 12px; background: #F5F2E8; border: none; font-family: Georgia, serif; font-size: 0.95em; cursor: pointer; color: #8B4513; transition: all 0.3s; border-radius: 3px 3px 0 0;">How It Works</button>
             <button class="info-tab" onclick="showInfoSection('directory')" style="flex: 1; padding: 12px; background: #F5F2E8; border: none; font-family: Georgia, serif; font-size: 0.95em; cursor: pointer; color: #8B4513; transition: all 0.3s; border-radius: 3px 3px 0 0;">Builder Directory</button>
             <button class="info-tab" onclick="showInfoSection('qa')" style="flex: 1; padding: 12px; background: #F5F2E8; border: none; font-family: Georgia, serif; font-size: 0.95em; cursor: pointer; color: #8B4513; transition: all 0.3s; border-radius: 3px 3px 0 0;">Community Q&A</button>
-            <button class="info-tab" onclick="showInfoSection('about')" style="flex: 1; padding: 12px; background: #F5F2E8; border: none; font-family: Georgia, serif; font-size: 0.95em; cursor: pointer; color: #8B4513; transition: all 0.3s; border-radius: 3px 3px 0 0;">About</button>
         </div>
 
         <!-- Pathways Section -->
-        <div id="pathways" class="info-section" style="background: #F5F2E8; padding: 25px; border-radius: 0 0 5px 5px; margin: 0 0 25px 0; border-left: 3px solid #8B4513; border-right: 3px solid #8B4513; border-bottom: 3px solid #8B4513;">
+        <div id="pathways" class="info-section" style="display: none; background: #F5F2E8; padding: 25px; border-radius: 0 0 5px 5px; margin: 0 0 25px 0; border-left: 3px solid #8B4513; border-right: 3px solid #8B4513; border-bottom: 3px solid #8B4513;">
             <h2 style="color: #8B4513; margin-top: 0; font-size: 1.3em;">Your Path Forward</h2>
 
             <p style="margin-bottom: 15px;">
@@ -514,7 +514,7 @@
         </div>
 
         <!-- About Section -->
-        <div id="about" class="info-section" style="display: none; background: #FFF8F0; padding: 25px; border-radius: 0 0 5px 5px; margin: 0 0 25px 0; border-left: 3px solid #D2691E; border-right: 3px solid #D2691E; border-bottom: 3px solid #D2691E;">
+        <div id="about" class="info-section" style="background: #FFF8F0; padding: 25px; border-radius: 0 0 5px 5px; margin: 0 0 25px 0; border-left: 3px solid #D2691E; border-right: 3px solid #D2691E; border-bottom: 3px solid #D2691E;">
             <h2 style="color: #D2691E; margin-top: 0; font-size: 1.3em;">The Rammed Earth Chronicles</h2>
 
             <p style="color: #3E2723; margin-bottom: 15px;">
@@ -540,6 +540,10 @@
                     <a href="https://rammedearth.substack.com/" target="_blank" style="display: inline-block; padding: 10px 24px; background: #F5F2E8; color: #8B4513; text-decoration: none; border-radius: 3px; border: 2px solid #D2691E; transition: all 0.3s;">Read the Chronicles →</a>
                     <button onclick="showSection('consultation'); return false;" style="padding: 10px 24px; background: #D2691E; color: white; border: none; border-radius: 3px; font-family: Georgia, serif; font-size: 1em; cursor: pointer; transition: all 0.3s;">Work with me</button>
                 </div>
+
+                <p style="margin-top: 25px; margin-bottom: 0; color: #666; font-size: 0.95em; font-style: italic;">
+                    Looking for professionals in your area or have questions? <a href="#" onclick="showInfoSection('pathways'); return false;" style="color: #8B4513; text-decoration: none; border-bottom: 1px solid #8B4513;">See how it works →</a>
+                </p>
             </div>
         </div>
 
