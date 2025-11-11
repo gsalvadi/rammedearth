@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Submit your project details and get connected with rammed earth professionals in your area.">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rammedearth.in/find-professional.html">
+    <meta property="og:title" content="Find a Professional - The Rammed Earth Chronicles">
+    <meta property="og:description" content="Submit your project details and get connected with rammed earth professionals in your area.">
+    <meta property="og:image" content="https://rammedearth.in/re.png">
+
+    <title>Find a Professional - The Rammed Earth Chronicles</title>
+
+    <style>
+        body {
+            font-family: Georgia, serif;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #F5F2E8;
+            color: #3E2723;
+            line-height: 1.6;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            display: block;
+        }
+
+        h1 {
+            color: #8B4513;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .intro {
+            background: white;
+            padding: 25px;
+            border-radius: 5px;
+            border: 2px solid #D2691E;
+            margin-bottom: 35px;
+        }
+
+        .intro p {
+            margin: 0 0 15px 0;
+        }
+
+        .intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 5px;
+            border: 2px solid #D2691E;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #8B4513;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #D2691E;
+            border-radius: 3px;
+            font-family: Georgia, serif;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .helper-text {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .submit-btn {
+            background: #8B4513;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 3px;
+            font-size: 1.1em;
+            cursor: pointer;
+            font-family: Georgia, serif;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #A0522D;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .back-link a {
+            color: #8B4513;
+            text-decoration: none;
+            border-bottom: 1px solid #8B4513;
+        }
+
+        .back-link a:hover {
+            color: #D2691E;
+            border-bottom-color: #D2691E;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+
+            .form-container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="re.png" alt="The Rammed Earth Chronicles" class="logo">
+        <h1>Find a Professional</h1>
+    </div>
+
+    <div class="intro">
+        <p>
+            Looking for a rammed earth professional in your area? Submit your project details below and I'll manually review your request to connect you with the right person from the directory.
+        </p>
+        <p style="margin-bottom: 0;">
+            <strong>This is for finding professionals, not for working with me directly.</strong> If you want consultation or tech transfer from me personally, visit <a href="quiz-index.html" style="color: #8B4513; text-decoration: none; border-bottom: 1px solid #8B4513;">Work with me</a>.
+        </p>
+    </div>
+
+    <div class="form-container">
+        <form id="referralForm">
+            <div class="form-group">
+                <label for="name">Your Name *</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Your Email *</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Your Location *</label>
+                <input type="text" id="location" name="location" required placeholder="City, State/Region, Country">
+                <div class="helper-text">Where is your project located?</div>
+            </div>
+
+            <div class="form-group">
+                <label for="projectType">What are you looking for? *</label>
+                <select id="projectType" name="projectType" required>
+                    <option value="">Select one...</option>
+                    <option value="builder">Builder/Contractor</option>
+                    <option value="architect">Architect</option>
+                    <option value="consultant">Consultant</option>
+                    <option value="workshop">Workshop/Training</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="projectDetails">Tell me about your project *</label>
+                <textarea id="projectDetails" name="projectDetails" required placeholder="What are you planning to build? What stage are you at? Any specific requirements?"></textarea>
+                <div class="helper-text">This helps me understand who might be the best fit for your needs.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="timeline">Timeline</label>
+                <input type="text" id="timeline" name="timeline" placeholder="e.g., Starting in 3 months, Still planning, etc.">
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Request</button>
+        </form>
+    </div>
+
+    <div class="back-link">
+        <a href="index.html">← Back to The Rammed Earth Chronicles</a>
+    </div>
+
+    <script>
+        document.getElementById('referralForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                location: document.getElementById('location').value,
+                projectType: document.getElementById('projectType').value,
+                projectDetails: document.getElementById('projectDetails').value,
+                timeline: document.getElementById('timeline').value,
+                timestamp: new Date().toISOString()
+            };
+
+            // Submit to Google Apps Script webhook
+            fetch('https://script.google.com/macros/s/AKfycbxCk_ZVpT4K1tEoVUsBIz93BcbWEzXtHLr8kTdkQKAZQNJKRVbqDpW3lZWb-KCUz7Kf/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
+
+            // Show success and redirect
+            alert('Thank you! I\'ll review your request and get back to you soon with a connection.');
+            window.location.href = 'submit.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,2 @@
+Think I have mishandled the conflicts on git. I have delted all the branches. Re do what you did on index page. Buttons? Box inside the box? Redo it.
+after the discussion we had about a square logo, I replace the banner image / logo as it was. Now the new pages you created has crampled square image. Fix that.
