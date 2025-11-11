@@ -451,17 +451,43 @@
 
         <!-- Pathways Section -->
         <div id="pathways" class="info-section" style="display: none; background: #F5F2E8; padding: 25px; border-radius: 0 0 5px 5px; margin: 0 0 25px 0; border-left: 3px solid #8B4513; border-right: 3px solid #8B4513; border-bottom: 3px solid #8B4513;">
-            <h2 style="color: #8B4513; margin-top: 0; font-size: 1.3em;">Your Path Forward</h2>
+            <h2 style="color: #8B4513; margin-top: 0; font-size: 1.3em;">How It Works</h2>
 
-            <p style="margin-bottom: 15px;">
-                <strong style="color: #8B4513;">1. Browse the Directory</strong> — Find rammed earth builders worldwide. If you find someone in your region, contact them directly and move forward with your project.
+            <p style="margin-bottom: 20px;">
+                This hub serves two distinct purposes:
             </p>
 
-            <p style="margin-bottom: 15px;">
-                <strong style="color: #8B4513;">2. No Match? Fill the Form Below</strong> — If you don't find someone suitable in the directory, or if you want to work with me directly, fill out one of the forms below. I'll either work with you myself or connect you with another professional from the directory who's a better match for your location or needs.
-            </p>
+            <div style="background: white; padding: 20px; border-radius: 5px; border: 2px solid #D2691E; margin-bottom: 20px;">
+                <h3 style="color: #8B4513; margin-top: 0; font-size: 1.1em;">🔍 Finding a Professional</h3>
+                <p style="margin-bottom: 10px;">
+                    <strong>Browse the directory</strong> to find rammed earth builders, architects, and consultants worldwide. Contact them directly if you find someone in your region.
+                </p>
+                <p style="margin-bottom: 10px;">
+                    <strong>Can't find someone?</strong> Submit a simple referral form and I'll manually connect you with the right professional from the directory for your location and needs.
+                </p>
+                <a href="find-professional.html" style="display: inline-block; padding: 10px 20px; background: #8B4513; color: white; text-decoration: none; border-radius: 3px; margin-top: 5px;">Submit referral request →</a>
+            </div>
 
-            <p style="margin-bottom: 0; font-style: italic; color: #666; font-size: 0.95em;">
+            <div style="background: white; padding: 20px; border-radius: 5px; border: 2px solid #D2691E; margin-bottom: 20px;">
+                <h3 style="color: #8B4513; margin-top: 0; font-size: 1.1em;">🤝 Working with Me Directly</h3>
+                <p style="margin-bottom: 10px;">
+                    If you want <strong>consultation</strong> (guidance for self-builders), <strong>tech transfer</strong> (for professionals integrating rammed earth into their practice), or want to join a <strong>workshop</strong>, these services are provided by me personally.
+                </p>
+                <p style="margin-bottom: 10px;">
+                    Each path has a quiz to help me understand your readiness and provide the right guidance.
+                </p>
+                <a href="quiz-index.html" style="display: inline-block; padding: 10px 20px; background: #8B4513; color: white; text-decoration: none; border-radius: 3px; margin-top: 5px;">Work with me →</a>
+            </div>
+
+            <div style="background: white; padding: 20px; border-radius: 5px; border: 2px solid #D2691E; margin-bottom: 0;">
+                <h3 style="color: #8B4513; margin-top: 0; font-size: 1.1em;">💬 Community Q&A</h3>
+                <p style="margin-bottom: 10px;">
+                    Have a question about rammed earth or earthen building? Submit it and get answers from professionals in the directory. All questions are curated and published publicly.
+                </p>
+                <a href="ask-question.html" style="display: inline-block; padding: 10px 20px; background: #8B4513; color: white; text-decoration: none; border-radius: 3px; margin-top: 5px;">Ask a question →</a>
+            </div>
+
+            <p style="margin-top: 20px; margin-bottom: 0; font-style: italic; color: #666; font-size: 0.95em;">
                 The writing about all this lives on <a href="https://rammedearth.substack.com/" target="_blank" style="color: #8B4513;">Substack</a>.
             </p>
         </div>
@@ -649,14 +675,6 @@
                     <textarea name="failure" placeholder="Not the technical lesson. What did you understand about yourself when the wall cracked?"></textarea>
                 </div>
 
-                <div class="question-block">
-                    <div class="question">Your Location</div>
-                    <input type="text" name="location" placeholder="City, State/Region, Country" required>
-                    <div style="font-size: 0.9em; color: #666; margin-top: 8px; font-style: italic;">
-                        Please include city/state/region to help us understand your context (e.g., "Boulder, Colorado, USA" or "Mumbai, Maharashtra, India")
-                    </div>
-                </div>
-
                 <input type="email" placeholder="Your email" required>
 
                 <div class="terms-checkbox" style="margin-top: 20px;">
@@ -805,14 +823,6 @@
                 <div class="question-block">
                     <div class="question">How will you use this knowledge?</div>
                     <textarea name="application" placeholder="Training team for ongoing practice? One-time project? Adding to service offerings?" required></textarea>
-                </div>
-
-                <div class="question-block">
-                    <div class="question">Your Location</div>
-                    <input type="text" name="location" placeholder="City, State/Region, Country" required>
-                    <div style="font-size: 0.9em; color: #666; margin-top: 8px; font-style: italic;">
-                        Please include city/state/region to help us understand your context (e.g., "Boulder, Colorado, USA" or "Mumbai, Maharashtra, India")
-                    </div>
                 </div>
 
                 <input type="email" placeholder="Your email" required>
@@ -1706,7 +1716,6 @@
             const hurdle = this.querySelector('[name="hurdle"]').value;
             const failure = this.querySelector('[name="failure"]').value || '';
             const email = this.querySelector('[type="email"]').value;
-            const location = this.querySelector('[name="location"]').value;
 
             // Validate response lengths
             if (!validateResponse(tried, 50)) {
@@ -1731,7 +1740,6 @@
             // Submit to Google Sheets via Apps Script
             submitToGoogleSheet('consultation', {
                 email: email,
-                location: location,
                 tried: answers[0],
                 why: answers[1],
                 hurdle: answers[2],
@@ -1777,9 +1785,7 @@
 
             const data = {
                 name: this.querySelector('[name="name"]').value,
-                email: this.querySelector('[name="email"]').value,
-                country: this.querySelector('[name="country"]').value,
-                city: this.querySelector('[name="city"]').value
+                email: this.querySelector('[name="email"]').value
             };
             
             const responseDiv = document.getElementById('workshop-response');
@@ -1827,7 +1833,6 @@
             const handsOn = form.querySelector('[name="hands-on"]').value;
             const technology = form.querySelector('[name="technology"]').value;
             const application = form.querySelector('[name="application"]').value;
-            const location = form.querySelector('[name="location"]').value;
 
             // Validate response lengths
             if (!validateResponse(handsOn, 60)) {
@@ -1852,7 +1857,6 @@
             // Submit to Google Sheets via Apps Script
             submitToGoogleSheet('tech-transfer', {
                 email: email,
-                location: location,
                 role: answers[0],
                 handsOn: answers[1],
                 technology: answers[2],
