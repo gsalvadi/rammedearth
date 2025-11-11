@@ -1722,17 +1722,17 @@
                 showValidationError(this.querySelector('[name="tried"]'), 'Please provide more detail (at least 50 characters). Help us understand your experience or what draws you to earth building.');
                 return;
             }
-            
+
             if (!validateResponse(why, 50)) {
                 showValidationError(this.querySelector('[name="why"]'), 'Please explain your motivations in more detail (at least 50 characters). What specifically calls you to this material?');
                 return;
             }
-            
+
             if (!validateResponse(hurdle, 40)) {
                 showValidationError(this.querySelector('[name="hurdle"]'), 'Please describe your primary hurdle in more detail (at least 40 characters). What specifically is holding you back?');
                 return;
             }
-            
+
             const answers = [tried, why, hurdle, failure];
 
             const result = analyzeResponse(answers);
@@ -1839,17 +1839,17 @@
                 showValidationError(form.querySelector('[name="hands-on"]'), 'Please provide more detail about your hands-on experience or willingness (at least 60 characters). Share specific examples.');
                 return;
             }
-            
+
             if (!validateResponse(technology, 50)) {
                 showValidationError(form.querySelector('[name="technology"]'), 'Please be more specific about the technology you want to learn (at least 50 characters). What exact processes or techniques?');
                 return;
             }
-            
+
             if (!validateResponse(application, 50)) {
                 showValidationError(form.querySelector('[name="application"]'), 'Please explain how you\'ll use this knowledge in more detail (at least 50 characters). What\'s your plan?');
                 return;
             }
-            
+
             const answers = [role, handsOn, technology, application];
 
             const result = analyzeTechTransfer(answers);
