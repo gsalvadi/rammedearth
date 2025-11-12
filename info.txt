@@ -1,3 +1,1 @@
-where can we place gumroad widget?
-
-<script src="https://gumroad.com/js/gumroad-embed.js"></script> <div class="gumroad-product-embed"><a href="https://oddnote.gumroad.com/l/nqtvry">Loading...</a></div>
+ 
