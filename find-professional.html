@@ -106,14 +106,16 @@
         .submit-btn {
             background: #8B4513;
             color: white;
-            padding: 12px 30px;
+            padding: 12px 24px;
             border: none;
             border-radius: 3px;
-            font-size: 1.1em;
+            font-size: 1em;
             cursor: pointer;
             font-family: Georgia, serif;
             transition: all 0.3s;
-            width: 100%;
+            display: inline-block;
+            text-align: center;
+            min-width: 200px;
         }
 
         .submit-btn:hover {
@@ -192,7 +194,7 @@
                 </ul>
             </div>
 
-            <a href="mailto:info@rammedearth.in?subject=Professional%20Referral%20Request&body=Name:%0D%0AEmail:%0D%0ALocation:%0D%0AService%20Required:%0D%0AProject%20Details:%0D%0ATimeline:%0D%0A" class="submit-btn" style="display: inline-block; text-align: center; text-decoration: none; margin-bottom: 0;">
+            <a href="mailto:info@rammedearth.in?subject=Professional%20Referral%20Request&body=Name:%0D%0AEmail:%0D%0ALocation:%0D%0AService%20Required:%0D%0AProject%20Details:%0D%0ATimeline:%0D%0A" class="submit-btn" style="text-decoration: none;">
                 Open Email Template
             </a>
         </div>
@@ -203,7 +205,7 @@
                 Download a template file, fill in your details, and send it as an attachment to <strong style="color: #8B4513;">info@rammedearth.in</strong>
             </p>
 
-            <button onclick="downloadTemplate()" class="submit-btn" style="background: #D2691E; margin-bottom: 0;">
+            <button onclick="downloadTemplate()" class="submit-btn" style="background: #D2691E;">
                 Download Template (.txt)
             </button>
         </div>
