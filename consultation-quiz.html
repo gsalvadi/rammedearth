@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Consultation - Rammed Earth</title>
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%238B4513' x='10' y='30' width='80' height='40' rx='2'/><rect fill='%23CD853F' x='10' y='35' width='80' height='8'/><rect fill='%23D2691E' x='10' y='48' width='80' height='8'/><rect fill='%23F4A460' x='10' y='61' width='80' height='4'/></svg>">
+    <meta property="og:title" content="Personal Consultation - Rammed Earth">
+    <meta property="og:description" content="Get guidance for your rammed earth building journey">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rammedearth.in/consultation-quiz.html">
+    <meta property="og:image" content="https://rammedearth.in/re.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            color: #3E2723;
+            background: #F5F2E8;
+            padding: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .container {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 3px;
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.1);
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-size: 1.9em;
+            margin-bottom: 10px;
+            font-weight: normal;
+            color: #8B4513;
+            text-align: center;
+        }
+        .subtitle {
+            font-style: italic;
+            color: #D2691E;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            text-align: center;
+        }
+        .logo {
+            max-width: 100%;
+            height: auto;
+            max-height: 120px;
+            margin: 0 auto 20px;
+            display: block;
+        }
+        .intro-box {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #FFF8E1;
+            border-left: 4px solid #D2691E;
+            font-size: 0.95em;
+        }
+        .question-block {
+            margin-bottom: 25px;
+        }
+        .question {
+            font-size: 1.1em;
+            color: #8B4513;
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            border: 2px solid #D2691E;
+            border-radius: 3px;
+            font-family: Georgia, serif;
+            font-size: 0.95em;
+            resize: vertical;
+        }
+        input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #D2691E;
+            border-radius: 3px;
+            font-family: Georgia, serif;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+        }
+        .terms-checkbox {
+            margin: 20px 0;
+            font-size: 0.9em;
+        }
+        .terms-checkbox input {
+            margin-right: 8px;
+        }
+        .submit-btn {
+            background: #8B4513;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 3px;
+            font-family: Georgia, serif;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        .submit-btn:hover {
+            background: #6D3410;
+        }
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #CD853F;
+        }
+        .back-link a {
+            color: #8B4513;
+            text-decoration: none;
+            font-style: italic;
+        }
+        .back-link a:hover {
+            color: #D2691E;
+        }
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .container { padding: 25px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="re.png" alt="The Rammed Earth Chronicles" class="logo">
+        
+        <h1>Personal Consultation</h1>
+        <div class="subtitle">For individuals planning their own rammed earth projects</div>
+        
+        <div class="intro-box">
+            <strong>Please provide detailed responses.</strong> Short or one-word answers don't give us enough context to understand your situation. The more specific you are about your experience, motivations, and challenges, the better we can help.
+        </div>
+        
+        <form id="consultation-form">
+            <div class="question-block">
+                <div class="question">What have you already tried to build?</div>
+                <textarea name="tried" placeholder="If nothing yet, just say 'nothing yet' - but tell me what draws you to earth building..." required></textarea>
+            </div>
+            
+            <div class="question-block">
+                <div class="question">Why do you want to build with rammed earth?</div>
+                <textarea name="why" placeholder="The real reason. What calls you to this material?" required></textarea>
+            </div>
+            
+            <div class="question-block">
+                <div class="question">What's your primary hurdle?</div>
+                <textarea name="hurdle" placeholder="If you've built: what stopped you from continuing? If you haven't: what's preventing you from starting?" required></textarea>
+            </div>
+            
+            <div class="question-block" id="failure-question" style="display: none;">
+                <div class="question">What did the earth teach you when it failed?</div>
+                <textarea name="failure" placeholder="Not the technical lesson. What did you understand about yourself when the wall cracked?"></textarea>
+            </div>
+
+            <input type="email" name="email" placeholder="Your email" required>
+
+            <div class="terms-checkbox">
+                <input type="checkbox" id="consultation-consent" required>
+                <label for="consultation-consent">I understand my inquiry may be forwarded to other professionals in the directory if that's a better match for my location or needs. <a href="privacy-policy.html" style="color: #8B4513;">Privacy Policy</a></label>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Consultation Request</button>
+        </form>
+        
+        <div class="back-link">
+            <a href="index.html">← Back to main page</a> |
+            <a href="quiz-index.html">See other paths</a>
+        </div>
+    </div>
+
+    <script>
+        // Show failure question if user mentions building experience
+        document.querySelector('textarea[name="tried"]').addEventListener('input', function(e) {
+            const text = e.target.value.toLowerCase();
+            const failureQuestion = document.getElementById('failure-question');
+            const hasExperience = text.length > 30 && !/^nothing|^haven't|^never|^no experience/.test(text);
+            failureQuestion.style.display = hasExperience ? 'block' : 'none';
+        });
+
+        // Helper functions
+        function contextualMatch(text, keyword) {
+            const lowerText = text.toLowerCase();
+            const lowerKeyword = keyword.toLowerCase();
+            const index = lowerText.indexOf(lowerKeyword);
+            if (index === -1) return false;
+            const beforeWord = index > 0 ? lowerText.substring(Math.max(0, index - 10), index) : '';
+            const negationWords = ['not', 'no', 'never', 'without', "don't", "doesn't", "isn't", "aren't"];
+            return !negationWords.some(neg => beforeWord.includes(neg));
+        }
+
+        function analyzeAnswerQuality(text) {
+            const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 10);
+            const words = text.split(/\s+/).filter(w => w.length > 3);
+            const uniqueWords = new Set(words.map(w => w.toLowerCase()));
+            
+            return {
+                sentenceCount: sentences.length,
+                vocabularyRichness: uniqueWords.size / Math.max(words.length, 1),
+                hasSpecifics: /\d+|specific|particular|exactly|precisely/.test(text.toLowerCase())
+            };
+        }
+
+        function isGenericAnswer(text) {
+            const genericPhrases = [
+                'sustainable living', 'eco-friendly', 'natural materials',
+                'good for environment', 'better for planet'
+            ];
+            const matchCount = genericPhrases.filter(phrase => 
+                text.toLowerCase().includes(phrase)
+            ).length;
+            return matchCount >= 2 && text.length < 100;
+        }
+
+        // Main analysis function
+        function analyzeResponse(answers) {
+            const [tried, why, hurdle, failure] = answers;
+            const debug = { scores: {}, flags: [], reasoning: [] };
+
+            // Check for cost-focused responses
+            const costPhrases = ['save money', 'cost less', 'cheaper than', 'budget constraint', "can't afford"];
+            const costWords = ['cheap', 'cheaper', 'budget', 'economic', 'affordable', 'inexpensive'];
+
+            let costFocused = false;
+            if (costPhrases.some(phrase => why.toLowerCase().includes(phrase))) {
+                costFocused = true;
+                debug.flags.push('Direct cost-focused phrases detected');
+            } else if (costWords.filter(word => contextualMatch(why, word)).length >= 2) {
+                costFocused = true;
+                debug.flags.push('Multiple cost keywords without negation');
+            }
+
+            const learningContext = /learn|understand|craft|skill|knowledge|experience/.test(why.toLowerCase());
+            if (costFocused && learningContext && why.length > 100) {
+                costFocused = false;
+                debug.reasoning.push('Cost mentioned but balanced with learning focus');
+            }
+
+            if (costFocused && !learningContext) {
+                debug.reasoning.push('Primary motivation appears cost-driven');
+                return { level: 'cost-focused', debug };
+            }
+
+            // Check for construction service requests
+            const contractPhrases = ['build for me', 'build my', 'hire you', 'your team', 'you build', 'give me a quote'];
+            if (contractPhrases.some(phrase => why.toLowerCase().includes(phrase))) {
+                debug.reasoning.push('Requesting construction service, not learning');
+                return { level: 'wants-contractor', debug };
+            }
+
+            // Quality checks
+            const triedQuality = analyzeAnswerQuality(tried);
+            const whyQuality = analyzeAnswerQuality(why);
+            const hurdleQuality = analyzeAnswerQuality(hurdle);
+
+            if (isGenericAnswer(why) || isGenericAnswer(tried)) {
+                debug.flags.push('Generic/template-like responses detected');
+            }
+
+            // Scoring
+            let consciousness = 0;
+            let maxScore = 20;
+
+            // Experience markers (0-5 points)
+            const isNothingYet = /nothing yet|haven't|never|no experience/i.test(tried);
+            
+            if (!isNothingYet && tried.length > 80) {
+                consciousness += 1.5;
+                debug.scores.experienceLength = 1.5;
+            } else if (!isNothingYet && tried.length > 50) {
+                consciousness += 0.5;
+                debug.scores.experienceLength = 0.5;
+            }
+
+            if (triedQuality.hasSpecifics) {
+                consciousness += 1.5;
+                debug.scores.experienceSpecifics = 1.5;
+            }
+
+            const materials = ['mix', 'clay', 'sand', 'soil', 'aggregate', 'water', 'ratio', 'moisture'];
+            const materialMentions = materials.filter(m => tried.toLowerCase().includes(m)).length;
+            if (materialMentions >= 2) {
+                consciousness += 1.5;
+                debug.scores.materialKnowledge = 1.5;
+            } else if (materialMentions === 1) {
+                consciousness += 0.5;
+                debug.scores.materialKnowledge = 0.5;
+            }
+
+            const failureWords = ['fail', 'crack', 'collaps', 'mistake', 'wrong', 'learned'];
+            if (failureWords.some(word => tried.toLowerCase().includes(word))) {
+                consciousness += 1;
+                debug.scores.learningFromFailure = 1;
+            }
+
+            // Motivation markers (0-5 points)
+            const deepMotivation = ['understand', 'connect', 'rhythm', 'craft', 'consciousness', 'relationship', 'material', 'calling'];
+            const surfaceMotivation = ['sustainable', 'natural', 'earth', 'eco', 'green'];
+
+            const deepMatches = deepMotivation.filter(m => contextualMatch(why, m)).length;
+            const surfaceMatches = surfaceMotivation.filter(m => contextualMatch(why, m)).length;
+
+            if (deepMatches >= 2) {
+                consciousness += 2.5;
+                debug.scores.deepMotivation = 2.5;
+            } else if (deepMatches >= 1) {
+                consciousness += 1.5;
+                debug.scores.deepMotivation = 1.5;
+            } else if (surfaceMatches >= 1) {
+                consciousness += 0.5;
+                debug.scores.surfaceMotivation = 0.5;
+            }
+
+            if (/I feel|I sense|drawn to|calls me|calling|journey/i.test(why)) {
+                consciousness += 1.5;
+                debug.scores.personalJourney = 1.5;
+            }
+
+            if (whyQuality.sentenceCount >= 3 && whyQuality.vocabularyRichness > 0.6) {
+                consciousness += 1;
+                debug.scores.motivationDepth = 1;
+            }
+
+            // Self-awareness markers (0-4 points)
+            const internalHurdles = ['myself', 'patience', 'knowledge', 'understanding', 'confidence', 'fear', 'learning'];
+            const externalHurdles = ['money', 'time', 'resources', 'tools', 'permit'];
+
+            const internalMatches = internalHurdles.filter(h => hurdle.toLowerCase().includes(h)).length;
+            const externalMatches = externalHurdles.filter(h => hurdle.toLowerCase().includes(h)).length;
+
+            if (internalMatches >= 2 || (internalMatches >= 1 && hurdleQuality.hasSpecifics)) {
+                consciousness += 2.5;
+                debug.scores.selfAwareness = 2.5;
+            } else if (internalMatches >= 1) {
+                consciousness += 1.5;
+                debug.scores.selfAwareness = 1.5;
+            } else if (externalMatches >= 1 && hurdle.length > 60) {
+                consciousness += 0.5;
+                debug.scores.externalAwareness = 0.5;
+            }
+
+            if (hurdleQuality.sentenceCount >= 2) {
+                consciousness += 1;
+                debug.scores.hurdleDepth = 1;
+            }
+
+            // Deep reflection from failure question (0-6 points)
+            if (failure && failure.length > 40) {
+                const failureQuality = analyzeAnswerQuality(failure);
+                const reflectiveWords = ['patience', 'humble', 'listen', 'teach', 'show', 'mirror', 'realize', 'understand', 'respect', 'relationship'];
+                const reflectiveMatches = reflectiveWords.filter(w => failure.toLowerCase().includes(w)).length;
+
+                if (reflectiveMatches >= 2 && failureQuality.sentenceCount >= 2) {
+                    consciousness += 4;
+                    debug.scores.deepReflection = 4;
+                } else if (reflectiveMatches >= 2) {
+                    consciousness += 2.5;
+                    debug.scores.deepReflection = 2.5;
+                } else if (reflectiveMatches >= 1) {
+                    consciousness += 1.5;
+                    debug.scores.deepReflection = 1.5;
+                }
+
+                if (failureQuality.hasSpecifics) {
+                    consciousness += 1;
+                    debug.scores.specificFailure = 1;
+                }
+            }
+
+            // Calculate percentage
+            const percentScore = (consciousness / maxScore) * 100;
+            debug.totalScore = consciousness.toFixed(1);
+            debug.maxScore = maxScore;
+            debug.percentScore = percentScore.toFixed(1);
+
+            // Determine level
+            let level;
+            if (percentScore >= 60) {
+                level = 'conscious';
+                debug.reasoning.push('High consciousness score - shows deep understanding and genuine engagement');
+            } else if (percentScore >= 40) {
+                level = 'developing';
+                debug.reasoning.push('Developing consciousness - genuine interest with room to deepen');
+            } else if (percentScore >= 25) {
+                level = 'beginner';
+                debug.reasoning.push('Beginning stage - basic interest, needs foundational experience');
+            } else if (percentScore >= 15) {
+                level = 'theoretical';
+                debug.reasoning.push('Theoretical understanding - lacks hands-on engagement');
+            } else {
+                level = 'not-ready';
+                debug.reasoning.push('Very low engagement - may need to explore interest further');
+            }
+
+            if (percentScore >= 35 && percentScore <= 45) {
+                debug.flags.push('BORDERLINE - Recommend human review');
+            }
+
+            return { level, debug };
+        }
+
+        // Form submission handler
+        document.getElementById('consultation-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const email = form.querySelector('input[type="email"]').value;
+            const tried = form.querySelector('textarea[name="tried"]').value;
+            const why = form.querySelector('textarea[name="why"]').value;
+            const hurdle = form.querySelector('textarea[name="hurdle"]').value;
+            const failure = form.querySelector('textarea[name="failure"]')?.value || '';
+
+            // Analyze responses
+            const result = analyzeResponse([tried, why, hurdle, failure]);
+
+            // Store for landing page
+            sessionStorage.setItem('consultationEmail', email);
+            sessionStorage.setItem('consultationLevel', result.level);
+            sessionStorage.setItem('consultationScore', result.debug.percentScore);
+
+            // Submit to Google Sheets
+            try {
+                await fetch('https://script.google.com/macros/s/AKfycbxCfhZMVBY-mfblDU5EBVOBGkxdVbXnGtbqIbz0iJsVRZEL3HL_GC9zp4oafIqnvn55Sg/exec', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        timestamp: new Date().toISOString(),
+                        email: email,
+                        tried: tried,
+                        why: why,
+                        hurdle: hurdle,
+                        failure: failure,
+                        level: result.level,
+                        score: result.debug.percentScore,
+                        flags: result.debug.flags.join('; '),
+                        reasoning: result.debug.reasoning.join('; ')
+                    })
+                });
+            } catch (error) {
+                console.error('Submission error:', error);
+            }
+
+            // Redirect to appropriate landing page
+            const landingPages = {
+                'cost-focused': 'consultation-cost-focused.html',
+                'wants-contractor': 'consultation-wants-contractor.html',
+                'conscious': 'consultation-conscious.html',
+                'developing': 'consultation-developing.html',
+                'beginner': 'consultation-beginner.html',
+                'theoretical': 'consultation-theoretical.html',
+                'not-ready': 'consultation-not-ready.html'
+            };
+
+            window.location.href = landingPages[result.level] || 'consultation-developing.html';
+        });
+    </script>
+</body>
+</html>

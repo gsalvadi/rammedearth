@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop Interest - Rammed Earth</title>
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%238B4513' x='10' y='30' width='80' height='40' rx='2'/><rect fill='%23CD853F' x='10' y='35' width='80' height='8'/><rect fill='%23D2691E' x='10' y='48' width='80' height='8'/><rect fill='%23F4A460' x='10' y='61' width='80' height='4'/></svg>">
+    <meta property="og:title" content="Workshop Interest - Rammed Earth">
+    <meta property="og:description" content="Register your interest for hands-on rammed earth workshops">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rammedearth.in/workshop-form.html">
+    <meta property="og:image" content="https://rammedearth.in/re.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            color: #3E2723;
+            background: #F5F2E8;
+            padding: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .container {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 3px;
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.1);
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-size: 1.9em;
+            margin-bottom: 10px;
+            font-weight: normal;
+            color: #8B4513;
+            text-align: center;
+        }
+        .subtitle {
+            font-style: italic;
+            color: #D2691E;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            text-align: center;
+        }
+        .logo {
+            max-width: 100%;
+            height: auto;
+            max-height: 120px;
+            margin: 0 auto 20px;
+            display: block;
+        }
+        .intro-text {
+            margin-bottom: 30px;
+            color: #3E2723;
+            font-size: 1.05em;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #8B4513;
+            font-size: 0.95em;
+        }
+        input[type="text"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #D2691E;
+            border-radius: 3px;
+            font-family: Georgia, serif;
+            font-size: 0.95em;
+        }
+        .terms-checkbox {
+            margin: 20px 0;
+            font-size: 0.9em;
+        }
+        .terms-checkbox input {
+            margin-right: 8px;
+        }
+        .submit-btn {
+            background: #8B4513;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 3px;
+            font-family: Georgia, serif;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        .submit-btn:hover {
+            background: #6D3410;
+        }
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .response-message {
+            margin-top: 20px;
+            padding: 20px;
+            background: #E8F5E9;
+            border-left: 5px solid #4CAF50;
+            border-radius: 3px;
+            display: none;
+        }
+        .response-message.active {
+            display: block;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #CD853F;
+        }
+        .back-link a {
+            color: #8B4513;
+            text-decoration: none;
+            font-style: italic;
+        }
+        .back-link a:hover {
+            color: #D2691E;
+        }
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .container { padding: 25px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="re.png" alt="The Rammed Earth Chronicles" class="logo">
+        
+        <h1>Workshop Interest</h1>
+        <div class="subtitle">Hands-on learning in collaborative settings</div>
+        
+        <p class="intro-text">
+            Workshops happen when enough conscious people gather in one region.
+            Leave your details and I'll notify you when something forms near you.
+        </p>
+        
+        <form id="workshop-form">
+            <div class="form-group">
+                <label for="name">Your name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="country">Country</label>
+                <select id="country" name="country" required>
+                    <option value="">Select your country...</option>
+                    <option value="Afghanistan">Afghanistan</option>
+                    <option value="Albania">Albania</option>
+                    <option value="Algeria">Algeria</option>
+                    <option value="Argentina">Argentina</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Austria">Austria</option>
+                    <option value="Bangladesh">Bangladesh</option>
+                    <option value="Belgium">Belgium</option>
+                    <option value="Brazil">Brazil</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Chile">Chile</option>
+                    <option value="China">China</option>
+                    <option value="Colombia">Colombia</option>
+                    <option value="Costa Rica">Costa Rica</option>
+                    <option value="Croatia">Croatia</option>
+                    <option value="Czech Republic">Czech Republic</option>
+                    <option value="Denmark">Denmark</option>
+                    <option value="Egypt">Egypt</option>
+                    <option value="Ethiopia">Ethiopia</option>
+                    <option value="Finland">Finland</option>
+                    <option value="France">France</option>
+                    <option value="Germany">Germany</option>
+                    <option value="Ghana">Ghana</option>
+                    <option value="Greece">Greece</option>
+                    <option value="Hungary">Hungary</option>
+                    <option value="India">India</option>
+                    <option value="Indonesia">Indonesia</option>
+                    <option value="Iran">Iran</option>
+                    <option value="Iraq">Iraq</option>
+                    <option value="Ireland">Ireland</option>
+                    <option value="Israel">Israel</option>
+                    <option value="Italy">Italy</option>
+                    <option value="Japan">Japan</option>
+                    <option value="Jordan">Jordan</option>
+                    <option value="Kenya">Kenya</option>
+                    <option value="Malaysia">Malaysia</option>
+                    <option value="Mexico">Mexico</option>
+                    <option value="Morocco">Morocco</option>
+                    <option value="Nepal">Nepal</option>
+                    <option value="Netherlands">Netherlands</option>
+                    <option value="New Zealand">New Zealand</option>
+                    <option value="Nigeria">Nigeria</option>
+                    <option value="Norway">Norway</option>
+                    <option value="Pakistan">Pakistan</option>
+                    <option value="Peru">Peru</option>
+                    <option value="Philippines">Philippines</option>
+                    <option value="Poland">Poland</option>
+                    <option value="Portugal">Portugal</option>
+                    <option value="Romania">Romania</option>
+                    <option value="Russia">Russia</option>
+                    <option value="Saudi Arabia">Saudi Arabia</option>
+                    <option value="Serbia">Serbia</option>
+                    <option value="Singapore">Singapore</option>
+                    <option value="South Africa">South Africa</option>
+                    <option value="South Korea">South Korea</option>
+                    <option value="Spain">Spain</option>
+                    <option value="Sri Lanka">Sri Lanka</option>
+                    <option value="Sweden">Sweden</option>
+                    <option value="Switzerland">Switzerland</option>
+                    <option value="Thailand">Thailand</option>
+                    <option value="Turkey">Turkey</option>
+                    <option value="Uganda">Uganda</option>
+                    <option value="Ukraine">Ukraine</option>
+                    <option value="United Arab Emirates">United Arab Emirates</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="United States of America">United States of America</option>
+                    <option value="Vietnam">Vietnam</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="city">City or Region</label>
+                <input type="text" id="city" name="city" required>
+            </div>
+
+            <div class="terms-checkbox">
+                <input type="checkbox" id="workshop-consent" required>
+                <label for="workshop-consent">I understand my information may be shared with other workshop participants or professionals in the directory for collaboration purposes. <a href="privacy-policy.html" style="color: #8B4513;">Privacy Policy</a></label>
+            </div>
+
+            <button type="submit" class="submit-btn">Notify Me of Workshops</button>
+        </form>
+        
+        <div class="response-message" id="workshop-response">
+            <h3 style="color: #2E7D32; margin-bottom: 10px;">✓ You're on the list!</h3>
+            <p>I'll notify you when a workshop forms in your region. Check your email (including spam) for confirmation.</p>
+        </div>
+        
+        <div class="back-link">
+            <a href="index.html">← Back to main page</a> |
+            <a href="quiz-index.html">See other paths</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('workshop-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const submitBtn = form.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            const formData = {
+                timestamp: new Date().toISOString(),
+                name: form.querySelector('#name').value,
+                email: form.querySelector('#email').value,
+                country: form.querySelector('#country').value,
+                city: form.querySelector('#city').value
+            };
+
+            try {
+                await fetch('https://script.google.com/macros/s/AKfycbwkNa9tBdD2HWu78tFkqPwS_hQwNOQTVQ-EKB_tPJx2QMfVSfJhbm0KJqoD4xT7igk/exec', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                // Show success message
+                form.style.display = 'none';
+                document.getElementById('workshop-response').classList.add('active');
+                
+            } catch (error) {
+                console.error('Submission error:', error);
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Notify Me of Workshops';
+                alert('There was an error submitting your request. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>
