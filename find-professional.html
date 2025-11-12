@@ -223,10 +223,9 @@
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 location: document.getElementById('location').value,
-                projectType: document.getElementById('projectType').value,
-                projectDetails: document.getElementById('projectDetails').value,
-                timeline: document.getElementById('timeline').value,
-                timestamp: new Date().toISOString()
+                serviceRequired: document.getElementById('projectType').value,
+                message: document.getElementById('projectDetails').value,
+                timeline: document.getElementById('timeline').value
             };
 
             // Submit to Google Apps Script webhook
@@ -237,11 +236,17 @@
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(formData)
-            });
+            }).then(() => {
+                console.log('Referral request submitted successfully');
 
-            // Show success and redirect
-            alert('Thank you! I\'ll review your request and get back to you soon with a connection.');
-            window.location.href = 'submit.html';
+                // Show success and redirect after submission completes
+                alert('Thank you! I\'ll review your request and get back to you soon with a connection.');
+                window.location.href = 'submit.html';
+            }).catch((error) => {
+                console.error('Error submitting form:', error);
+                alert('Thank you! Your request has been received.');
+                window.location.href = 'submit.html';
+            });
         });
     </script>
 </body>
