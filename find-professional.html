@@ -159,7 +159,7 @@
 
     <div class="intro">
         <p>
-            Looking for a rammed earth professional in your area? Submit your project details below and I'll manually review your request to connect you with the right person from the directory.
+            Looking for a rammed earth professional in your area? Submit your project details and I'll manually review your request to connect you with the right person from the directory.
         </p>
         <p style="margin-bottom: 0;">
             <strong>This is for finding professionals, not for working with me directly.</strong> If you want consultation or tech transfer from me personally, visit <a href="quiz-index.html" style="color: #8B4513; text-decoration: none; border-bottom: 1px solid #8B4513;">Work with me</a>.
@@ -167,48 +167,46 @@
     </div>
 
     <div class="form-container">
-        <form id="referralForm">
-            <div class="form-group">
-                <label for="name">Your Name *</label>
-                <input type="text" id="name" name="name" required>
+        <h2 style="color: #8B4513; font-size: 1.3em; margin-top: 0; margin-bottom: 20px;">How to Submit Your Request</h2>
+
+        <p style="margin-bottom: 25px;">
+            Choose one of the following methods to send your referral request:
+        </p>
+
+        <div style="background: #FFF9F0; padding: 20px; border-radius: 5px; border: 2px solid #D2691E; margin-bottom: 25px;">
+            <h3 style="color: #8B4513; font-size: 1.1em; margin-top: 0; margin-bottom: 15px;">Option 1: Email Directly</h3>
+            <p style="margin-bottom: 15px;">
+                Send an email to <strong style="color: #8B4513;">info@rammedearth.in</strong> with the following information:
+            </p>
+
+            <div style="background: white; padding: 15px; border-radius: 3px; border: 1px solid #CD853F; margin-bottom: 15px;">
+                <p style="margin: 0 0 10px 0;"><strong>Subject:</strong> Professional Referral Request - [Your Location]</p>
+                <p style="margin: 0;"><strong>Include in your email:</strong></p>
+                <ul style="margin: 10px 0 0 20px; padding: 0;">
+                    <li>Your name</li>
+                    <li>Your email</li>
+                    <li>Your location (City, State/Region, Country)</li>
+                    <li>What you're looking for (Builder, Architect, Consultant, Workshop, etc.)</li>
+                    <li>Project details (What are you planning? What stage are you at?)</li>
+                    <li>Timeline (when you plan to start)</li>
+                </ul>
             </div>
 
-            <div class="form-group">
-                <label for="email">Your Email *</label>
-                <input type="email" id="email" name="email" required>
-            </div>
+            <a href="mailto:info@rammedearth.in?subject=Professional%20Referral%20Request&body=Name:%0D%0AEmail:%0D%0ALocation:%0D%0AService%20Required:%0D%0AProject%20Details:%0D%0ATimeline:%0D%0A" class="submit-btn" style="display: inline-block; text-align: center; text-decoration: none; margin-bottom: 0;">
+                Open Email Template
+            </a>
+        </div>
 
-            <div class="form-group">
-                <label for="location">Your Location *</label>
-                <input type="text" id="location" name="location" required placeholder="City, State/Region, Country">
-                <div class="helper-text">Where is your project located?</div>
-            </div>
+        <div style="background: #FFF9F0; padding: 20px; border-radius: 5px; border: 2px solid #D2691E;">
+            <h3 style="color: #8B4513; font-size: 1.1em; margin-top: 0; margin-bottom: 15px;">Option 2: Download Template</h3>
+            <p style="margin-bottom: 15px;">
+                Download a template file, fill in your details, and send it as an attachment to <strong style="color: #8B4513;">info@rammedearth.in</strong>
+            </p>
 
-            <div class="form-group">
-                <label for="projectType">What are you looking for? *</label>
-                <select id="projectType" name="projectType" required>
-                    <option value="">Select one...</option>
-                    <option value="builder">Builder/Contractor</option>
-                    <option value="architect">Architect</option>
-                    <option value="consultant">Consultant</option>
-                    <option value="workshop">Workshop/Training</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="projectDetails">Tell me about your project *</label>
-                <textarea id="projectDetails" name="projectDetails" required placeholder="What are you planning to build? What stage are you at? Any specific requirements?"></textarea>
-                <div class="helper-text">This helps me understand who might be the best fit for your needs.</div>
-            </div>
-
-            <div class="form-group">
-                <label for="timeline">Timeline</label>
-                <input type="text" id="timeline" name="timeline" placeholder="e.g., Starting in 3 months, Still planning, etc.">
-            </div>
-
-            <button type="submit" class="submit-btn">Submit Request</button>
-        </form>
+            <button onclick="downloadTemplate()" class="submit-btn" style="background: #D2691E; margin-bottom: 0;">
+                Download Template (.txt)
+            </button>
+        </div>
     </div>
 
     <div class="back-link">
@@ -216,38 +214,64 @@
     </div>
 
     <script>
-        document.getElementById('referralForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        function downloadTemplate() {
+            const template = `PROFESSIONAL REFERRAL REQUEST TEMPLATE
+The Rammed Earth Chronicles
 
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                location: document.getElementById('location').value,
-                serviceRequired: document.getElementById('projectType').value,
-                message: document.getElementById('projectDetails').value,
-                timeline: document.getElementById('timeline').value
-            };
+Please fill in the information below and send this completed file as an attachment to:
+info@rammedearth.in
 
-            // Submit to Google Apps Script webhook
-            fetch('https://script.google.com/macros/s/AKfycbxsWu3ypNLqrGA5bJjNgXsRidGGhS5L0aksGxGiX2BraWyoEva-AGaJrgIlQvLeIWZj/exec', {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            }).then(() => {
-                console.log('Referral request submitted successfully');
+Subject Line: Professional Referral Request - [Your Location]
 
-                // Show success and redirect after submission completes
-                alert('Thank you! I\'ll review your request and get back to you soon with a connection.');
-                window.location.href = 'submit.html';
-            }).catch((error) => {
-                console.error('Error submitting form:', error);
-                alert('Thank you! Your request has been received.');
-                window.location.href = 'submit.html';
-            });
-        });
+================================================================================
+
+YOUR NAME:
+
+
+YOUR EMAIL:
+
+
+YOUR LOCATION (City, State/Region, Country):
+
+
+SERVICE REQUIRED (Builder/Architect/Consultant/Workshop/Other):
+
+
+PROJECT DETAILS:
+(What are you planning to build? What stage are you at? Any specific requirements?)
+
+
+
+
+TIMELINE:
+(When do you plan to start? e.g., Starting in 3 months, Still planning, etc.)
+
+
+
+
+ADDITIONAL INFORMATION:
+
+
+
+
+================================================================================
+
+After filling this form, save it and email as attachment to: info@rammedearth.in
+
+Thank you!
+`;
+
+            // Create a blob and download
+            const blob = new Blob([template], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Referral_Request_Template.txt';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
     </script>
 </body>
 </html>
