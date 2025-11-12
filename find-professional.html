@@ -222,10 +222,9 @@
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 location: document.getElementById('location').value,
-                projectType: document.getElementById('projectType').value,
-                projectDetails: document.getElementById('projectDetails').value,
-                timeline: document.getElementById('timeline').value,
-                timestamp: new Date().toISOString()
+                serviceRequired: document.getElementById('projectType').value,
+                message: document.getElementById('projectDetails').value,
+                timeline: document.getElementById('timeline').value
             };
 
             // Submit to Google Apps Script webhook
