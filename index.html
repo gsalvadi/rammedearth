@@ -1877,12 +1877,12 @@
             const techLandingPages = {
                 'redirect-to-directory': 'consultation-wants-contractor.html',  // Reuse contractor page
                 'unwilling-hands-on': 'consultation-wants-contractor.html',      // Reuse contractor page
-                // All other levels go to tech transfer received page
-                'qualified-professional': 'tech-transfer-received.html',
-                'developing-professional': 'tech-transfer-received.html',
-                'willing-beginner-professional': 'tech-transfer-received.html',
-                'not-qualified': 'tech-transfer-received.html',
-                'no-hands-on-response': 'tech-transfer-received.html'
+                // Specific tech transfer landing pages
+                'qualified-professional': 'tech-transfer-qualified-professional.html',
+                'developing-professional': 'tech-transfer-developing-professional.html',
+                'willing-beginner-professional': 'tech-transfer-willing-beginner.html',
+                'not-qualified': 'tech-transfer-not-qualified.html',
+                'no-hands-on-response': 'tech-transfer-not-qualified.html'
             };
 
             const landingPage = techLandingPages[result.level];
