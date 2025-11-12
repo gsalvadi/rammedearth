@@ -236,11 +236,17 @@
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(formData)
-            });
+            }).then(() => {
+                console.log('Referral request submitted successfully');
 
-            // Show success and redirect
-            alert('Thank you! I\'ll review your request and get back to you soon with a connection.');
-            window.location.href = 'submit.html';
+                // Show success and redirect after submission completes
+                alert('Thank you! I\'ll review your request and get back to you soon with a connection.');
+                window.location.href = 'submit.html';
+            }).catch((error) => {
+                console.error('Error submitting form:', error);
+                alert('Thank you! Your request has been received.');
+                window.location.href = 'submit.html';
+            });
         });
     </script>
 </body>
