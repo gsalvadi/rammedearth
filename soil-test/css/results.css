@@ -1,0 +1,445 @@
+/* ========================================
+   Results Page Styles
+   ======================================== */
+
+.results-page {
+  max-width: 900px;
+}
+
+/* ========================================
+   Results Header
+   ======================================== */
+
+.results-header {
+  text-align: center;
+  padding: var(--spacing-xl) var(--spacing-md);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  border-radius: var(--border-radius-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.results-header h1 {
+  color: white;
+  margin-bottom: var(--spacing-md);
+  font-size: 2em;
+}
+
+.score-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: var(--spacing-lg);
+}
+
+.score-circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-shadow: var(--shadow-lg);
+  margin-bottom: var(--spacing-sm);
+  position: relative;
+}
+
+.score-circle::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--success) calc(var(--score-percentage, 0) * 1%),
+    var(--border) 0
+  );
+  z-index: -1;
+}
+
+#scoreValue {
+  font-size: 3em;
+  font-weight: bold;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.score-max {
+  font-size: 1.2em;
+  color: var(--text-light);
+}
+
+.score-label {
+  color: white;
+  font-size: 1.1em;
+  margin: 0;
+}
+
+/* Score category colors */
+.results-header.excellent {
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+}
+
+.results-header.suitable {
+  background: linear-gradient(135deg, #8B4513, #D2691E);
+}
+
+.results-header.marginal {
+  background: linear-gradient(135deg, #FFB300, #FF8F00);
+}
+
+.results-header.unsuitable {
+  background: linear-gradient(135deg, #D32F2F, #C62828);
+}
+
+/* ========================================
+   Results Content
+   ======================================== */
+
+.results-content {
+  flex: 1;
+}
+
+.results-section {
+  background: var(--surface);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.results-section h2 {
+  color: var(--primary);
+  border-bottom: 2px solid var(--border);
+  padding-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+/* ========================================
+   Composition Section
+   ======================================== */
+
+.composition-bars {
+  margin: var(--spacing-md) 0;
+}
+
+.composition-item {
+  margin-bottom: var(--spacing-md);
+}
+
+.composition-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-xs);
+  font-size: 0.95em;
+}
+
+.label-name {
+  font-weight: bold;
+}
+
+.label-value {
+  color: var(--text-light);
+}
+
+.bar-container {
+  width: 100%;
+  height: 30px;
+  background: var(--background);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  position: relative;
+}
+
+.bar {
+  height: 100%;
+  border-radius: var(--border-radius);
+  transition: width 1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: var(--spacing-sm);
+  color: white;
+  font-weight: bold;
+}
+
+.bar-sand {
+  background: linear-gradient(90deg, #F4A460, #DEB887);
+}
+
+.bar-silt {
+  background: linear-gradient(90deg, #D2B48C, #C4A777);
+}
+
+.bar-clay {
+  background: linear-gradient(90deg, #A0522D, #8B4513);
+}
+
+.ideal-range {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-sm);
+  background: var(--background);
+  border-radius: var(--border-radius);
+  font-size: 0.9em;
+}
+
+.ideal-range p {
+  margin: var(--spacing-xs) 0;
+}
+
+/* ========================================
+   Test Summary
+   ======================================== */
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.summary-item {
+  padding: var(--spacing-md);
+  background: var(--background);
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+.summary-item h3 {
+  font-size: 1em;
+  color: var(--text-light);
+  margin-bottom: var(--spacing-xs);
+}
+
+.summary-item p {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: var(--primary);
+  margin: 0;
+}
+
+/* ========================================
+   Recommendations & Warnings
+   ======================================== */
+
+.results-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.results-list li {
+  padding: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+  background: var(--background);
+  border-radius: var(--border-radius);
+  border-left: 4px solid var(--primary);
+}
+
+.recommendations-section .results-list li {
+  border-left-color: var(--success);
+}
+
+.warnings-section .results-list li {
+  border-left-color: var(--warning);
+}
+
+.warnings-section h2 {
+  color: var(--warning);
+}
+
+/* ========================================
+   Location Section
+   ======================================== */
+
+.location-coords {
+  font-family: monospace;
+  font-size: 0.9em;
+  color: var(--text-light);
+  margin: var(--spacing-xs) 0 0;
+}
+
+/* ========================================
+   Photos Gallery
+   ======================================== */
+
+.photo-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--spacing-sm);
+}
+
+.gallery-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-item-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: var(--spacing-xs);
+  font-size: 0.8em;
+  text-align: center;
+}
+
+/* ========================================
+   Actions Section
+   ======================================== */
+
+.results-actions {
+  background: var(--surface);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+  margin: var(--spacing-lg) 0;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.results-actions h2 {
+  color: var(--primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  max-width: 500px;
+  margin: var(--spacing-md) auto;
+}
+
+.action-buttons .btn {
+  width: 100%;
+}
+
+.data-privacy {
+  margin-top: var(--spacing-lg);
+  font-size: 0.85em;
+  color: var(--text-light);
+  line-height: 1.6;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ========================================
+   Submission Status
+   ======================================== */
+
+.submission-status {
+  position: fixed;
+  bottom: var(--spacing-md);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+  animation: slideUp 0.3s ease;
+  max-width: 90%;
+}
+
+.submission-status p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.submission-status.success {
+  background: var(--success);
+  color: white;
+}
+
+.submission-status.error {
+  background: var(--error);
+  color: white;
+}
+
+/* ========================================
+   Raw Data Modal
+   ======================================== */
+
+#rawDataContent {
+  background: #f5f5f5;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  overflow-x: auto;
+  font-size: 0.85em;
+  line-height: 1.4;
+  max-height: 60vh;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 600px) {
+  .results-header {
+    padding: var(--spacing-md);
+  }
+
+  .results-header h1 {
+    font-size: 1.5em;
+  }
+
+  .score-circle {
+    width: 120px;
+    height: 120px;
+  }
+
+  #scoreValue {
+    font-size: 2.5em;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .photo-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+
+  .action-buttons {
+    max-width: 100%;
+  }
+}
+
+@media print {
+  .results-actions,
+  .app-footer,
+  #rawDataModal,
+  #loadingOverlay {
+    display: none;
+  }
+
+  .results-page {
+    max-width: 100%;
+  }
+
+  .results-section {
+    page-break-inside: avoid;
+  }
+}

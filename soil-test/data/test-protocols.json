@@ -1,0 +1,275 @@
+{
+  "tests": [
+    {
+      "id": "jarTest",
+      "name": "Jar Test",
+      "description": "Sedimentation test to measure sand, silt, and clay ratios",
+      "duration": "24 hours settling time",
+      "instructions": [
+        "Collect dry soil sample and crush any large clumps",
+        "Fill a clear jar 1/3 full with soil",
+        "Add water until jar is 2/3 full",
+        "Add a pinch of salt or detergent to help separation",
+        "Screw lid on tightly and shake vigorously for 1 minute",
+        "Place jar on a flat, stable surface",
+        "Let settle for 24 hours undisturbed"
+      ],
+      "photoGuidelines": [
+        "Take photo of settled jar after 24 hours",
+        "Ensure jar is upright and level",
+        "Good lighting from the side",
+        "Include a ruler or measuring tape next to jar",
+        "Clear view of all sediment layers"
+      ],
+      "fields": [
+        {
+          "id": "totalHeight",
+          "label": "Total sediment height",
+          "type": "number",
+          "unit": "mm",
+          "required": true,
+          "min": 10,
+          "max": 500,
+          "hint": "Measure from bottom of jar to top of settled sediment"
+        },
+        {
+          "id": "sandHeight",
+          "label": "Sand layer height (bottom layer)",
+          "type": "number",
+          "unit": "mm",
+          "required": true,
+          "min": 0,
+          "max": 500,
+          "hint": "Coarsest particles that settle first"
+        },
+        {
+          "id": "siltHeight",
+          "label": "Silt layer height (middle layer)",
+          "type": "number",
+          "unit": "mm",
+          "required": true,
+          "min": 0,
+          "max": 500,
+          "hint": "Medium particles above sand layer"
+        },
+        {
+          "id": "clayHeight",
+          "label": "Clay layer height (top layer)",
+          "type": "number",
+          "unit": "mm",
+          "required": true,
+          "min": 0,
+          "max": 500,
+          "hint": "Finest particles, may still be cloudy"
+        },
+        {
+          "id": "notes",
+          "label": "Additional observations",
+          "type": "textarea",
+          "required": false,
+          "placeholder": "Note any unusual features, colors, or difficulties"
+        }
+      ]
+    },
+    {
+      "id": "ribbonTest",
+      "name": "Ribbon Test",
+      "description": "Clay content assessment by forming soil ribbons",
+      "duration": "5 minutes",
+      "instructions": [
+        "Take a handful of soil",
+        "Add water gradually and mix until it forms a putty-like consistency",
+        "Roll the moist soil into a ball about the size of a golf ball",
+        "Squeeze soil between thumb and forefinger to form a ribbon",
+        "Let the ribbon extend out until it breaks under its own weight",
+        "Measure the length of the ribbon before it breaks"
+      ],
+      "photoGuidelines": [
+        "Take photo of longest ribbon before it breaks",
+        "Hold ribbon horizontally with ruler visible",
+        "Clear view of ribbon length and thickness",
+        "Good lighting to show detail"
+      ],
+      "fields": [
+        {
+          "id": "ribbonLength",
+          "label": "Ribbon length before breaking",
+          "type": "number",
+          "unit": "mm",
+          "required": true,
+          "min": 0,
+          "max": 300,
+          "hint": "Length from start of ribbon to break point"
+        },
+        {
+          "id": "strength",
+          "label": "Ribbon strength",
+          "type": "select",
+          "required": true,
+          "options": [
+            {"value": "weak", "label": "Weak (breaks easily, < 25mm)"},
+            {"value": "medium", "label": "Medium (breaks at 25-75mm)"},
+            {"value": "strong", "label": "Strong (extends > 75mm before breaking)"}
+          ]
+        },
+        {
+          "id": "texture",
+          "label": "Feel/texture",
+          "type": "select",
+          "required": false,
+          "options": [
+            {"value": "gritty", "label": "Gritty (mostly sand)"},
+            {"value": "smooth", "label": "Smooth (good clay content)"},
+            {"value": "silky", "label": "Silky (high silt)"}
+          ]
+        },
+        {
+          "id": "notes",
+          "label": "Additional observations",
+          "type": "textarea",
+          "required": false,
+          "placeholder": "Note ribbon flexibility, cracking, or other features"
+        }
+      ]
+    },
+    {
+      "id": "ballDropTest",
+      "name": "Ball Drop Test",
+      "description": "Test moisture content and binding properties",
+      "duration": "5 minutes",
+      "instructions": [
+        "Mix soil with water to optimal moisture (should hold shape when squeezed)",
+        "Form soil into a ball about the size of a golf ball (40-50mm diameter)",
+        "Compact the ball firmly by squeezing",
+        "Drop the ball from a height of 1 meter (3 feet) onto a hard surface",
+        "Observe how the ball behaves on impact"
+      ],
+      "photoGuidelines": [
+        "Take photo of the ball after it has dropped",
+        "Show the full break pattern or intact shape",
+        "Include ruler or reference object for scale",
+        "Good lighting to show cracks or breaks"
+      ],
+      "fields": [
+        {
+          "id": "dropHeight",
+          "label": "Drop height",
+          "type": "number",
+          "unit": "mm",
+          "required": true,
+          "min": 500,
+          "max": 2000,
+          "hint": "Typically 1000mm (1 meter)"
+        },
+        {
+          "id": "result",
+          "label": "Ball behavior after drop",
+          "type": "select",
+          "required": true,
+          "options": [
+            {"value": "intact", "label": "Stayed intact (too much clay/moisture)"},
+            {"value": "cracked_not_shattered", "label": "Cracked but held together (ideal)"},
+            {"value": "shattered", "label": "Shattered into pieces (too dry/sandy)"},
+            {"value": "splattered", "label": "Splattered/deformed (too wet)"}
+          ]
+        },
+        {
+          "id": "moisture",
+          "label": "Moisture assessment",
+          "type": "select",
+          "required": false,
+          "options": [
+            {"value": "too_wet", "label": "Too wet (sticky, shiny)"},
+            {"value": "optimal", "label": "Optimal (holds shape, not sticky)"},
+            {"value": "too_dry", "label": "Too dry (crumbly, won't hold shape)"}
+          ]
+        },
+        {
+          "id": "notes",
+          "label": "Additional observations",
+          "type": "textarea",
+          "required": false,
+          "placeholder": "Note crack patterns, deformation, or other features"
+        }
+      ]
+    },
+    {
+      "id": "visualTest",
+      "name": "Visual Assessment",
+      "description": "Evaluate color, texture, and organic matter",
+      "duration": "5 minutes",
+      "instructions": [
+        "Spread dry soil sample on a white surface or paper",
+        "Observe the color in natural daylight",
+        "Look for organic matter (roots, leaves, dark particles)",
+        "Feel the texture when dry",
+        "Take a representative photo"
+      ],
+      "photoGuidelines": [
+        "Spread soil evenly on white background",
+        "Natural daylight (not direct sunlight)",
+        "Include color reference card if available",
+        "Show texture and particle sizes",
+        "Close-up view showing detail"
+      ],
+      "fields": [
+        {
+          "id": "color",
+          "label": "Dominant color",
+          "type": "select",
+          "required": true,
+          "options": [
+            {"value": "red_brown", "label": "Red/Brown (iron-rich)"},
+            {"value": "yellow_tan", "label": "Yellow/Tan (silty)"},
+            {"value": "gray", "label": "Gray (clay-rich)"},
+            {"value": "dark_brown", "label": "Dark brown/black (organic matter)"},
+            {"value": "white_light", "label": "White/Light (sandy, low nutrients)"}
+          ]
+        },
+        {
+          "id": "texture",
+          "label": "Dry texture (feel)",
+          "type": "select",
+          "required": true,
+          "options": [
+            {"value": "coarse", "label": "Coarse/gritty (sandy)"},
+            {"value": "smooth", "label": "Smooth/fine (silty)"},
+            {"value": "sticky", "label": "Sticky when moist (clay)"},
+            {"value": "mixed", "label": "Mixed texture"}
+          ]
+        },
+        {
+          "id": "organicMatter",
+          "label": "Organic matter content",
+          "type": "select",
+          "required": true,
+          "options": [
+            {"value": "high", "label": "High (>5% visible organic material)"},
+            {"value": "medium", "label": "Medium (2-5% organic material)"},
+            {"value": "low", "label": "Low (<2% organic material)"},
+            {"value": "none", "label": "None visible"}
+          ]
+        },
+        {
+          "id": "smell",
+          "label": "Smell (when moistened)",
+          "type": "select",
+          "required": false,
+          "options": [
+            {"value": "earthy", "label": "Earthy/pleasant"},
+            {"value": "musty", "label": "Musty/moldy"},
+            {"value": "none", "label": "No smell"},
+            {"value": "chemical", "label": "Chemical/unusual"}
+          ]
+        },
+        {
+          "id": "notes",
+          "label": "Additional observations",
+          "type": "textarea",
+          "required": false,
+          "placeholder": "Note any unusual features, impurities, or characteristics"
+        }
+      ]
+    }
+  ]
+}

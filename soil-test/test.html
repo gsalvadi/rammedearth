@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Soil testing wizard">
+    <meta name="theme-color" content="#8B4513">
+    <title>Soil Test - Rammed Earth Tester</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192x192.png">
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/test-flow.css">
+</head>
+<body>
+    <div class="container test-page">
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-step active" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-label">Jar</div>
+            </div>
+            <div class="progress-step" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-label">Ribbon</div>
+            </div>
+            <div class="progress-step" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-label">Ball</div>
+            </div>
+            <div class="progress-step" data-step="4">
+                <div class="step-number">4</div>
+                <div class="step-label">Visual</div>
+            </div>
+        </div>
+
+        <!-- Test Steps Container -->
+        <main id="testContainer" class="test-container">
+            <!-- Steps will be dynamically loaded here -->
+        </main>
+
+        <!-- Camera Modal -->
+        <div id="cameraModal" class="modal hidden">
+            <div class="modal-content camera-container">
+                <div class="camera-header">
+                    <h3 id="cameraTitle">Take Photo</h3>
+                    <button id="closeCameraBtn" class="btn-close">&times;</button>
+                </div>
+
+                <div class="camera-viewport">
+                    <video id="cameraPreview" autoplay playsinline></video>
+                    <canvas id="photoCanvas" class="hidden"></canvas>
+                    <img id="photoPreview" class="hidden" alt="Photo preview">
+
+                    <!-- Camera Guidelines Overlay -->
+                    <div id="cameraGuidelinesOverlay" class="camera-guidelines">
+                        <div class="guideline-text">
+                            <p id="guidelineText">Center the subject in frame</p>
+                        </div>
+                        <div class="guideline-grid">
+                            <div class="grid-line grid-line-v"></div>
+                            <div class="grid-line grid-line-h"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="camera-controls">
+                    <button id="captureBtn" class="btn btn-primary btn-large">
+                        📷 Capture
+                    </button>
+                    <button id="retakeBtn" class="btn btn-secondary hidden">
+                        🔄 Retake
+                    </button>
+                    <button id="usePhotoBtn" class="btn btn-primary hidden">
+                        ✓ Use Photo
+                    </button>
+                </div>
+
+                <div class="camera-guidelines-text">
+                    <ul id="photoGuidelines">
+                        <li>Good lighting</li>
+                        <li>Hold steady</li>
+                        <li>Full view of subject</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay hidden">
+            <div class="spinner"></div>
+            <p id="loadingText">Loading...</p>
+        </div>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/camera.js"></script>
+    <script type="module" src="js/storage.js"></script>
+</body>
+</html>

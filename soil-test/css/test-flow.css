@@ -1,0 +1,499 @@
+/* ========================================
+   Test Flow Page Styles
+   ======================================== */
+
+.test-page {
+  padding: 0;
+  max-width: 100%;
+}
+
+/* ========================================
+   Progress Bar
+   ======================================== */
+
+.progress-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--surface);
+  padding: var(--spacing-md);
+  border-bottom: 2px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+
+.progress-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  opacity: 0.4;
+  transition: var(--transition);
+}
+
+.progress-step::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: var(--border);
+  z-index: -1;
+}
+
+.progress-step:last-child::before {
+  display: none;
+}
+
+.progress-step.active,
+.progress-step.completed {
+  opacity: 1;
+}
+
+.progress-step.completed .step-number {
+  background-color: var(--success);
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--border);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-bottom: var(--spacing-xs);
+  transition: var(--transition);
+}
+
+.progress-step.active .step-number {
+  background-color: var(--primary);
+  color: white;
+  box-shadow: 0 0 0 4px rgba(139, 69, 19, 0.2);
+}
+
+.step-label {
+  font-size: 0.85em;
+  text-align: center;
+}
+
+/* ========================================
+   Test Container
+   ======================================== */
+
+.test-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: var(--spacing-lg) var(--spacing-md);
+}
+
+.test-step {
+  display: none;
+}
+
+.test-step.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.test-step-header {
+  margin-bottom: var(--spacing-lg);
+}
+
+.test-step-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.test-step-title h2 {
+  margin: 0;
+}
+
+.step-badge {
+  display: inline-block;
+  background: var(--primary);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85em;
+  margin-right: var(--spacing-sm);
+}
+
+.test-instructions {
+  background: var(--surface);
+  border-left: 4px solid var(--primary);
+  padding: var(--spacing-md);
+  margin: var(--spacing-md) 0;
+  border-radius: var(--border-radius);
+}
+
+.test-instructions h3 {
+  margin-top: 0;
+  color: var(--primary);
+}
+
+.test-instructions ol {
+  margin: var(--spacing-sm) 0;
+  padding-left: var(--spacing-lg);
+}
+
+.test-instructions li {
+  margin: var(--spacing-xs) 0;
+  line-height: 1.6;
+}
+
+/* ========================================
+   Form Elements
+   ======================================== */
+
+.form-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.form-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: var(--spacing-xs);
+  color: var(--text);
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: var(--spacing-sm);
+  font-family: var(--font-family);
+  font-size: 1em;
+  border: 2px solid var(--border);
+  border-radius: var(--border-radius);
+  background: white;
+  transition: var(--transition);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+}
+
+.form-input[type="number"] {
+  max-width: 150px;
+}
+
+.form-textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-hint {
+  font-size: 0.9em;
+  color: var(--text-light);
+  margin-top: var(--spacing-xs);
+}
+
+.form-error {
+  color: var(--error);
+  font-size: 0.9em;
+  margin-top: var(--spacing-xs);
+}
+
+.input-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--spacing-sm);
+}
+
+.input-unit {
+  display: flex;
+  align-items: center;
+}
+
+.input-unit input {
+  flex: 1;
+}
+
+.input-unit span {
+  margin-left: var(--spacing-xs);
+  color: var(--text-light);
+}
+
+/* ========================================
+   Photo Capture
+   ======================================== */
+
+.photo-section {
+  background: var(--surface);
+  border: 2px dashed var(--border);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-md);
+  text-align: center;
+  margin: var(--spacing-md) 0;
+}
+
+.photo-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+.photo-preview-item {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.photo-preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-delete-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: var(--error);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 1.2em;
+  line-height: 1;
+}
+
+.photo-delete-btn:hover {
+  background: darkred;
+}
+
+/* ========================================
+   Camera Modal
+   ======================================== */
+
+.camera-container {
+  max-width: 100%;
+  width: 100%;
+}
+
+.camera-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+  background: var(--primary);
+  color: white;
+}
+
+.camera-header h3 {
+  margin: 0;
+  color: white;
+}
+
+.camera-viewport {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  max-height: 600px;
+  background: black;
+  overflow: hidden;
+}
+
+.camera-viewport video,
+.camera-viewport canvas,
+.camera-viewport img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.camera-guidelines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.guideline-text {
+  position: absolute;
+  top: var(--spacing-md);
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  padding: var(--spacing-sm);
+}
+
+.guideline-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.grid-line {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.grid-line-v {
+  width: 1px;
+  height: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.grid-line-h {
+  height: 1px;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.camera-controls {
+  padding: var(--spacing-md);
+  background: var(--surface);
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+.camera-controls .btn {
+  flex: 1;
+  max-width: 200px;
+}
+
+.camera-guidelines-text {
+  padding: var(--spacing-md);
+  background: var(--background);
+}
+
+.camera-guidelines-text ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.camera-guidelines-text li {
+  font-size: 0.9em;
+  color: var(--text-light);
+}
+
+.camera-guidelines-text li::before {
+  content: '✓ ';
+  color: var(--success);
+}
+
+/* ========================================
+   Navigation Buttons
+   ======================================== */
+
+.test-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-md);
+  border-top: 2px solid var(--border);
+}
+
+.test-navigation .btn {
+  min-width: 120px;
+}
+
+.nav-spacer {
+  flex: 1;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 600px) {
+  .progress-bar {
+    padding: var(--spacing-sm);
+  }
+
+  .step-label {
+    font-size: 0.75em;
+  }
+
+  .step-number {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9em;
+  }
+
+  .test-container {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+
+  .input-group {
+    grid-template-columns: 1fr;
+  }
+
+  .camera-viewport {
+    height: 50vh;
+  }
+
+  .camera-controls .btn {
+    font-size: 0.9em;
+    padding: var(--spacing-sm);
+  }
+
+  .photo-preview-item {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (max-width: 400px) {
+  .step-label {
+    display: none;
+  }
+
+  .test-navigation {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .test-navigation .btn {
+    width: 100%;
+  }
+
+  .nav-spacer {
+    display: none;
+  }
+}
