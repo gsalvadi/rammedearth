@@ -380,11 +380,92 @@ function nextStep() {
     return;
   }
 
+  // After completing 3rd test (Ball Drop at index 2), offer choice
+  if (currentStepIndex === 2) {
+    showPreliminaryResultsChoice();
+    return;
+  }
+
   if (currentStepIndex < testProtocols.tests.length - 1) {
     currentStepIndex++;
     renderTestStep(currentStepIndex);
     window.scrollTo(0, 0);
   }
+}
+
+function showPreliminaryResultsChoice() {
+  const message = `
+🎉 Great! You've completed 3 quick field tests!
+
+You now have two options:
+
+1️⃣ VIEW PRELIMINARY RESULTS NOW (recommended)
+   • Get immediate soil assessment
+   • Based on your field observations
+   • ~65% confidence level
+   • Takes 30 seconds
+
+2️⃣ CONTINUE TO JAR TEST
+   • Set up jar test (5 minutes)
+   • Wait 24 hours for settling
+   • Get precise composition data
+   • ~100% confidence level
+
+Most users view preliminary results first, then return later for the jar test to refine their assessment.
+
+What would you like to do?
+  `.trim();
+
+  if (confirm(message + '\n\nClick OK for PRELIMINARY RESULTS\nClick Cancel to CONTINUE TO JAR TEST')) {
+    // Go to preliminary results
+    goToPreliminaryResults();
+  } else {
+    // Continue to jar test
+    currentStepIndex++;
+    renderTestStep(currentStepIndex);
+    window.scrollTo(0, 0);
+  }
+}
+
+async function goToPreliminaryResults() {
+  // Mark as preliminary
+  currentTestData.isPreliminary = true;
+
+  // Request location
+  showLoading('Getting location...');
+
+  try {
+    const { default: geolocation } = await import('./geolocation.js');
+    const locationResult = await geolocation.getLocationSafe();
+
+    if (locationResult.success) {
+      currentTestData.location = locationResult.location;
+    }
+  } catch (error) {
+    console.error('Location error:', error);
+  }
+
+  hideLoading();
+
+  // Save test to storage
+  showLoading('Saving test data...');
+
+  try {
+    const { default: storage } = await import('./storage.js');
+    await storage.saveTest(currentTestData);
+    sessionStorage.setItem('currentTestId', currentTestData.id);
+    sessionStorage.setItem('isPreliminary', 'true');
+  } catch (error) {
+    console.error('Storage error:', error);
+    alert('Failed to save test data');
+    hideLoading();
+    return;
+  }
+
+  hideLoading();
+
+  // Navigate to results page
+  window.location.href = 'results.html';
 }
 
 async function completeTest() {
@@ -655,26 +736,48 @@ async function initResultsPage() {
 }
 
 function displayResults(testData, results) {
+  // Show preliminary banner if applicable
+  if (results.isPreliminary) {
+    const header = document.querySelector('.results-header');
+    const banner = document.createElement('div');
+    banner.style.cssText = 'background: #FFB300; color: white; padding: 1rem; text-align: center; font-weight: bold; border-radius: 8px; margin-bottom: 1rem;';
+    banner.innerHTML = `
+      ⚠️ PRELIMINARY RESULTS (${results.confidenceLevel}% Confidence)
+      <br><small>Complete jar test in 24 hours for refined results with precise composition data</small>
+    `;
+    header.insertAdjacentElement('beforebegin', banner);
+  }
+
   // Update header
   const header = document.querySelector('.results-header');
   header.classList.add(results.category);
 
   document.getElementById('resultCategory').textContent = results.categoryInfo.title;
   document.getElementById('scoreValue').textContent = results.score;
-  document.getElementById('scoreLabel').textContent = 'Suitability Score';
+  document.getElementById('scoreLabel').textContent = results.isPreliminary ? 'Preliminary Score' : 'Suitability Score';
 
   // Set score circle color
   const scoreCircle = document.getElementById('scoreCircle');
   scoreCircle.style.setProperty('--score-percentage', results.score);
 
   // Composition bars
-  document.getElementById('sandPct').textContent = `${results.composition.sand}%`;
-  document.getElementById('siltPct').textContent = `${results.composition.silt}%`;
-  document.getElementById('clayPct').textContent = `${results.composition.clay}%`;
+  const estimateLabel = results.isPreliminary ? ' (estimated)' : '';
+  document.getElementById('sandPct').textContent = `${results.composition.sand}%${estimateLabel}`;
+  document.getElementById('siltPct').textContent = `${results.composition.silt}%${estimateLabel}`;
+  document.getElementById('clayPct').textContent = `${results.composition.clay}%${estimateLabel}`;
 
   document.getElementById('sandBar').style.width = `${results.composition.sand}%`;
   document.getElementById('siltBar').style.width = `${results.composition.silt}%`;
   document.getElementById('clayBar').style.width = `${results.composition.clay}%`;
+
+  // For preliminary results, add a note about completing jar test
+  if (results.isPreliminary) {
+    const compositionSection = document.querySelector('.composition-section');
+    const note = document.createElement('p');
+    note.style.cssText = 'margin-top: 1rem; padding: 0.5rem; background: #FFF3CD; border-radius: 8px; font-size: 0.9em;';
+    note.textContent = '📊 These percentages are estimated from field observations. Complete the jar test for precise measurements.';
+    compositionSection.querySelector('.ideal-range').insertAdjacentElement('afterend', note);
+  }
 
   // Test summaries
   if (testData.tests.ribbonTest) {
@@ -751,6 +854,29 @@ function displayPhotoGallery(testData) {
 }
 
 function setupResultsHandlers(testData, results) {
+  // Complete Jar Test button (for preliminary results)
+  if (results.isPreliminary) {
+    const completeJarBtn = document.createElement('button');
+    completeJarBtn.id = 'completeJarTestBtn';
+    completeJarBtn.className = 'btn btn-primary';
+    completeJarBtn.style.cssText = 'margin-bottom: 0.5rem;';
+    completeJarBtn.innerHTML = '🧪 Complete Jar Test (24hr) for Refined Results';
+
+    completeJarBtn.addEventListener('click', () => {
+      if (confirm('Ready to complete the jar test?\n\nMake sure you\'ve set up your jar test and waited 24 hours for settling.\n\nClick OK to continue to jar test measurement.')) {
+        // Resume test at step 4 (jar test)
+        sessionStorage.setItem('currentTest', JSON.stringify(testData));
+        sessionStorage.setItem('currentStep', '3'); // Index 3 = jar test
+        window.location.href = 'test.html';
+      }
+    });
+
+    const actionButtons = document.querySelector('.action-buttons');
+    if (actionButtons) {
+      actionButtons.insertBefore(completeJarBtn, actionButtons.firstChild);
+    }
+  }
+
   // New test button
   document.getElementById('newTestBtn')?.addEventListener('click', () => {
     sessionStorage.clear();

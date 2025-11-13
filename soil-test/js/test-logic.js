@@ -6,14 +6,19 @@ class TestLogic {
   /**
    * Calculate suitability score based on test results
    */
-  calculateSuitability(testData) {
+  calculateSuitability(testData, isPreliminary = false) {
     let score = 0;
     const warnings = [];
     const recommendations = [];
+    let confidenceLevel = 100;
 
-    // Validate that we have the required data
-    if (!testData.tests || !testData.tests.jarTest) {
-      throw new Error('Missing jar test data');
+    // Check if we have jar test data
+    const hasJarTest = testData.tests && testData.tests.jarTest &&
+      (testData.tests.jarTest.sandPct || testData.tests.jarTest.sandHeight);
+
+    // If no jar test data, calculate preliminary results
+    if (!hasJarTest) {
+      return this.calculatePreliminarySuitability(testData);
     }
 
     // Calculate percentages from jar test if not already calculated
@@ -119,7 +124,145 @@ class TestLogic {
       score,
       category,
       recommendations,
-      warnings
+      warnings,
+      confidenceLevel: 100,
+      isPreliminary: false
+    };
+  }
+
+  /**
+   * Calculate preliminary suitability without jar test data
+   * Uses field observations from other 3 tests to estimate
+   */
+  calculatePreliminarySuitability(testData) {
+    let score = 0;
+    const warnings = [];
+    const recommendations = [];
+    let estimatedSand = 50;
+    let estimatedSilt = 25;
+    let estimatedClay = 25;
+
+    // Estimate composition from visual and ribbon tests
+    if (testData.tests.visualTest) {
+      const texture = testData.tests.visualTest.texture;
+      if (texture === 'coarse') {
+        estimatedSand = 70;
+        estimatedSilt = 20;
+        estimatedClay = 10;
+      } else if (texture === 'smooth') {
+        estimatedSand = 40;
+        estimatedSilt = 40;
+        estimatedClay = 20;
+      } else if (texture === 'sticky') {
+        estimatedSand = 35;
+        estimatedSilt = 30;
+        estimatedClay = 35;
+      }
+    }
+
+    // Refine estimates from ribbon test
+    if (testData.tests.ribbonTest) {
+      const ribbonLength = testData.tests.ribbonTest.ribbonLength;
+      if (ribbonLength < 25) {
+        // Low clay
+        estimatedClay = Math.max(estimatedClay - 10, 5);
+        estimatedSand += 10;
+        score += 15;
+        warnings.push('Low clay content suggested by ribbon test');
+      } else if (ribbonLength >= 25 && ribbonLength <= 100) {
+        // Good clay range
+        score += 25;
+      } else if (ribbonLength > 100) {
+        // High clay
+        estimatedClay = Math.min(estimatedClay + 15, 45);
+        estimatedSand -= 10;
+        score += 15;
+        warnings.push('High clay content suggested by ribbon test');
+      }
+    }
+
+    // Ball drop test evaluation
+    if (testData.tests.ballDropTest) {
+      const ballDrop = testData.tests.ballDropTest.result;
+      if (ballDrop === 'cracked_not_shattered') {
+        score += 20;
+        recommendations.push('Good binding properties observed');
+      } else if (ballDrop === 'intact') {
+        score += 15;
+        recommendations.push('Strong binding - may indicate higher clay content');
+        estimatedClay += 5;
+        estimatedSand -= 5;
+      } else if (ballDrop === 'shattered') {
+        score += 10;
+        warnings.push('Weak binding - may need stabilization');
+        estimatedSand += 10;
+        estimatedClay -= 10;
+      } else if (ballDrop === 'splattered') {
+        score += 10;
+        warnings.push('High moisture - test again when drier');
+      }
+    }
+
+    // Normalize estimates
+    const total = estimatedSand + estimatedSilt + estimatedClay;
+    estimatedSand = Math.round((estimatedSand / total) * 100);
+    estimatedSilt = Math.round((estimatedSilt / total) * 100);
+    estimatedClay = 100 - estimatedSand - estimatedSilt;
+
+    // General assessment based on estimated composition
+    if (estimatedSand >= 50 && estimatedSand <= 75 && estimatedClay >= 10 && estimatedClay <= 20) {
+      score += 20;
+    } else if (estimatedSand >= 40 && estimatedSand <= 85) {
+      score += 10;
+    } else {
+      score += 5;
+      warnings.push('Soil composition may be outside optimal range');
+    }
+
+    // Organic matter check
+    if (testData.tests.visualTest) {
+      const organicMatter = testData.tests.visualTest.organicMatter;
+      if (organicMatter === 'high') {
+        score -= 10;
+        warnings.push('High organic matter - may cause structural issues');
+        recommendations.push('Remove topsoil layer, test soil from deeper layers');
+      } else if (organicMatter === 'medium') {
+        warnings.push('Some organic matter present - monitor for decomposition');
+      } else {
+        score += 5;
+      }
+    }
+
+    // Determine category
+    let category;
+    if (score >= 60) {
+      category = 'suitable';
+    } else if (score >= 40) {
+      category = 'marginal';
+    } else {
+      category = 'unsuitable';
+    }
+
+    // Add preliminary-specific messaging
+    recommendations.unshift('⚠️ These are preliminary results based on field observations');
+    recommendations.push('📊 Complete the Jar Test (24hr) for precise composition data and refined score');
+    warnings.push('Composition estimates are approximate - jar test needed for accuracy');
+
+    // Add category recommendations
+    this.addCategoryRecommendations(category, recommendations, estimatedSand, estimatedClay);
+
+    return {
+      score,
+      category,
+      recommendations,
+      warnings,
+      confidenceLevel: 65,
+      isPreliminary: true,
+      estimatedComposition: {
+        sand: estimatedSand,
+        silt: estimatedSilt,
+        clay: estimatedClay
+      }
     };
   }
 
@@ -226,14 +369,22 @@ class TestLogic {
     const result = this.calculateSuitability(testData);
     const categoryInfo = this.getCategoryInfo(result.category);
 
-    return {
-      ...result,
-      categoryInfo,
-      composition: {
+    // Use estimated composition for preliminary results, actual for final
+    let composition;
+    if (result.isPreliminary) {
+      composition = result.estimatedComposition;
+    } else {
+      composition = {
         sand: testData.tests.jarTest.sandPct,
         silt: testData.tests.jarTest.siltPct,
         clay: testData.tests.jarTest.clayPct
-      }
+      };
+    }
+
+    return {
+      ...result,
+      categoryInfo,
+      composition
     };
   }
 
