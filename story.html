@@ -146,6 +146,142 @@
             color: #D2691E;
         }
 
+        .photo-section {
+            margin-top: 50px;
+            margin-bottom: 50px;
+            padding-top: 40px;
+            border-top: 2px solid #CD853F;
+        }
+
+        .photo-section h2 {
+            color: #8B4513;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            font-weight: normal;
+        }
+
+        .photo-section-intro {
+            color: #666;
+            font-size: 1em;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .photo-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(139, 69, 19, 0.15);
+            transition: all 0.3s;
+        }
+
+        .photo-item:hover {
+            box-shadow: 0 4px 16px rgba(139, 69, 19, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #F5F2E8 0%, #E8DCC8 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .photo-placeholder-icon {
+            font-size: 3em;
+            color: #CD853F;
+            margin-bottom: 10px;
+        }
+
+        .photo-placeholder-text {
+            color: #8B4513;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .photo-caption {
+            padding: 15px;
+            background: #FFF8F0;
+            font-size: 0.9em;
+            color: #3E2723;
+            border-top: 2px solid #D2691E;
+        }
+
+        /* Sticky Navigation Header */
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: white;
+            border-bottom: 3px solid #8B4513;
+            box-shadow: 0 2px 8px rgba(139, 69, 19, 0.1);
+            margin: -20px -20px 20px -20px;
+            padding: 15px 20px;
+        }
+
+        .nav-content {
+            max-width: 750px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-logo {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #8B4513;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .nav-logo:hover {
+            color: #D2691E;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #8B4513;
+            text-decoration: none;
+            font-size: 0.95em;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: #F5F2E8;
+            color: #D2691E;
+        }
+
         @media (max-width: 600px) {
             .container {
                 padding: 30px 20px;
@@ -158,10 +294,45 @@
             .button-group {
                 flex-direction: column;
             }
+
+            .sticky-nav {
+                margin: -20px -10px 20px -10px;
+                padding: 12px 10px;
+            }
+
+            .nav-content {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            .nav-links {
+                gap: 10px;
+                font-size: 0.9em;
+            }
+
+            .nav-links a {
+                font-size: 0.85em;
+                padding: 4px 8px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Sticky Navigation Header -->
+    <nav class="sticky-nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">Rammed Earth Chronicles</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="story.html" class="active">Story</a>
+                <a href="directory.html">Directory</a>
+                <a href="qa-noticeboard.html">Q&A</a>
+                <a href="updates.html">Updates</a>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
         <div style="text-align: center; margin-bottom: 20px;">
             <img src="re.png" alt="The Rammed Earth Chronicles" style="max-width: 100%; height: auto; max-height: 120px;">
@@ -199,6 +370,64 @@
 
         <div class="signature" style="text-align: left;">
             — Gokul
+        </div>
+
+        <!-- Learning in Action Photo Section -->
+        <div class="photo-section">
+            <h2>Learning in Action</h2>
+            <p class="photo-section-intro">
+                From soil testing to workshops to building — here's what the work looks like
+            </p>
+
+            <div class="photo-grid">
+                <!-- Photo 1: Workshop/Teaching -->
+                <div class="photo-item">
+                    <!-- When you have photos, replace the placeholder div with:
+                         <img src="images/workshop-teaching.jpg" alt="Teaching rammed earth workshop"> -->
+                    <div class="photo-placeholder">
+                        <div class="photo-placeholder-icon">🏗️</div>
+                        <div class="photo-placeholder-text">Workshop & Teaching</div>
+                    </div>
+                    <div class="photo-caption">Hands-on workshop sessions with participants</div>
+                </div>
+
+                <!-- Photo 2: Soil Testing -->
+                <div class="photo-item">
+                    <!-- When you have photos, replace with:
+                         <img src="images/soil-testing.jpg" alt="Soil testing process"> -->
+                    <div class="photo-placeholder">
+                        <div class="photo-placeholder-icon">🔬</div>
+                        <div class="photo-placeholder-text">Soil Testing</div>
+                    </div>
+                    <div class="photo-caption">Testing soil properties before building</div>
+                </div>
+
+                <!-- Photo 3: Building Process -->
+                <div class="photo-item">
+                    <!-- When you have photos, replace with:
+                         <img src="images/building-process.jpg" alt="Rammed earth construction"> -->
+                    <div class="photo-placeholder">
+                        <div class="photo-placeholder-icon">🧱</div>
+                        <div class="photo-placeholder-text">Building Process</div>
+                    </div>
+                    <div class="photo-caption">Rammed earth walls taking shape</div>
+                </div>
+
+                <!-- Photo 4: Finished Work -->
+                <div class="photo-item">
+                    <!-- When you have photos, replace with:
+                         <img src="images/finished-wall.jpg" alt="Completed rammed earth wall"> -->
+                    <div class="photo-placeholder">
+                        <div class="photo-placeholder-icon">✨</div>
+                        <div class="photo-placeholder-text">Finished Work</div>
+                    </div>
+                    <div class="photo-caption">Completed rammed earth structures</div>
+                </div>
+            </div>
+
+            <p style="color: #666; font-size: 0.9em; font-style: italic; text-align: center;">
+                <!-- You can add a note here like: "Photos from recent projects and workshops in [location/year]" -->
+            </p>
         </div>
 
         <div class="cta-section">
