@@ -4,12 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Updates - Rammed Earth Chronicles</title>
-    <meta name="description" content="Latest workshops, Q&A highlights, and writings from The Rammed Earth Chronicles">
-    <meta property="og:title" content="Updates - Rammed Earth Chronicles">
-    <meta property="og:description" content="Latest workshops, Q&A highlights, and writings from The Rammed Earth Chronicles">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://rammedearth.in/updates.html">
-    <meta property="og:image" content="https://rammedearth.in/re.png">
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%238B4513' x='10' y='30' width='80' height='40' rx='2'/><rect fill='%23CD853F' x='10' y='35' width='80' height='8'/><rect fill='%23D2691E' x='10' y='48' width='80' height='8'/><rect fill='%23F4A460' x='10' y='61' width='80' height='4'/></svg>">
     <style>
         * {
@@ -24,7 +18,7 @@
             color: #3E2723;
             background: #F5F2E8;
             padding: 20px;
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
         }
 
@@ -37,175 +31,66 @@
         }
 
         h1 {
-            font-size: 2em;
+            font-size: 1.9em;
             margin-bottom: 10px;
             font-weight: normal;
             color: #8B4513;
+            text-align: center;
         }
 
         .subtitle {
             font-style: italic;
             color: #D2691E;
             margin-bottom: 30px;
-            font-size: 1.1em;
-        }
-
-        .back-link {
-            display: inline-block;
-            color: #8B4513;
-            text-decoration: none;
-            margin-bottom: 30px;
-            padding: 10px 20px;
-            background: #F5F2E8;
-            border-radius: 3px;
-            transition: all 0.3s;
-        }
-
-        .back-link:hover {
-            background: #8B4513;
-            color: white;
-        }
-
-        .update-item {
-            margin-bottom: 40px;
-            padding: 25px;
-            border-radius: 5px;
-            border-left: 4px solid #8B4513;
-            transition: all 0.3s;
-        }
-
-        .update-item:hover {
-            box-shadow: 0 2px 8px rgba(139, 69, 19, 0.1);
-        }
-
-        .update-item.workshop {
-            background: #FFF8E1;
-            border-left-color: #FFB300;
-        }
-
-        .update-item.qa {
-            background: #E8F5E9;
-            border-left-color: #4CAF50;
-        }
-
-        .update-item.writing {
-            background: #FFF3E0;
-            border-left-color: #D2691E;
-        }
-
-        .update-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .update-category {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 3px;
-            font-size: 0.85em;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .update-category.workshop {
-            background: #FFB300;
-            color: white;
-        }
-
-        .update-category.qa {
-            background: #4CAF50;
-            color: white;
-        }
-
-        .update-category.writing {
-            background: #D2691E;
-            color: white;
-        }
-
-        .update-date {
-            color: #666;
-            font-size: 0.9em;
-            font-style: italic;
-        }
-
-        .update-title {
-            font-size: 1.3em;
-            color: #8B4513;
-            margin-bottom: 10px;
-            font-weight: normal;
-        }
-
-        .update-content {
-            color: #3E2723;
-            margin-bottom: 15px;
-            line-height: 1.7;
-        }
-
-        .update-link {
-            display: inline-block;
-            color: #8B4513;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-            border-bottom: 2px solid transparent;
-        }
-
-        .update-link:hover {
-            border-bottom-color: #8B4513;
-        }
-
-        .filter-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 10px 20px;
-            background: #F5F2E8;
-            border: 2px solid #CD853F;
-            color: #8B4513;
-            font-family: Georgia, serif;
-            font-size: 0.95em;
-            cursor: pointer;
-            border-radius: 3px;
-            transition: all 0.3s;
-        }
-
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: #8B4513;
-            color: white;
-            border-color: #8B4513;
-        }
-
-        .no-updates {
             text-align: center;
-            padding: 60px 20px;
-            color: #666;
+        }
+
+        .entry {
+            padding: 25px 0;
+            border-bottom: 1px solid #F5F2E8;
+        }
+
+        .entry:last-child {
+            border-bottom: none;
+        }
+
+        .entry-date {
+            color: #D2691E;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .entry-excerpt {
+            margin-bottom: 10px;
+            color: #3E2723;
+        }
+
+        .entry-link {
+            color: #8B4513;
+            text-decoration: none;
+            font-size: 0.95em;
             font-style: italic;
         }
 
-        .substack-link {
+        .entry-link:hover {
+            color: #D2691E;
+            text-decoration: underline;
+        }
+
+        .nav {
             text-align: center;
             margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid #CD853F;
+            border-top: 1px solid #F5F2E8;
         }
 
-        .substack-link a {
+        .nav a {
             color: #8B4513;
             text-decoration: none;
             font-style: italic;
         }
 
-        .substack-link a:hover {
+        .nav a:hover {
             color: #D2691E;
         }
 
@@ -216,112 +101,31 @@
             .container {
                 padding: 25px 20px;
             }
-            h1 {
-                font-size: 1.6em;
-            }
-            .update-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
         }
     </style>
+    <meta property="og:title" content="Updates - Rammed Earth Chronicles">
+    <meta property="og:description" content="Weekly insights on rammed earth and earthen building developments">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rammedearth.in/updates.html">
+    <meta property="og:image" content="https://rammedearth.in/re.png">
+    <meta property="og:site_name" content="Rammed Earth Chronicles">
 </head>
 <body>
     <div class="container">
-        <a href="index.html" class="back-link">← Back to Home</a>
-
         <h1>Updates</h1>
-        <div class="subtitle">Workshops, Q&A highlights, and new writings</div>
+        <div class="subtitle">Weekly insights on rammed earth and earthen building</div>
 
-        <!-- Filter Buttons -->
-        <div class="filter-buttons">
-            <button class="filter-btn active" onclick="filterUpdates('all')">All Updates</button>
-            <button class="filter-btn" onclick="filterUpdates('workshop')">Workshops</button>
-            <button class="filter-btn" onclick="filterUpdates('qa')">Q&A Highlights</button>
-            <button class="filter-btn" onclick="filterUpdates('writing')">Writings</button>
+        <!-- Weekly posts appear here (newest first) -->
+        <!-- Generated by: python3 generate_blog.py -->
+
+        <div style="text-align: center; padding: 60px 20px; color: #666; font-style: italic;">
+            <p style="margin-bottom: 15px;">New weekly insights coming soon.</p>
+            <p style="font-size: 0.9em;">Check back every week for short takes on rammed earth developments, sourced from research and practice.</p>
         </div>
 
-        <!-- Updates Feed -->
-        <div id="updates-feed">
-
-            <!-- Example Workshop Update -->
-            <div class="update-item workshop" data-category="workshop">
-                <div class="update-header">
-                    <span class="update-category workshop">Workshop</span>
-                    <span class="update-date">Coming Soon</span>
-                </div>
-                <h2 class="update-title">Hands-On Rammed Earth Workshop</h2>
-                <div class="update-content">
-                    <p>Join a practical workshop where we'll cover soil testing, mix design, formwork setup, and tamping technique. Limited spots available for small group learning.</p>
-                </div>
-                <a href="workshop-form.html" class="update-link">Express interest →</a>
-            </div>
-
-            <!-- Example Q&A Update -->
-            <div class="update-item qa" data-category="qa">
-                <div class="update-header">
-                    <span class="update-category qa">Q&A Highlight</span>
-                    <span class="update-date">Recent</span>
-                </div>
-                <h2 class="update-title">Common Questions About Soil Testing</h2>
-                <div class="update-content">
-                    <p>Community members asked about DIY soil testing methods and when professional testing is necessary. Browse the answers and contribute your own questions.</p>
-                </div>
-                <a href="qa-noticeboard.html" class="update-link">Read Q&A →</a>
-            </div>
-
-            <!-- Example Writing Update -->
-            <div class="update-item writing" data-category="writing">
-                <div class="update-header">
-                    <span class="update-category writing">Writing</span>
-                    <span class="update-date">Latest on Substack</span>
-                </div>
-                <h2 class="update-title">The Rammed Earth Chronicles</h2>
-                <div class="update-content">
-                    <p>Exploring the intersection of traditional building methods and modern needs. New essays on materials, process, and the philosophy of building with earth.</p>
-                </div>
-                <a href="https://rammedearth.substack.com/" target="_blank" class="update-link">Read on Substack →</a>
-            </div>
-
-        </div>
-
-        <div class="no-updates" style="display: none;">
-            <p>No updates match your filter. Check back soon for new workshops, Q&A highlights, and writings.</p>
-        </div>
-
-        <div class="substack-link">
-            <a href="https://rammedearth.substack.com/" target="_blank">Subscribe to the Chronicles →</a>
+        <div class="nav">
+            <a href="index.html">← Back to Home</a>
         </div>
     </div>
-
-    <script>
-        function filterUpdates(category) {
-            const allItems = document.querySelectorAll('.update-item');
-            const noUpdates = document.querySelector('.no-updates');
-            const buttons = document.querySelectorAll('.filter-btn');
-
-            // Update active button
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            // Filter items
-            let visibleCount = 0;
-            allItems.forEach(item => {
-                if (category === 'all' || item.dataset.category === category) {
-                    item.style.display = 'block';
-                    visibleCount++;
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-
-            // Show/hide no updates message
-            if (visibleCount === 0) {
-                noUpdates.style.display = 'block';
-            } else {
-                noUpdates.style.display = 'none';
-            }
-        }
-    </script>
 </body>
 </html>
