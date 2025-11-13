@@ -1,73 +1,80 @@
 {
   "tests": [
     {
-      "id": "jarTest",
-      "name": "Jar Test",
-      "description": "Sedimentation test to measure sand, silt, and clay ratios",
-      "duration": "24 hours settling time",
+      "id": "visualTest",
+      "name": "Visual Assessment",
+      "description": "Evaluate color, texture, and organic matter",
+      "duration": "5 minutes",
       "instructions": [
-        "Collect dry soil sample and crush any large clumps",
-        "Fill a clear jar 1/3 full with soil",
-        "Add water until jar is 2/3 full",
-        "Add a pinch of salt or detergent to help separation",
-        "Screw lid on tightly and shake vigorously for 1 minute",
-        "Place jar on a flat, stable surface",
-        "Let settle for 24 hours undisturbed"
+        "Spread dry soil sample on a white surface or paper",
+        "Observe the color in natural daylight",
+        "Look for organic matter (roots, leaves, dark particles)",
+        "Feel the texture when dry",
+        "Take a representative photo"
       ],
       "photoGuidelines": [
-        "Take photo of settled jar after 24 hours",
-        "Ensure jar is upright and level",
-        "Good lighting from the side",
-        "Include a ruler or measuring tape next to jar",
-        "Clear view of all sediment layers"
+        "Spread soil evenly on white background",
+        "Natural daylight (not direct sunlight)",
+        "Include color reference card if available",
+        "Show texture and particle sizes",
+        "Close-up view showing detail"
       ],
       "fields": [
         {
-          "id": "totalHeight",
-          "label": "Total sediment height",
-          "type": "number",
-          "unit": "mm",
+          "id": "color",
+          "label": "Dominant color",
+          "type": "select",
           "required": true,
-          "min": 10,
-          "max": 500,
-          "hint": "Measure from bottom of jar to top of settled sediment"
+          "options": [
+            {"value": "red_brown", "label": "Red/Brown (iron-rich)"},
+            {"value": "yellow_tan", "label": "Yellow/Tan (silty)"},
+            {"value": "gray", "label": "Gray (clay-rich)"},
+            {"value": "dark_brown", "label": "Dark brown/black (organic matter)"},
+            {"value": "white_light", "label": "White/Light (sandy, low nutrients)"}
+          ]
         },
         {
-          "id": "sandHeight",
-          "label": "Sand layer height (bottom layer)",
-          "type": "number",
-          "unit": "mm",
+          "id": "texture",
+          "label": "Dry texture (feel)",
+          "type": "select",
           "required": true,
-          "min": 0,
-          "max": 500,
-          "hint": "Coarsest particles that settle first"
+          "options": [
+            {"value": "coarse", "label": "Coarse/gritty (sandy)"},
+            {"value": "smooth", "label": "Smooth/fine (silty)"},
+            {"value": "sticky", "label": "Sticky when moist (clay)"},
+            {"value": "mixed", "label": "Mixed texture"}
+          ]
         },
         {
-          "id": "siltHeight",
-          "label": "Silt layer height (middle layer)",
-          "type": "number",
-          "unit": "mm",
+          "id": "organicMatter",
+          "label": "Organic matter content",
+          "type": "select",
           "required": true,
-          "min": 0,
-          "max": 500,
-          "hint": "Medium particles above sand layer"
+          "options": [
+            {"value": "high", "label": "High (>5% visible organic material)"},
+            {"value": "medium", "label": "Medium (2-5% organic material)"},
+            {"value": "low", "label": "Low (<2% organic material)"},
+            {"value": "none", "label": "None visible"}
+          ]
         },
         {
-          "id": "clayHeight",
-          "label": "Clay layer height (top layer)",
-          "type": "number",
-          "unit": "mm",
-          "required": true,
-          "min": 0,
-          "max": 500,
-          "hint": "Finest particles, may still be cloudy"
+          "id": "smell",
+          "label": "Smell (when moistened)",
+          "type": "select",
+          "required": false,
+          "options": [
+            {"value": "earthy", "label": "Earthy/pleasant"},
+            {"value": "musty", "label": "Musty/moldy"},
+            {"value": "none", "label": "No smell"},
+            {"value": "chemical", "label": "Chemical/unusual"}
+          ]
         },
         {
           "id": "notes",
           "label": "Additional observations",
           "type": "textarea",
           "required": false,
-          "placeholder": "Note any unusual features, colors, or difficulties"
+          "placeholder": "Note any unusual features, impurities, or characteristics"
         }
       ]
     },
@@ -194,80 +201,74 @@
       ]
     },
     {
-      "id": "visualTest",
-      "name": "Visual Assessment",
-      "description": "Evaluate color, texture, and organic matter",
-      "duration": "5 minutes",
+      "id": "jarTest",
+      "name": "Jar Test (24 Hour Setup)",
+      "description": "Sedimentation test to measure sand, silt, and clay ratios - Complete this test to refine your results",
+      "duration": "5 min setup + 24 hours settling",
       "instructions": [
-        "Spread dry soil sample on a white surface or paper",
-        "Observe the color in natural daylight",
-        "Look for organic matter (roots, leaves, dark particles)",
-        "Feel the texture when dry",
-        "Take a representative photo"
+        "Collect dry soil sample and crush any large clumps",
+        "Fill a clear jar 1/3 full with soil",
+        "Add water until jar is 2/3 full",
+        "Add a pinch of salt or detergent to help separation",
+        "Screw lid on tightly and shake vigorously for 1 minute",
+        "Place jar on a flat, stable surface",
+        "Set a reminder to return in 24 hours",
+        "Let settle for 24 hours undisturbed"
       ],
       "photoGuidelines": [
-        "Spread soil evenly on white background",
-        "Natural daylight (not direct sunlight)",
-        "Include color reference card if available",
-        "Show texture and particle sizes",
-        "Close-up view showing detail"
+        "Take photo of settled jar after 24 hours",
+        "Ensure jar is upright and level",
+        "Good lighting from the side",
+        "Include a ruler or measuring tape next to jar",
+        "Clear view of all sediment layers"
       ],
       "fields": [
         {
-          "id": "color",
-          "label": "Dominant color",
-          "type": "select",
+          "id": "totalHeight",
+          "label": "Total sediment height",
+          "type": "number",
+          "unit": "mm",
           "required": true,
-          "options": [
-            {"value": "red_brown", "label": "Red/Brown (iron-rich)"},
-            {"value": "yellow_tan", "label": "Yellow/Tan (silty)"},
-            {"value": "gray", "label": "Gray (clay-rich)"},
-            {"value": "dark_brown", "label": "Dark brown/black (organic matter)"},
-            {"value": "white_light", "label": "White/Light (sandy, low nutrients)"}
-          ]
+          "min": 10,
+          "max": 500,
+          "hint": "Measure from bottom of jar to top of settled sediment"
         },
         {
-          "id": "texture",
-          "label": "Dry texture (feel)",
-          "type": "select",
+          "id": "sandHeight",
+          "label": "Sand layer height (bottom layer)",
+          "type": "number",
+          "unit": "mm",
           "required": true,
-          "options": [
-            {"value": "coarse", "label": "Coarse/gritty (sandy)"},
-            {"value": "smooth", "label": "Smooth/fine (silty)"},
-            {"value": "sticky", "label": "Sticky when moist (clay)"},
-            {"value": "mixed", "label": "Mixed texture"}
-          ]
+          "min": 0,
+          "max": 500,
+          "hint": "Coarsest particles that settle first"
         },
         {
-          "id": "organicMatter",
-          "label": "Organic matter content",
-          "type": "select",
+          "id": "siltHeight",
+          "label": "Silt layer height (middle layer)",
+          "type": "number",
+          "unit": "mm",
           "required": true,
-          "options": [
-            {"value": "high", "label": "High (>5% visible organic material)"},
-            {"value": "medium", "label": "Medium (2-5% organic material)"},
-            {"value": "low", "label": "Low (<2% organic material)"},
-            {"value": "none", "label": "None visible"}
-          ]
+          "min": 0,
+          "max": 500,
+          "hint": "Medium particles above sand layer"
         },
         {
-          "id": "smell",
-          "label": "Smell (when moistened)",
-          "type": "select",
-          "required": false,
-          "options": [
-            {"value": "earthy", "label": "Earthy/pleasant"},
-            {"value": "musty", "label": "Musty/moldy"},
-            {"value": "none", "label": "No smell"},
-            {"value": "chemical", "label": "Chemical/unusual"}
-          ]
+          "id": "clayHeight",
+          "label": "Clay layer height (top layer)",
+          "type": "number",
+          "unit": "mm",
+          "required": true,
+          "min": 0,
+          "max": 500,
+          "hint": "Finest particles, may still be cloudy"
         },
         {
           "id": "notes",
           "label": "Additional observations",
           "type": "textarea",
           "required": false,
-          "placeholder": "Note any unusual features, impurities, or characteristics"
+          "placeholder": "Note any unusual features, colors, or difficulties"
         }
       ]
     }
