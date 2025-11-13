@@ -1,0 +1,9 @@
+# Jekyll Configuration for GitHub Pages
+# This prevents Jekyll from processing certain folders
+
+exclude:
+  - blog/
+  - generate_blog.py
+  - README.md
+  - TECH_TRANSFER_LOGIC.md
+  - QUIZ_TEST_CASES.md
