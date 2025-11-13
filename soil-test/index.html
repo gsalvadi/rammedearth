@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Field soil testing for rammed earth construction - Test your soil in 4 simple steps">
+    <meta name="theme-color" content="#8B4513">
+    <title>Rammed Earth Soil Tester</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192x192.png">
+    <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="container landing-page">
+        <header class="app-header">
+            <h1>🏜️ Rammed Earth Soil Tester</h1>
+            <p class="subtitle">Test your soil in 4 simple steps</p>
+        </header>
+
+        <main class="landing-content">
+            <section class="hero">
+                <p class="lead">Determine if your soil is suitable for rammed earth construction with simple field tests. No lab required.</p>
+
+                <button id="startTestBtn" class="btn btn-primary btn-large">
+                    Start Soil Test
+                </button>
+            </section>
+
+            <section class="requirements-card">
+                <h2>What you'll need:</h2>
+                <ul class="requirements-list">
+                    <li>
+                        <span class="icon">🫙</span>
+                        <span>Clear jar with lid (1 liter)</span>
+                    </li>
+                    <li>
+                        <span class="icon">💧</span>
+                        <span>Water</span>
+                    </li>
+                    <li>
+                        <span class="icon">🌱</span>
+                        <span>Soil sample (dry, crushed)</span>
+                    </li>
+                    <li>
+                        <span class="icon">📏</span>
+                        <span>Tape measure or ruler</span>
+                    </li>
+                    <li>
+                        <span class="icon">📱</span>
+                        <span>Your phone's camera</span>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="info-card">
+                <h3>Time Required</h3>
+                <p><strong>20 minutes</strong> active testing</p>
+                <p class="note">Plus 24 hours settling time for jar test</p>
+            </section>
+
+            <section class="tests-overview">
+                <h2>The 4 Field Tests</h2>
+                <div class="test-cards">
+                    <div class="test-card">
+                        <div class="test-number">1</div>
+                        <h3>Jar Test</h3>
+                        <p>Sedimentation test to measure sand, silt, and clay ratios</p>
+                    </div>
+                    <div class="test-card">
+                        <div class="test-number">2</div>
+                        <h3>Ribbon Test</h3>
+                        <p>Clay content assessment by forming soil ribbons</p>
+                    </div>
+                    <div class="test-card">
+                        <div class="test-number">3</div>
+                        <h3>Ball Drop Test</h3>
+                        <p>Test moisture content and binding properties</p>
+                    </div>
+                    <div class="test-card">
+                        <div class="test-number">4</div>
+                        <h3>Visual Assessment</h3>
+                        <p>Evaluate color, texture, and organic matter</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="features">
+                <h2>Features</h2>
+                <ul class="features-list">
+                    <li>✓ Step-by-step guided instructions</li>
+                    <li>✓ Photo documentation at each step</li>
+                    <li>✓ GPS location tagging</li>
+                    <li>✓ Works offline (syncs when online)</li>
+                    <li>✓ Instant suitability score</li>
+                    <li>✓ Personalized recommendations</li>
+                </ul>
+            </section>
+
+            <div class="cta-section">
+                <button id="startTestBtnBottom" class="btn btn-primary btn-large">
+                    Start Your Soil Test
+                </button>
+                <p class="privacy-note">Your data helps improve soil testing for everyone. Location data is optional.</p>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <p>Part of <a href="../">Rammed Earth Chronicles</a></p>
+            <p class="version">v1.0.0</p>
+        </footer>
+    </div>
+
+    <!-- Install prompt (hidden by default) -->
+    <div id="installPrompt" class="install-prompt hidden">
+        <div class="install-content">
+            <p>Install this app on your device for offline access</p>
+            <button id="installBtn" class="btn btn-secondary">Install</button>
+            <button id="dismissInstallBtn" class="btn btn-text">Not now</button>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

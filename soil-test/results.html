@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Soil test results">
+    <meta name="theme-color" content="#8B4513">
+    <title>Test Results - Rammed Earth Tester</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192x192.png">
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/results.css">
+</head>
+<body>
+    <div class="container results-page">
+        <header class="results-header">
+            <h1 id="resultCategory">Your Soil Results</h1>
+            <div class="score-display">
+                <div class="score-circle" id="scoreCircle">
+                    <span id="scoreValue">--</span>
+                    <span class="score-max">/100</span>
+                </div>
+                <p class="score-label" id="scoreLabel">Suitability Score</p>
+            </div>
+        </header>
+
+        <main class="results-content">
+            <!-- Composition Section -->
+            <section class="results-section composition-section">
+                <h2>Soil Composition</h2>
+                <div class="composition-bars">
+                    <div class="composition-item">
+                        <div class="composition-label">
+                            <span class="label-name">Sand</span>
+                            <span class="label-value" id="sandPct">--%</span>
+                        </div>
+                        <div class="bar-container">
+                            <div class="bar bar-sand" id="sandBar"></div>
+                        </div>
+                    </div>
+                    <div class="composition-item">
+                        <div class="composition-label">
+                            <span class="label-name">Silt</span>
+                            <span class="label-value" id="siltPct">--%</span>
+                        </div>
+                        <div class="bar-container">
+                            <div class="bar bar-silt" id="siltBar"></div>
+                        </div>
+                    </div>
+                    <div class="composition-item">
+                        <div class="composition-label">
+                            <span class="label-name">Clay</span>
+                            <span class="label-value" id="clayPct">--%</span>
+                        </div>
+                        <div class="bar-container">
+                            <div class="bar bar-clay" id="clayBar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ideal-range">
+                    <p><strong>Ideal for Rammed Earth:</strong></p>
+                    <p>Sand: 50-75% • Silt: 10-30% • Clay: 10-20%</p>
+                </div>
+            </section>
+
+            <!-- Test Summary Section -->
+            <section class="results-section test-summary">
+                <h2>Test Summary</h2>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <h3>Ribbon Test</h3>
+                        <p id="ribbonResult">--</p>
+                    </div>
+                    <div class="summary-item">
+                        <h3>Ball Drop Test</h3>
+                        <p id="ballDropResult">--</p>
+                    </div>
+                    <div class="summary-item">
+                        <h3>Visual Assessment</h3>
+                        <p id="visualResult">--</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recommendations Section -->
+            <section class="results-section recommendations-section" id="recommendationsSection">
+                <h2>✓ Recommendations</h2>
+                <ul id="recommendationsList" class="results-list">
+                    <!-- Dynamically populated -->
+                </ul>
+            </section>
+
+            <!-- Warnings Section -->
+            <section class="results-section warnings-section" id="warningsSection">
+                <h2>⚠ Cautions</h2>
+                <ul id="warningsList" class="results-list">
+                    <!-- Dynamically populated -->
+                </ul>
+            </section>
+
+            <!-- Location Section -->
+            <section class="results-section location-section" id="locationSection">
+                <h2>📍 Location</h2>
+                <p id="locationInfo">Location data not available</p>
+                <p class="location-coords" id="locationCoords"></p>
+            </section>
+
+            <!-- Photos Gallery -->
+            <section class="results-section photos-section">
+                <h2>📷 Test Photos</h2>
+                <div id="photoGallery" class="photo-gallery">
+                    <!-- Dynamically populated -->
+                </div>
+            </section>
+
+            <!-- Actions Section -->
+            <section class="results-actions">
+                <h2>What's Next?</h2>
+
+                <div class="action-buttons">
+                    <button id="submitDataBtn" class="btn btn-primary">
+                        📤 Submit Data to Database
+                    </button>
+                    <button id="shareResultsBtn" class="btn btn-secondary">
+                        🔗 Share Results
+                    </button>
+                    <button id="downloadPdfBtn" class="btn btn-secondary">
+                        📄 Download PDF
+                    </button>
+                    <button id="newTestBtn" class="btn btn-outline">
+                        🔄 Start New Test
+                    </button>
+                </div>
+
+                <p class="data-privacy">
+                    Your data helps improve soil testing for everyone.
+                    We collect anonymous test results and photos to train AI models
+                    for future automated soil analysis.
+                </p>
+            </section>
+
+            <!-- Data Submission Status -->
+            <div id="submissionStatus" class="submission-status hidden">
+                <p id="submissionMessage"></p>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <p>Part of <a href="../">Rammed Earth Chronicles</a></p>
+            <button id="viewRawDataBtn" class="btn btn-text">View Raw Data</button>
+        </footer>
+    </div>
+
+    <!-- Raw Data Modal -->
+    <div id="rawDataModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Raw Test Data</h3>
+                <button id="closeRawDataBtn" class="btn-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <pre id="rawDataContent"></pre>
+            </div>
+            <div class="modal-footer">
+                <button id="copyRawDataBtn" class="btn btn-secondary">Copy to Clipboard</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p id="loadingText">Loading results...</p>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/storage.js"></script>
+    <script type="module" src="js/test-logic.js"></script>
+</body>
+</html>
