@@ -408,6 +408,12 @@
             }
         }
 
+        @media (max-width: 650px) {
+            .two-path-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
             .directory-pill {
             display: inline-flex;
             align-items: center;
@@ -572,22 +578,28 @@
             </p>
         </div>
 
-        <!-- Consultation Section -->
+        <!-- Two Path Section -->
         <div style="margin-top: 40px;">
-            <h2 style="color: #8B4513; margin-bottom: 15px; font-size: 1.3em;">Want to Learn to Build?</h2>
-            <p style="color: #666; margin-bottom: 20px;">
-                This page is for people who want to learn the craft themselves, who've already heard the earth calling.
-            </p>
+            <h2 style="color: #8B4513; margin-bottom: 20px; font-size: 1.3em; text-align: center;">What Brings You Here?</h2>
 
-            <div style="margin-top: 25px; padding: 20px; background: #FFF8E1; border-left: 4px solid #8B4513; font-size: 0.95em;">
-                <strong>Choose your path:</strong><br>
-                → <strong>Consultation:</strong> You want to build your own rammed earth project and need guidance<br>
-                → <strong>Workshops:</strong> You want to learn with others when I organize group sessions<br>
-                → <strong>Tech Transfer:</strong> You're a professional (architect/engineer/builder) wanting to integrate rammed earth into your practice
-            </div>
+            <div class="two-path-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px;">
+                <!-- Path 1: Find a Builder -->
+                <div style="padding: 25px; background: #E8F5E9; border: 2px solid #4CAF50; border-radius: 5px;">
+                    <h3 style="color: #2E7D32; margin-top: 0; margin-bottom: 12px; font-size: 1.15em;">Looking for a builder?</h3>
+                    <p style="color: #3E2723; margin-bottom: 18px; font-size: 0.95em;">
+                        Browse the directory to find rammed earth professionals in your area who can build for you.
+                    </p>
+                    <a href="directory.html" style="display: inline-block; width: 100%; text-align: center; padding: 12px 20px; background: #2E7D32; color: white; text-decoration: none; border-radius: 3px; transition: all 0.3s;">Browse Directory →</a>
+                </div>
 
-            <div style="text-align: center; margin-top: 25px;">
-                <a href="questionnaire-index.html" style="display: inline-block; padding: 14px 28px; background: #8B4513; color: white; text-decoration: none; border-radius: 3px; font-size: 1em; transition: all 0.3s;">Choose your path →</a>
+                <!-- Path 2: Learn to Build -->
+                <div style="padding: 25px; background: #FFF8E1; border: 2px solid #FFB300; border-radius: 5px;">
+                    <h3 style="color: #8B4513; margin-top: 0; margin-bottom: 12px; font-size: 1.15em;">Want to learn the craft?</h3>
+                    <p style="color: #3E2723; margin-bottom: 18px; font-size: 0.95em;">
+                        Choose your learning path: consultation, workshops, or tech transfer for professionals.
+                    </p>
+                    <a href="questionnaire-index.html" style="display: inline-block; width: 100%; text-align: center; padding: 12px 20px; background: #8B4513; color: white; text-decoration: none; border-radius: 3px; transition: all 0.3s;">Choose Your Path →</a>
+                </div>
             </div>
         </div>
         
