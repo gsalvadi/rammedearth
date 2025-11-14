@@ -1,11 +1,12 @@
 name: Deploy Soil Test PWA
 
+# DISABLED FOR BETA TESTING - Re-enable when ready for production deployment
 on:
-  push:
-    branches:
-      - claude/read-soil-test-spec-011CV6E37PESTyCMKVjGkwWe
-    paths:
-      - 'soil-test/**'
+  # push:
+  #   branches:
+  #     - claude/read-soil-test-spec-011CV6E37PESTyCMKVjGkwWe
+  #   paths:
+  #     - 'soil-test/**'
   workflow_dispatch:
 
 permissions:
