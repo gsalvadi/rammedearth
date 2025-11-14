@@ -13,7 +13,7 @@ if (currentPage === 'index.html' || currentPage === '' || currentPage === 'soil-
   document.addEventListener('DOMContentLoaded', initLandingPage);
 }
 
-function initLandingPage() {
+async function initLandingPage() {
   // Start test buttons
   const startBtns = document.querySelectorAll('#startTestBtn, #startTestBtnBottom');
   startBtns.forEach(btn => {
@@ -21,6 +21,9 @@ function initLandingPage() {
       btn.addEventListener('click', startNewTest);
     }
   });
+
+  // Check for in-progress tests and show resume option
+  await checkForInProgressTest();
 
   // PWA install prompt
   let deferredPrompt;
@@ -60,6 +63,78 @@ function initLandingPage() {
       console.error('Service worker registration failed:', err);
     });
   }
+}
+
+async function checkForInProgressTest() {
+  try {
+    const { default: storage } = await import('./storage.js');
+    const allTests = await storage.getAllTests();
+
+    // Find in-progress tests
+    const inProgressTests = allTests.filter(test => test.inProgress === true);
+
+    if (inProgressTests.length > 0) {
+      // Get the most recent one
+      const latestTest = inProgressTests.sort((a, b) =>
+        new Date(b.lastModified) - new Date(a.lastModified)
+      )[0];
+
+      // Show resume button
+      showResumeTestButton(latestTest);
+    }
+  } catch (error) {
+    console.error('Error checking for in-progress tests:', error);
+  }
+}
+
+function showResumeTestButton(testData) {
+  const primaryBtn = document.getElementById('startTestBtn');
+  if (!primaryBtn) return;
+
+  // Create resume button
+  const resumeBtn = document.createElement('button');
+  resumeBtn.id = 'resumeTestBtn';
+  resumeBtn.className = 'btn btn-primary';
+  resumeBtn.style.cssText = 'margin-right: 1rem; background: var(--secondary);';
+  resumeBtn.innerHTML = '↻ Resume In-Progress Test';
+
+  // Calculate which step user was on
+  let completedSteps = 0;
+  if (testData.tests.visualTest?.photos?.length > 0) completedSteps++;
+  if (testData.tests.ribbonTest?.photos?.length > 0) completedSteps++;
+  if (testData.tests.ballDropTest?.photos?.length > 0) completedSteps++;
+  if (testData.tests.jarTest?.photos?.length > 0) completedSteps++;
+
+  resumeBtn.addEventListener('click', () => {
+    const lastModified = new Date(testData.lastModified).toLocaleString();
+    const confirmMsg = `Resume your in-progress test?\n\nLast saved: ${lastModified}\nCompleted steps: ${completedSteps}/4\n\nClick OK to continue where you left off.`;
+
+    if (confirm(confirmMsg)) {
+      resumeInProgressTest(testData);
+    }
+  });
+
+  // Insert before the start button
+  primaryBtn.parentNode.insertBefore(resumeBtn, primaryBtn);
+
+  // Update start button text
+  primaryBtn.textContent = 'Start New Test';
+}
+
+function resumeInProgressTest(testData) {
+  // Save to session storage
+  sessionStorage.setItem('currentTest', JSON.stringify(testData));
+
+  // Figure out which step to resume from
+  let resumeStep = 0;
+  if (testData.tests.visualTest?.photos?.length > 0) resumeStep = 1;
+  if (testData.tests.ribbonTest?.photos?.length > 0) resumeStep = 2;
+  if (testData.tests.ballDropTest?.photos?.length > 0) resumeStep = 3;
+
+  sessionStorage.setItem('currentStep', String(resumeStep));
+
+  // Navigate to test page
+  window.location.href = 'test.html';
 }
 
 function startNewTest() {
@@ -136,11 +211,37 @@ function initializeNewTest() {
     },
     result: null,
     user: { anonymous: true },
-    submitted: false
+    submitted: false,
+    inProgress: true,  // Mark as in-progress
+    lastModified: new Date().toISOString()
   };
 
   sessionStorage.setItem('currentTest', JSON.stringify(test));
   return test;
+}
+
+/**
+ * Auto-save current test to IndexedDB
+ * Prevents data loss if browser closes
+ */
+async function autoSaveTest() {
+  if (!currentTestData) return;
+
+  try {
+    const { default: storage } = await import('./storage.js');
+
+    // Update last modified timestamp
+    currentTestData.lastModified = new Date().toISOString();
+
+    // Save to both sessionStorage and IndexedDB
+    sessionStorage.setItem('currentTest', JSON.stringify(currentTestData));
+    sessionStorage.setItem('currentStep', String(currentStepIndex));
+
+    await storage.saveTest(currentTestData);
+  } catch (error) {
+    console.error('Auto-save failed:', error);
+    // Don't show error to user - auto-save is silent
+  }
 }
 
 function generateId() {
@@ -372,6 +473,9 @@ function previousStep() {
   if (currentStepIndex > 0) {
     currentStepIndex--;
     renderTestStep(currentStepIndex);
+
+    // Auto-save progress
+    autoSaveTest();
   }
 }
 
@@ -388,6 +492,9 @@ function nextStep() {
     alert('Please take at least one photo before proceeding.');
     return;
   }
+
+  // Auto-save after completing step
+  autoSaveTest();
 
   // After completing 3rd test (Ball Drop at index 2), offer choice
   if (currentStepIndex === 2) {
@@ -437,8 +544,9 @@ What would you like to do?
 }
 
 async function goToPreliminaryResults() {
-  // Mark as preliminary
+  // Mark as preliminary and no longer in progress
   currentTestData.isPreliminary = true;
+  currentTestData.inProgress = false;  // Completed preliminary stage
 
   // Request location
   showLoading('Getting location...');
@@ -484,6 +592,10 @@ async function completeTest() {
   if (!saveFormData(currentTest.id)) {
     return;
   }
+
+  // Mark test as completed (all 4 tests done)
+  currentTestData.inProgress = false;
+  currentTestData.isPreliminary = false;  // This is final result
 
   // Request location
   showLoading('Getting location...');
@@ -701,6 +813,9 @@ async function usePhoto() {
 
     // Update session storage
     sessionStorage.setItem('currentTest', JSON.stringify(currentTestData));
+
+    // Auto-save after adding photo
+    await autoSaveTest();
 
     // Update photo preview
     const previewContainer = document.getElementById(`photoPreview-${activeTestId}`);

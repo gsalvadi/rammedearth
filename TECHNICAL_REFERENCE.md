@@ -341,6 +341,10 @@ const CloudinaryConfig = {
   timestamp: "2025-11-14T10:30:00.000Z",
   version: "1.0",
 
+  // Auto-save tracking (NEW in v1.0-beta)
+  inProgress: true,              // true = incomplete, false = completed
+  lastModified: "2025-11-14T10:35:00.000Z",  // Updated on every auto-save
+
   location: {
     latitude: 37.7749,
     longitude: -122.4194,
@@ -404,33 +408,48 @@ const CloudinaryConfig = {
 ## Key Functions Index
 
 ### Landing Page Functions (index.html)
-**File**: `soil-test/js/app.js:12-73`
+**File**: `soil-test/js/app.js:12-140`
 
 ```javascript
 initLandingPage()              // Line 16 - Initialize landing page
-startNewTest()                 // Line 65 - Navigate to test wizard
+checkForInProgressTest()       // Line 68 - Check for incomplete tests (NEW)
+showResumeTestButton(testData) // Line 90 - Show resume button (NEW)
+resumeInProgressTest(testData) // Line 124 - Resume from saved state (NEW)
+startNewTest()                 // Line 140 - Navigate to test wizard
 ```
+
+**NEW: Auto-Resume Feature**
+- Landing page automatically checks IndexedDB for incomplete tests
+- If found, shows "Resume In-Progress Test" button
+- Clicking resume loads test state and navigates to correct step
 
 ---
 
 ### Test Flow Functions (test.html)
-**File**: `soil-test/js/app.js:78-766`
+**File**: `soil-test/js/app.js:148-~800`
 
 #### Initialization
 ```javascript
-initTestPage()                 // Line 88 - Initialize test page
-initializeNewTest()            // Line 122 - Create new test object
-generateId()                   // Line 140 - Generate UUID
+initTestPage()                 // Line 158 - Initialize test page
+initializeNewTest()            // Line 193 - Create new test object (sets inProgress: true)
+autoSaveTest()                 // Line 222 - Auto-save to IndexedDB (NEW)
+generateId()                   // Line 242 - Generate UUID
 ```
 
 #### Test Navigation
 ```javascript
-renderTestStep(stepIndex)      // Line 148 - Render test step UI
-updateProgressBar(stepIndex)   // Line 209 - Update progress indicators
-nextStep()                     // Line 235 - Move to next test
-previousStep()                 // Line 262 - Move to previous test
-completeTest()                 // Line 278 - Finish test and go to results
+renderTestStep(stepIndex)      // Line ~220 - Render test step UI
+updateProgressBar(stepIndex)   // Line ~280 - Update progress indicators
+nextStep()                     // Line ~480 - Move to next test + auto-save
+previousStep()                 // Line ~470 - Move to previous test + auto-save
+completeTest()                 // Line ~585 - Finish test and go to results
 ```
+
+**NEW: Auto-Save Integration**
+- `nextStep()` calls `autoSaveTest()` after validating step
+- `previousStep()` calls `autoSaveTest()` when navigating back
+- `usePhoto()` calls `autoSaveTest()` after adding photo
+- Silent background saves (no user notification)
 
 #### Form Handling
 ```javascript
@@ -503,28 +522,51 @@ User Action              →  Function Called           →  Data Modified
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Start Test              →  startNewTest()            →  sessionStorage cleared
                         →  initializeNewTest()       →  currentTestData created
+                                                      →  inProgress: true, lastModified set
                                                       →  testData saved to sessionStorage
+
+Resume Test (NEW)       →  checkForInProgressTest()  →  Query IndexedDB for inProgress tests
+                        →  showResumeTestButton()    →  Display resume button with last saved time
+                        →  resumeInProgressTest()    →  Load saved test, calculate resume step
+                                                      →  Navigate to test.html
 
 Take Photo              →  openCamera()              →  activeTestId set
                         →  camera.init()             →  Video stream started
                         →  capturePhoto()            →  Photo blob created
                         →  usePhoto()                →  Photo added to currentTestData.tests[testId].photos
+                        →  autoSaveTest() (NEW)      →  IndexedDB updated, lastModified updated
 
 Fill Form               →  User types                →  Form values in DOM
 Next Step               →  nextStep()                →  saveFormData() called
                         →  validateFormData()        →  Form data saved to currentTestData
+                        →  autoSaveTest() (NEW)      →  IndexedDB updated
                         →  currentStepIndex++        →  sessionStorage updated
                         →  renderTestStep()          →  New test rendered
 
+Previous Step (NEW)     →  previousStep()            →  currentStepIndex--
+                        →  autoSaveTest()            →  IndexedDB updated
+                        →  renderTestStep()          →  Previous test rendered
+
 After Test 3            →  showPreliminaryResultsChoice() → Dialog shown
-Choose Preliminary      →  goToPreliminaryResults() →  test-logic.calculatePreliminarySuitability()
+Choose Preliminary      →  goToPreliminaryResults() →  inProgress: false (NEW)
+                        →  test-logic.calculatePreliminarySuitability()
                         →  storage.saveTest()        →  IndexedDB updated
                         →  Navigate to results.html  →  Results displayed
+
+Complete All 4 Tests    →  completeTest()            →  inProgress: false (NEW)
+                        →  storage.saveTest()        →  IndexedDB updated
+                        →  Navigate to results.html  →  Final results displayed
 
 Submit Data             →  submitTestData()          →  cloudinary-upload.uploadTestData()
                         →  uploadPhoto() (multiple)  →  Photos uploaded to Cloudinary
                         →  testData.submitted = true →  storage.saveTest()
 ```
+
+**NEW: Auto-Save Behavior**
+- Saves occur after: photo capture, form completion, navigation
+- All saves update `lastModified` timestamp
+- `inProgress` flag tracks completion state
+- User can safely close browser at any time
 
 ---
 
@@ -857,6 +899,65 @@ async function longOperation() {
 
 ---
 
+### Scenario 8: Modify Auto-Save Behavior (NEW)
+**Goal**: Change when or how auto-save occurs
+
+#### Disable Auto-Save for Specific Action
+**File**: `soil-test/js/app.js`
+
+To remove auto-save from photo capture:
+```javascript
+// Find usePhoto() function (Line ~723)
+async function usePhoto() {
+  // ... existing code ...
+
+  // REMOVE OR COMMENT THIS LINE:
+  // await autoSaveTest();
+}
+```
+
+#### Add Auto-Save Trigger
+To add auto-save after form field changes:
+```javascript
+// In renderTestStep() after form is rendered
+const form = document.getElementById(`testForm-${testId}`);
+form.addEventListener('change', () => {
+  autoSaveTest();  // Save on any form change
+});
+```
+
+#### Change In-Progress Detection
+**File**: `soil-test/js/app.js` - `checkForInProgressTest()` (Line 68)
+
+To change resume button behavior:
+```javascript
+// Show resume button only if at least 2 tests completed
+const completedTests = inProgressTests.filter(test => {
+  let count = 0;
+  if (test.tests.visualTest?.photos?.length > 0) count++;
+  if (test.tests.ribbonTest?.photos?.length > 0) count++;
+  if (test.tests.ballDropTest?.photos?.length > 0) count++;
+  return count >= 2;  // CHANGE THIS THRESHOLD
+});
+```
+
+#### Modify Resume Step Calculation
+**File**: `soil-test/js/app.js` - `resumeInProgressTest()` (Line 124)
+
+To change which step to resume from:
+```javascript
+// Current: resumes to next incomplete step
+let resumeStep = 0;
+if (testData.tests.visualTest?.photos?.length > 0) resumeStep = 1;
+if (testData.tests.ribbonTest?.photos?.length > 0) resumeStep = 2;
+if (testData.tests.ballDropTest?.photos?.length > 0) resumeStep = 3;
+
+// Change to: always resume from beginning
+let resumeStep = 0;  // Forces restart at step 0
+```
+
+---
+
 ## Testing and Debugging
 
 ### Browser Console Debugging
@@ -901,6 +1002,55 @@ if (window.DEBUG) {
 - DevTools → Application → Cache Storage → Delete all
 - Hard refresh (Ctrl+Shift+R)
 
+#### 5. Resume Button Not Showing (NEW)
+**Problem**: In-progress test exists but resume button doesn't appear
+
+**Check**:
+- Open DevTools → Application → IndexedDB → SoilTestDB → tests
+- Look for test with `inProgress: true`
+- Check `lastModified` timestamp is recent
+
+**Debug**:
+```javascript
+// Run in console on landing page:
+import('./js/storage.js').then(async m => {
+  const tests = await m.default.getAllTests();
+  console.log('All tests:', tests);
+  const inProgress = tests.filter(t => t.inProgress);
+  console.log('In-progress tests:', inProgress);
+});
+```
+
+**Fix**:
+- If test exists but inProgress is false, manually set it:
+  ```javascript
+  import('./js/storage.js').then(async m => {
+    const test = await m.default.getTest('test-id-here');
+    test.inProgress = true;
+    await m.default.saveTest(test);
+  });
+  ```
+
+#### 6. Auto-Save Not Working (NEW)
+**Problem**: Progress lost after browser close
+
+**Check**:
+- Browser supports IndexedDB (IE11+, all modern browsers)
+- No errors in console when taking photos or navigating
+- Check IndexedDB shows recent `lastModified` timestamp
+
+**Debug**:
+```javascript
+// Check if auto-save is being called:
+// Add to autoSaveTest() function:
+console.log('Auto-save triggered at:', new Date());
+```
+
+**Common causes**:
+- Private/incognito mode (IndexedDB may be disabled)
+- Storage quota exceeded (unlikely with photos)
+- Browser extension blocking IndexedDB
+
 ---
 
 ### Testing Checklist
@@ -912,6 +1062,10 @@ if (window.DEBUG) {
 - [ ] Navigation (next/previous) works
 - [ ] Data persists in sessionStorage
 - [ ] Data saves to IndexedDB
+- [ ] **Auto-save after photo capture (NEW)**
+- [ ] **Auto-save after next/previous navigation (NEW)**
+- [ ] **Resume button appears with in-progress test (NEW)**
+- [ ] **Resume loads correct test step (NEW)**
 
 #### Integration Testing
 - [ ] Complete full test flow
@@ -919,6 +1073,12 @@ if (window.DEBUG) {
 - [ ] Final results calculate correctly
 - [ ] Upload to Cloudinary succeeds
 - [ ] Submission prevents duplicates
+- [ ] **Auto-save and resume workflow (NEW)**:
+  - [ ] Start test, complete 2 steps, close browser
+  - [ ] Reopen, see resume button
+  - [ ] Click resume, verify lands on step 3
+  - [ ] Complete test, verify inProgress becomes false
+  - [ ] Verify resume button no longer appears
 
 #### PWA Testing
 - [ ] App installs on mobile
@@ -1017,6 +1177,28 @@ import('./js/cloudinary-upload.js').then(m =>
 navigator.serviceWorker.getRegistrations().then(regs =>
   regs.forEach(reg => reg.unregister())
 )
+
+// Check for in-progress tests (NEW)
+import('./js/storage.js').then(async m => {
+  const tests = await m.default.getAllTests();
+  const inProgress = tests.filter(t => t.inProgress);
+  console.log('In-progress tests:', inProgress);
+})
+
+// View most recent test (NEW)
+import('./js/storage.js').then(async m => {
+  const tests = await m.default.getAllTests();
+  const sorted = tests.sort((a, b) =>
+    new Date(b.lastModified || b.timestamp) - new Date(a.lastModified || a.timestamp)
+  );
+  console.log('Most recent test:', sorted[0]);
+})
+
+// Manually trigger auto-save (NEW)
+// Run while on test.html page:
+if (typeof autoSaveTest === 'function') {
+  autoSaveTest().then(() => console.log('Auto-save complete'));
+}
 ```
 
 ---
@@ -1030,6 +1212,11 @@ navigator.serviceWorker.getRegistrations().then(regs =>
 - Educational guide system
 - Cloudinary backend integration
 - Offline-first architecture
+- **Auto-save and resume functionality**:
+  - Automatic save to IndexedDB after photos and navigation
+  - Resume in-progress tests from landing page
+  - Track completion state with `inProgress` flag
+  - Show last modified timestamp for resume decision
 
 ---
 
