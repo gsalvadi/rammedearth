@@ -599,7 +599,7 @@
     
     <script>
         // Navigation function for main info tabs
-        function showInfoSection(sectionName) {
+        function showInfoSection(sectionName, clickedButton) {
             // Hide all info sections
             document.querySelectorAll('.info-section').forEach(s => s.style.display = 'none');
 
@@ -614,15 +614,29 @@
             document.getElementById(sectionName).style.display = 'block';
 
             // Highlight active tab
-            const activeTab = event.target;
-            activeTab.style.background = '#8B4513';
-            activeTab.style.color = 'white';
-            activeTab.classList.add('active');
+            let activeTab = clickedButton || event?.target;
+            if (!activeTab) {
+                // Find the button by its onclick content
+                activeTab = Array.from(document.querySelectorAll('.info-tab'))
+                    .find(btn => btn.onclick?.toString().includes(`'${sectionName}'`));
+            }
+
+            if (activeTab) {
+                activeTab.style.background = '#8B4513';
+                activeTab.style.color = 'white';
+                activeTab.classList.add('active');
+            }
         }
 
         // Show About section by default on page load
         window.addEventListener('DOMContentLoaded', function() {
-            showInfoSection('about');
+            document.getElementById('about').style.display = 'block';
+            const aboutTab = document.querySelector('.info-tab[onclick*="about"]');
+            if (aboutTab) {
+                aboutTab.style.background = '#8B4513';
+                aboutTab.style.color = 'white';
+                aboutTab.classList.add('active');
+            }
         });
     </script>
 </body>
