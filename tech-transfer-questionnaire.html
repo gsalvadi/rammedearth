@@ -126,6 +126,30 @@
         .back-link a:hover {
             color: #D2691E;
         }
+
+        .char-feedback {
+            font-size: 0.85em;
+            margin-top: 8px;
+            padding: 8px 12px;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+        .char-feedback.needs-more {
+            color: #F57C00;
+            background: #FFF3E0;
+            border-left: 3px solid #FFB300;
+        }
+        .char-feedback.almost-there {
+            color: #616161;
+            background: #F5F5F5;
+            border-left: 3px solid #9E9E9E;
+        }
+        .char-feedback.good {
+            color: #2E7D32;
+            background: #E8F5E9;
+            border-left: 3px solid #4CAF50;
+        }
+
         @media (max-width: 600px) {
             body { padding: 10px; }
             .container { padding: 25px 20px; }
@@ -189,6 +213,59 @@
     </div>
 
     <script>
+        // Real-time character feedback for textareas
+        function setupCharacterFeedback() {
+            const textareas = document.querySelectorAll('textarea[name]');
+
+            textareas.forEach(textarea => {
+                // Create feedback div
+                const feedback = document.createElement('div');
+                feedback.className = 'char-feedback';
+                feedback.style.display = 'none';
+                textarea.parentElement.appendChild(feedback);
+
+                // Update feedback on input
+                textarea.addEventListener('input', function() {
+                    const length = this.value.trim().length;
+
+                    if (length === 0) {
+                        feedback.style.display = 'none';
+                        return;
+                    }
+
+                    feedback.style.display = 'block';
+
+                    // Adjust thresholds based on field
+                    const fieldName = this.name;
+                    let minGood = 60;
+                    let minAlmost = 30;
+
+                    if (fieldName === 'hands-on') {
+                        minGood = 60;
+                        minAlmost = 30;
+                    } else if (fieldName === 'technology' || fieldName === 'application') {
+                        minGood = 50;
+                        minAlmost = 25;
+                    }
+
+                    // Update feedback based on length
+                    if (length < minAlmost) {
+                        feedback.className = 'char-feedback needs-more';
+                        feedback.textContent = `Consider adding more detail... (${length} characters)`;
+                    } else if (length < minGood) {
+                        feedback.className = 'char-feedback almost-there';
+                        feedback.textContent = `A bit more detail helps... (${length} characters)`;
+                    } else {
+                        feedback.className = 'char-feedback good';
+                        feedback.textContent = `✓ Good detail (${length} characters)`;
+                    }
+                });
+            });
+        }
+
+        // Initialize character feedback when page loads
+        document.addEventListener('DOMContentLoaded', setupCharacterFeedback);
+
         // Helper functions
         function contextualMatch(text, keyword) {
             const lowerText = text.toLowerCase();
