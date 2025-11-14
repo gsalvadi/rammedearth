@@ -80,18 +80,23 @@ if (currentPage === 'test.html') {
 }
 
 let testProtocols = null;
+let testGuides = null;
 let currentTestData = null;
 let currentStepIndex = 0;
 let currentTestPhotos = [];
 
 async function initTestPage() {
-  // Load test protocols
+  // Load test protocols and guides
   try {
-    const response = await fetch('data/test-protocols.json');
-    testProtocols = await response.json();
+    const [protocolsResponse, guidesResponse] = await Promise.all([
+      fetch('data/test-protocols.json'),
+      fetch('data/guides.json')
+    ]);
+    testProtocols = await protocolsResponse.json();
+    testGuides = await guidesResponse.json();
   } catch (error) {
-    console.error('Failed to load test protocols:', error);
-    alert('Failed to load test protocols. Please refresh the page.');
+    console.error('Failed to load test data:', error);
+    alert('Failed to load test data. Please refresh the page.');
     return;
   }
 
@@ -110,8 +115,9 @@ async function initTestPage() {
   // Render current step
   renderTestStep(currentStepIndex);
 
-  // Setup camera modal
+  // Setup modals
   setupCameraModal();
+  setupGuideModal();
 }
 
 function initializeNewTest() {
@@ -165,10 +171,13 @@ function renderTestStep(stepIndex) {
         </div>
         <p>${test.description}</p>
         <p class="note">Duration: ${test.duration}</p>
+        <button class="btn btn-outline instructions-btn" onclick="showGuide('${testId}')">
+          Instructions
+        </button>
       </div>
 
       <div class="test-instructions">
-        <h3>Instructions</h3>
+        <h3>Quick Steps</h3>
         <ol>
           ${test.instructions.map(instruction => `<li>${instruction}</li>`).join('')}
         </ol>
@@ -539,6 +548,77 @@ function setupCameraModal() {
     usePhotoBtn.addEventListener('click', usePhoto);
   }
 }
+
+function setupGuideModal() {
+  const modal = document.getElementById('guideModal');
+  const closeBtn = document.getElementById('closeGuideBtn');
+  const closeFooterBtn = document.getElementById('closeGuideFooterBtn');
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeGuide);
+  }
+
+  if (closeFooterBtn) {
+    closeFooterBtn.addEventListener('click', closeGuide);
+  }
+
+  // Close modal when clicking outside
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeGuide();
+      }
+    });
+  }
+}
+
+function showGuide(testId) {
+  if (!testGuides || !testGuides.guides) {
+    console.error('Guide data not loaded');
+    return;
+  }
+
+  const guide = testGuides.guides[testId];
+  if (!guide) {
+    console.error('Guide not found for test:', testId);
+    return;
+  }
+
+  const modal = document.getElementById('guideModal');
+  const title = document.getElementById('guideTitle');
+  const body = document.getElementById('guideBody');
+
+  // Set title
+  title.textContent = guide.title;
+
+  // Build guide content HTML
+  let contentHTML = `
+    <div class="guide-purpose">
+      <strong>${guide.purpose}</strong>
+    </div>
+  `;
+
+  guide.sections.forEach(section => {
+    contentHTML += `
+      <h3>${section.heading}</h3>
+      <div>${section.content}</div>
+    `;
+  });
+
+  body.innerHTML = contentHTML;
+
+  // Show modal
+  modal.classList.remove('hidden');
+}
+
+function closeGuide() {
+  const modal = document.getElementById('guideModal');
+  modal.classList.add('hidden');
+}
+
+// Make functions globally available
+window.showGuide = showGuide;
+window.closeGuide = closeGuide;
 
 async function openCamera(testId) {
   activeTestId = testId;
@@ -924,15 +1004,114 @@ function setupResultsHandlers(testData, results) {
     });
   });
 
-  // Submit data button (placeholder - would integrate with Firebase)
-  document.getElementById('submitDataBtn')?.addEventListener('click', () => {
-    alert('Data submission feature coming soon! This will upload your test results to help improve soil testing.');
+  // Submit data button - Upload to Cloudinary
+  document.getElementById('submitDataBtn')?.addEventListener('click', async () => {
+    await submitTestData(testData);
   });
 
   // Download PDF button (placeholder)
   document.getElementById('downloadPdfBtn')?.addEventListener('click', () => {
     window.print();
   });
+}
+
+async function submitTestData(testData) {
+  const submitBtn = document.getElementById('submitDataBtn');
+  const statusDiv = document.getElementById('submissionStatus');
+  const statusMsg = document.getElementById('submissionMessage');
+
+  // Check if already submitted
+  if (testData.submitted) {
+    statusMsg.textContent = '✓ This test has already been submitted. Thank you!';
+    statusDiv.classList.remove('hidden');
+    statusDiv.classList.add('success');
+    return;
+  }
+
+  // Confirm submission
+  const confirmed = confirm(
+    'Submit Test Results?\n\n' +
+    'This will upload:\n' +
+    '• All test photos\n' +
+    '• Soil composition data\n' +
+    '• Test measurements\n' +
+    '• Approximate location (if enabled)\n\n' +
+    'Your data is anonymous and helps improve soil testing for everyone.\n\n' +
+    'Click OK to submit.'
+  );
+
+  if (!confirmed) {
+    return;
+  }
+
+  // Disable submit button
+  submitBtn.disabled = true;
+  submitBtn.textContent = '⏳ Uploading...';
+
+  // Show status
+  statusMsg.textContent = 'Uploading test data...';
+  statusDiv.classList.remove('hidden', 'success', 'error');
+  statusDiv.classList.add('uploading');
+
+  try {
+    // Load Cloudinary upload module
+    const { default: cloudinaryUpload } = await import('./cloudinary-upload.js');
+
+    // Check configuration
+    const configCheck = cloudinaryUpload.checkConfiguration();
+    if (!configCheck.configured) {
+      throw new Error('Cloudinary not configured: ' + configCheck.issues.join(', '));
+    }
+
+    // Upload test data
+    const uploadResults = await cloudinaryUpload.uploadTestData(testData);
+
+    // Check for errors
+    if (uploadResults.errors.length > 0) {
+      console.warn('Some photos failed to upload:', uploadResults.errors);
+      statusMsg.textContent = `⚠️ Uploaded ${uploadResults.uploadedPhotos.length} photos, ${uploadResults.errors.length} failed. Data submitted with partial photos.`;
+      statusDiv.classList.add('warning');
+    } else {
+      statusMsg.textContent = `✓ Success! Uploaded ${uploadResults.uploadedPhotos.length} photos and test data. Thank you for contributing!`;
+      statusDiv.classList.add('success');
+    }
+
+    // Mark test as submitted
+    testData.submitted = true;
+    testData.submissionTimestamp = new Date().toISOString();
+    testData.cloudinaryResults = uploadResults;
+
+    // Save updated test data
+    const { default: storage } = await import('./storage.js');
+    await storage.saveTest(testData);
+
+    // Update button
+    submitBtn.textContent = '✓ Submitted';
+    submitBtn.disabled = true;
+
+  } catch (error) {
+    console.error('Submission error:', error);
+
+    statusMsg.textContent = `❌ Upload failed: ${error.message}. Please try again or contact support.`;
+    statusDiv.classList.add('error');
+
+    // Re-enable submit button
+    submitBtn.disabled = false;
+    submitBtn.textContent = '📤 Submit Data to Database';
+
+    // Show detailed error for debugging
+    if (error.message.includes('upload_preset')) {
+      alert(
+        'Configuration Error\n\n' +
+        'The Cloudinary upload preset is not configured.\n\n' +
+        'Please create an unsigned upload preset in your Cloudinary dashboard:\n' +
+        '1. Go to Settings > Upload > Upload presets\n' +
+        '2. Create preset named "soil_test_unsigned"\n' +
+        '3. Set signing mode to "Unsigned"\n\n' +
+        'See js/cloudinary-config.js for details.'
+      );
+    }
+  }
 }
 
 window.viewPhoto = function(index) {

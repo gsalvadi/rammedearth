@@ -1,0 +1,112 @@
+{
+  "guides": {
+    "visualTest": {
+      "title": "Visual Assessment Guide",
+      "purpose": "Understanding Soil Composition Through Observation",
+      "sections": [
+        {
+          "heading": "Why This Test Matters",
+          "content": "Visual assessment is your first interaction with the soil. It helps identify obvious red flags (like high organic matter) and gives initial clues about texture and composition. While not precise, it's the fastest way to screen soil suitability."
+        },
+        {
+          "heading": "The Science Behind It",
+          "content": "Soil color indicates mineral composition and organic content. Texture reveals particle size distribution - coarse grains indicate sand, smooth indicates silt, sticky indicates clay. These physical properties directly impact how soil compacts and binds in rammed earth construction."
+        },
+        {
+          "heading": "What You're Looking For",
+          "content": "<ul><li><strong>Color:</strong> Red/brown/yellow indicates iron oxides (good). Black indicates organic matter (bad for structure). Gray may indicate poor drainage or young soil.</li><li><strong>Texture:</strong> You want mostly gritty (sand) with some smoothness (silt) and slight stickiness (clay).</li><li><strong>Organic Matter:</strong> Dark pieces, roots, or plant debris must be minimal. Organic matter decomposes over time, leaving voids in your walls.</li></ul>"
+        },
+        {
+          "heading": "Connection to Rammed Earth",
+          "content": "Ideal rammed earth soil has 50-75% sand (structure), 10-20% silt (fill voids), and 10-20% clay (binding). Visual assessment gives you a quick estimate before investing time in detailed testing. High organic matter disqualifies soil immediately - no need to continue testing topsoil."
+        },
+        {
+          "heading": "Pro Tips",
+          "content": "<ul><li>Test subsoil (15-30cm deep), not topsoil which has more organic matter</li><li>Dry samples show texture better than wet samples</li><li>Compare color when dry vs wet - dramatic change suggests high clay content</li><li>Small amounts of gravel (5-30mm) are actually beneficial for structure</li></ul>"
+        }
+      ]
+    },
+    "ribbonTest": {
+      "title": "Ribbon Test Guide",
+      "purpose": "Measuring Clay Content and Plasticity",
+      "sections": [
+        {
+          "heading": "Why This Test Matters",
+          "content": "The ribbon test is the most reliable field method for estimating clay content without laboratory equipment. Clay is the 'glue' in rammed earth - too little and walls crumble, too much and walls crack from shrinkage. This test tells you if you're in the right range."
+        },
+        {
+          "heading": "The Science Behind It",
+          "content": "Clay particles are microscopically small and flat, creating a cohesive mass when wet due to surface tension and electrostatic forces. When you roll soil into a ribbon, you're testing how many clay particles are present to hold the shape against gravity. Longer ribbons = more clay content."
+        },
+        {
+          "heading": "Interpreting Ribbon Length",
+          "content": "<ul><li><strong>Under 25mm:</strong> Low clay (5-10%) - soil won't bind well, needs stabilization</li><li><strong>25-50mm:</strong> Moderate clay (10-15%) - borderline, may need 5% cement</li><li><strong>50-100mm:</strong> Ideal clay (15-20%) - excellent for rammed earth</li><li><strong>100-150mm:</strong> High clay (20-30%) - usable but watch for cracking, consider adding sand</li><li><strong>Over 150mm:</strong> Very high clay (30%+) - significant cracking risk, needs major modification</li></ul>"
+        },
+        {
+          "heading": "Connection to Rammed Earth",
+          "content": "In rammed earth walls, clay acts as the binder that holds sand particles together after compaction. The ideal range (50-100mm ribbon) provides enough binding strength without excessive shrinkage. During construction, walls are built at 10-12% moisture and compacted in 100-150mm layers - the clay content directly affects how well these layers bond."
+        },
+        {
+          "heading": "Pro Tips",
+          "content": "<ul><li>Use consistent pressure when rolling - don't force it</li><li>Moisture matters: soil should be 'putty-like', not dripping wet or crumbly</li><li>Do the test 2-3 times and average the results</li><li>If ribbon breaks immediately, soil is too sandy or too dry</li><li>Ribbon test correlates with 'plasticity index' in lab testing</li></ul>"
+        }
+      ]
+    },
+    "ballDropTest": {
+      "title": "Ball Drop Test Guide",
+      "purpose": "Testing Soil Cohesion and Optimal Moisture",
+      "sections": [
+        {
+          "heading": "Why This Test Matters",
+          "content": "The ball drop test evaluates how soil behaves under impact at field moisture content. It simulates the compaction forces in actual construction and helps determine if moisture levels are appropriate. This test can save you from building with soil that's too wet (weak walls) or too dry (poor compaction)."
+        },
+        {
+          "heading": "The Science Behind It",
+          "content": "Soil cohesion depends on clay content and moisture. At optimal moisture (10-12% for rammed earth), clay particles create maximum binding strength. The ball drop test uses impact force to break apart the sample - you're looking for controlled fracturing, not shattering or deformation. This indicates balanced cohesion."
+        },
+        {
+          "heading": "Interpreting Results",
+          "content": "<ul><li><strong>Ball splatters/deforms:</strong> Too much moisture or very high clay. Soil will compact poorly and have low immediate strength. Dry it out before testing or construction.</li><li><strong>Ball stays intact:</strong> Good binding but possibly excessive clay or moisture slightly high. Check if soil is actually sticky. May perform well or crack during drying.</li><li><strong>Ball cracks but holds shape (IDEAL):</strong> Perfect balance of moisture and clay content. This is what rammed earth should do - hold together under pressure but not be plastic.</li><li><strong>Ball shatters completely:</strong> Too dry or insufficient clay. Soil won't compact well. Add moisture or clay content. Sandy soils behave this way.</li></ul>"
+        },
+        {
+          "heading": "Connection to Rammed Earth",
+          "content": "During construction, soil is compacted with pneumatic rammers applying 5-15 tons/m². The ball drop (1m = ~10 joules of impact) mimics this stress at a smaller scale. Ideal rammed earth should compact to 95%+ density without becoming plastic. The 'cracked but intact' result indicates soil will densify under ramming without turning muddy."
+        },
+        {
+          "heading": "Pro Tips",
+          "content": "<ul><li>Drop from exactly 1 meter for consistency - use a measuring tape</li><li>Drop onto a hard, flat surface (concrete or hard-packed earth)</li><li>Make ball 40-50mm diameter - too small won't show cracks, too large won't break properly</li><li>If results are unclear, dry soil slightly and test again</li><li>This test is most useful when combined with ribbon test results</li></ul>"
+        }
+      ]
+    },
+    "jarTest": {
+      "title": "Jar Test Guide",
+      "purpose": "Precise Measurement of Sand, Silt, and Clay Ratios",
+      "sections": [
+        {
+          "heading": "Why This Test Matters",
+          "content": "The jar test is the gold standard for field soil analysis. It provides precise percentages of sand, silt, and clay - the three components that determine rammed earth suitability. While it takes 24 hours, the data is accurate enough to make confident decisions about soil modification or acceptance."
+        },
+        {
+          "heading": "The Science Behind It",
+          "content": "Sedimentation occurs due to particle size and gravity. When you shake soil in water, particles separate and settle at different rates: <ul><li>Sand (0.05-2mm) settles in 60 seconds</li><li>Silt (0.002-0.05mm) settles in 4-8 hours</li><li>Clay (&lt;0.002mm) takes 24+ hours and often stays suspended</li></ul>This creates visible layers you can measure to calculate percentages."
+        },
+        {
+          "heading": "Reading the Jar",
+          "content": "After 24 hours, you'll see distinct layers from bottom to top:<ul><li><strong>Bottom layer (settles first):</strong> Sand - coarse particles, visible individual grains. Should be 50-75% of total.</li><li><strong>Middle layer (slightly darker):</strong> Silt - fine particles, feels smooth. Should be 10-30% of total.</li><li><strong>Top layer (darkest):</strong> Clay - microscopic particles, may look cloudy. Should be 10-20% of total.</li><li><strong>Water on top:</strong> May be cloudy if clay is still suspended (this is normal).</li><li><strong>Floating debris:</strong> Organic matter - should be minimal.</li></ul>"
+        },
+        {
+          "heading": "Ideal Composition for Rammed Earth",
+          "content": "<strong>Target ranges:</strong><ul><li>Sand: 50-75% (structure and drainage)</li><li>Silt: 10-30% (fills voids, aids compaction)</li><li>Clay: 10-20% (binds particles together)</li></ul><strong>Why these ratios?</strong> Sand provides compressive strength and prevents excessive shrinkage. Silt fills gaps between sand grains. Clay acts as a binder when compacted. Too much clay = cracking. Too little clay = crumbling. The jar test tells you exactly where you stand."
+        },
+        {
+          "heading": "What to Do With Results",
+          "content": "<ul><li><strong>If clay &lt; 10%:</strong> Add clay or 8-12% cement stabilizer</li><li><strong>If clay &gt; 25%:</strong> Add coarse sand (30-40% by volume) and 8-10% cement</li><li><strong>If sand &lt; 50%:</strong> Add coarse sand to improve drainage and reduce shrinkage</li><li><strong>If silt &gt; 40%:</strong> May be acceptable but test small sample blocks first</li><li><strong>If organic matter floats:</strong> Remove topsoil and test deeper soil</li></ul>"
+        },
+        {
+          "heading": "Pro Tips",
+          "content": "<ul><li>Use a clear straight-sided jar or cylinder for accurate measurement</li><li>Add a pinch of salt to help clay particles separate from water</li><li>Shake vigorously for 2-3 minutes to fully disperse all particles</li><li>Mark the total height immediately after shaking, before any settling</li><li>Wait full 24 hours - clay needs time to settle completely</li><li>Take a photo of the jar against a ruler for reference</li><li>Layers may not be perfectly distinct - estimate the boundaries</li></ul>"
+        }
+      ]
+    }
+  }
+}

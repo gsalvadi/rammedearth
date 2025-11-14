@@ -378,6 +378,16 @@
   color: white;
 }
 
+.submission-status.warning {
+  background: #FFB300;
+  color: white;
+}
+
+.submission-status.uploading {
+  background: var(--primary);
+  color: white;
+}
+
 /* ========================================
    Raw Data Modal
    ======================================== */
