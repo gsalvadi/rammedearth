@@ -1004,15 +1004,114 @@ function setupResultsHandlers(testData, results) {
     });
   });
 
-  // Submit data button (placeholder - would integrate with Firebase)
-  document.getElementById('submitDataBtn')?.addEventListener('click', () => {
-    alert('Data submission feature coming soon! This will upload your test results to help improve soil testing.');
+  // Submit data button - Upload to Cloudinary
+  document.getElementById('submitDataBtn')?.addEventListener('click', async () => {
+    await submitTestData(testData);
   });
 
   // Download PDF button (placeholder)
   document.getElementById('downloadPdfBtn')?.addEventListener('click', () => {
     window.print();
   });
+}
+
+async function submitTestData(testData) {
+  const submitBtn = document.getElementById('submitDataBtn');
+  const statusDiv = document.getElementById('submissionStatus');
+  const statusMsg = document.getElementById('submissionMessage');
+
+  // Check if already submitted
+  if (testData.submitted) {
+    statusMsg.textContent = '✓ This test has already been submitted. Thank you!';
+    statusDiv.classList.remove('hidden');
+    statusDiv.classList.add('success');
+    return;
+  }
+
+  // Confirm submission
+  const confirmed = confirm(
+    'Submit Test Results?\n\n' +
+    'This will upload:\n' +
+    '• All test photos\n' +
+    '• Soil composition data\n' +
+    '• Test measurements\n' +
+    '• Approximate location (if enabled)\n\n' +
+    'Your data is anonymous and helps improve soil testing for everyone.\n\n' +
+    'Click OK to submit.'
+  );
+
+  if (!confirmed) {
+    return;
+  }
+
+  // Disable submit button
+  submitBtn.disabled = true;
+  submitBtn.textContent = '⏳ Uploading...';
+
+  // Show status
+  statusMsg.textContent = 'Uploading test data...';
+  statusDiv.classList.remove('hidden', 'success', 'error');
+  statusDiv.classList.add('uploading');
+
+  try {
+    // Load Cloudinary upload module
+    const { default: cloudinaryUpload } = await import('./cloudinary-upload.js');
+
+    // Check configuration
+    const configCheck = cloudinaryUpload.checkConfiguration();
+    if (!configCheck.configured) {
+      throw new Error('Cloudinary not configured: ' + configCheck.issues.join(', '));
+    }
+
+    // Upload test data
+    const uploadResults = await cloudinaryUpload.uploadTestData(testData);
+
+    // Check for errors
+    if (uploadResults.errors.length > 0) {
+      console.warn('Some photos failed to upload:', uploadResults.errors);
+      statusMsg.textContent = `⚠️ Uploaded ${uploadResults.uploadedPhotos.length} photos, ${uploadResults.errors.length} failed. Data submitted with partial photos.`;
+      statusDiv.classList.add('warning');
+    } else {
+      statusMsg.textContent = `✓ Success! Uploaded ${uploadResults.uploadedPhotos.length} photos and test data. Thank you for contributing!`;
+      statusDiv.classList.add('success');
+    }
+
+    // Mark test as submitted
+    testData.submitted = true;
+    testData.submissionTimestamp = new Date().toISOString();
+    testData.cloudinaryResults = uploadResults;
+
+    // Save updated test data
+    const { default: storage } = await import('./storage.js');
+    await storage.saveTest(testData);
+
+    // Update button
+    submitBtn.textContent = '✓ Submitted';
+    submitBtn.disabled = true;
+
+  } catch (error) {
+    console.error('Submission error:', error);
+
+    statusMsg.textContent = `❌ Upload failed: ${error.message}. Please try again or contact support.`;
+    statusDiv.classList.add('error');
+
+    // Re-enable submit button
+    submitBtn.disabled = false;
+    submitBtn.textContent = '📤 Submit Data to Database';
+
+    // Show detailed error for debugging
+    if (error.message.includes('upload_preset')) {
+      alert(
+        'Configuration Error\n\n' +
+        'The Cloudinary upload preset is not configured.\n\n' +
+        'Please create an unsigned upload preset in your Cloudinary dashboard:\n' +
+        '1. Go to Settings > Upload > Upload presets\n' +
+        '2. Create preset named "soil_test_unsigned"\n' +
+        '3. Set signing mode to "Unsigned"\n\n' +
+        'See js/cloudinary-config.js for details.'
+      );
+    }
+  }
 }
 
 window.viewPhoto = function(index) {
