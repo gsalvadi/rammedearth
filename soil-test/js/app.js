@@ -80,18 +80,23 @@ if (currentPage === 'test.html') {
 }
 
 let testProtocols = null;
+let testGuides = null;
 let currentTestData = null;
 let currentStepIndex = 0;
 let currentTestPhotos = [];
 
 async function initTestPage() {
-  // Load test protocols
+  // Load test protocols and guides
   try {
-    const response = await fetch('data/test-protocols.json');
-    testProtocols = await response.json();
+    const [protocolsResponse, guidesResponse] = await Promise.all([
+      fetch('data/test-protocols.json'),
+      fetch('data/guides.json')
+    ]);
+    testProtocols = await protocolsResponse.json();
+    testGuides = await guidesResponse.json();
   } catch (error) {
-    console.error('Failed to load test protocols:', error);
-    alert('Failed to load test protocols. Please refresh the page.');
+    console.error('Failed to load test data:', error);
+    alert('Failed to load test data. Please refresh the page.');
     return;
   }
 
@@ -110,8 +115,9 @@ async function initTestPage() {
   // Render current step
   renderTestStep(currentStepIndex);
 
-  // Setup camera modal
+  // Setup modals
   setupCameraModal();
+  setupGuideModal();
 }
 
 function initializeNewTest() {
@@ -165,10 +171,13 @@ function renderTestStep(stepIndex) {
         </div>
         <p>${test.description}</p>
         <p class="note">Duration: ${test.duration}</p>
+        <button class="btn btn-outline instructions-btn" onclick="showGuide('${testId}')">
+          Instructions
+        </button>
       </div>
 
       <div class="test-instructions">
-        <h3>Instructions</h3>
+        <h3>Quick Steps</h3>
         <ol>
           ${test.instructions.map(instruction => `<li>${instruction}</li>`).join('')}
         </ol>
@@ -539,6 +548,77 @@ function setupCameraModal() {
     usePhotoBtn.addEventListener('click', usePhoto);
   }
 }
+
+function setupGuideModal() {
+  const modal = document.getElementById('guideModal');
+  const closeBtn = document.getElementById('closeGuideBtn');
+  const closeFooterBtn = document.getElementById('closeGuideFooterBtn');
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeGuide);
+  }
+
+  if (closeFooterBtn) {
+    closeFooterBtn.addEventListener('click', closeGuide);
+  }
+
+  // Close modal when clicking outside
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeGuide();
+      }
+    });
+  }
+}
+
+function showGuide(testId) {
+  if (!testGuides || !testGuides.guides) {
+    console.error('Guide data not loaded');
+    return;
+  }
+
+  const guide = testGuides.guides[testId];
+  if (!guide) {
+    console.error('Guide not found for test:', testId);
+    return;
+  }
+
+  const modal = document.getElementById('guideModal');
+  const title = document.getElementById('guideTitle');
+  const body = document.getElementById('guideBody');
+
+  // Set title
+  title.textContent = guide.title;
+
+  // Build guide content HTML
+  let contentHTML = `
+    <div class="guide-purpose">
+      <strong>${guide.purpose}</strong>
+    </div>
+  `;
+
+  guide.sections.forEach(section => {
+    contentHTML += `
+      <h3>${section.heading}</h3>
+      <div>${section.content}</div>
+    `;
+  });
+
+  body.innerHTML = contentHTML;
+
+  // Show modal
+  modal.classList.remove('hidden');
+}
+
+function closeGuide() {
+  const modal = document.getElementById('guideModal');
+  modal.classList.add('hidden');
+}
+
+// Make functions globally available
+window.showGuide = showGuide;
+window.closeGuide = closeGuide;
 
 async function openCamera(testId) {
   activeTestId = testId;
